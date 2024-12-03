@@ -14,20 +14,11 @@
 
   <title>Energym</title>
 
-  <!-- slider stylesheet -->
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
-
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-  <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Dosis:400,600,700|Poppins:400,600,700&display=swap"
-    rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
   <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
   <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
+  <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
 </head>
 
 <body class="sub_page">
@@ -37,23 +28,23 @@
 <header class="header_section">
   <div class="container">
     <nav class="navbar navbar-expand-lg custom_nav-container">
-      <a class="navbar-brand" href="index.html">
-        <img src="images/icon.png" alt="" style="width: 75px; height: 50px;" />
+      <a class="navbar-brand" href="{{ route('index') }}">
+        <img src="{{ asset('storage/images/icon.png') }}" alt="" style="width: 75px; height: 50px;" />
         <span>
           Bigode Grosso FC
         </span>
       </a>
       <div class="profile_button-container">
-        <a href="registo.html">
+      <a href="{{ route('registo') }}">
           <button id="profile-button" class="profile-button">
-            <img src="images/profile.png" alt="" />
+            <img src="{{ asset('storage/images/profile.png') }}" alt="" />
           </button>
         </a>
       </div>
     <!-- Botão do carrinho -->
       <div class="cart_button-container">
         <button id="cart-button" class="cart-button">
-          <img src="images/cart-icon.png" alt="" />
+          <img src="{{ asset('storage/images/cart-icon.png') }}" alt="" />
         </button>
       </div>
     </nav>
@@ -70,7 +61,7 @@
     <!-- Exemplo de item no carrinho -->
     <div class="cart-item">
       <div class="cart-item-image">
-        <img src="images/product1.jpg" alt="Product" />
+        <img src="{{ asset('storage/images/product1-jpg') }}" alt="Product" />
       </div>
       <div class="cart-item-details">
         <h5>Product Name</h5>
@@ -104,10 +95,10 @@
               <div class="d-flex  flex-column flex-lg-row align-items-center">
                 <ul class="navbar-nav  ">
                   <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ route('index') }}">>Home <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="store.html">Store</a>
+                    <a class="nav-link" href="{{ route('store') }}">Store</a>
                   </li>
                 </ul>
               </div>
@@ -126,7 +117,7 @@
   <div class="container" style="display: flex; flex-wrap: wrap;">
     <!-- Left Side: Image of the Field -->
     <div class="left_side" style="flex: 1; text-align: center;">
-      <img src="images/campo.jpg" alt="Field" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+      <img src="{{ asset('storage/images/campo.jpg') }}" alt="Field" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
     </div>
 
     <!-- Right Side: History of Previous Games -->
@@ -334,13 +325,22 @@
   <script type="text/javascript" src="js/bootstrap.js"></script>
 
   <script>
-    function openNav() {
-      document.getElementById("myNav").classList.toggle("menu_width");
-      document
-        .querySelector(".custom_menu-btn")
-        .classList.toggle("menu_btn-style");
-    }
-  </script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const cartButton = document.getElementById('cart-button');
+    const cartSlideout = document.getElementById('cart-slideout');
+    const closeCartButton = document.getElementById('close-cart');
+
+    // Abre o carrinho
+    cartButton.addEventListener('click', function () {
+      cartSlideout.classList.add('open');
+    });
+
+    // Fecha o carrinho
+    closeCartButton.addEventListener('click', function () {
+      cartSlideout.classList.remove('open');
+    });
+  });
+</script>
 </body>
 
 </html>

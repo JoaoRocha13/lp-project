@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -13,15 +12,12 @@
 </head>
 <body class="login-page">
     <main>
-        <!-- Left Icon -->
+       
         <img src="{{ asset('storage/images/icon.png') }}" alt="Icon Left" class="icon-left">
-
-        <!-- Right Icon -->
         <img src="{{ asset('storage/images/icon.png') }}" alt="Icon Right" class="icon-right">
         
         <h2>Login</h2>
-
-        <form action="/login" method="post">
+            <form action="/login" method="post">
             <label for="loginUserType">Tipo de Utilizador:</label>
             <select id="loginUserType" name="userType" required>
                 <option value="cliente">Cliente</option>
@@ -38,7 +34,7 @@
         </form>
         
         <div class="footer-text">
-            Não tem conta? <a href="registo">Registe-se</a>
+            Não tem conta? <a href="{{ route('registo') }}">>Registe-se</a>
         </div>
         
         

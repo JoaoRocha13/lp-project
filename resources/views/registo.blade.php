@@ -36,7 +36,7 @@
             <button type="submit">Registar</button>
         </form>
         <div class="footer-text">
-            Já tem uma conta? <a href="login">Faça login</a>
+            Já tem uma conta? <a href="{{ route('login') }}">>Faça login</a>
         </div>
     </main>
 </body>

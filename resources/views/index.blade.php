@@ -14,14 +14,11 @@
 
   <title>Energym</title>
 
- 
-
+   <!-- slider stylesheet -->
+   <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
   <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-  <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Dosis:400,600,700|Poppins:400,600,700&display=swap"
-    rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
   <!-- responsive style -->
@@ -35,14 +32,14 @@
 <header class="header_section">
   <div class="container">
     <nav class="navbar navbar-expand-lg custom_nav-container">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="{{ route('index') }}">
         <img src="{{ asset('storage/images/icon.png') }}" alt="" style="width: 75px; height: 50px; " />
         <span>
           Bigode Grosso FC
         </span>
       </a>
       <div class="profile_button-container">
-        <a href="registo.html">
+      <a href="{{ route('registo') }}">
           <button id="profile-button" class="profile-button">
             <img src="{{ asset('storage/images/profile.png') }}" alt="" />
           </button>
@@ -114,7 +111,7 @@
                     <a class="nav-link" href="#clientsection">Comments</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="store.html">Store</a>
+                    <a class="nav-link" href="{{ route('store') }}">Store</a>
                   </li>
                 </ul>
               </div>
@@ -145,7 +142,7 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua. Ut enim ad minim veniam, quis
           </p>
-          <a href="about.html">
+          <a href="{{ route('about') }}">
             Read More
           </a>
         </div>
@@ -470,13 +467,22 @@
   <script type="text/javascript" src="js/bootstrap.js"></script>
 
   <script>
-    function openNav() {
-      document.getElementById("myNav").classList.toggle("menu_width");
-      document
-        .querySelector(".custom_menu-btn")
-        .classList.toggle("menu_btn-style");
-    }
-  </script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const cartButton = document.getElementById('cart-button');
+    const cartSlideout = document.getElementById('cart-slideout');
+    const closeCartButton = document.getElementById('close-cart');
+
+    // Abre o carrinho
+    cartButton.addEventListener('click', function () {
+      cartSlideout.classList.add('open');
+    });
+
+    // Fecha o carrinho
+    closeCartButton.addEventListener('click', function () {
+      cartSlideout.classList.remove('open');
+    });
+  });
+</script>
 </body>
 
 </html>
