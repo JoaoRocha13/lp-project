@@ -120,31 +120,35 @@
       <img src="{{ asset('storage/images/campo.jpg') }}" alt="Field" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
     </div>
 
-    <!-- Right Side: History of Previous Games -->
     <div class="right_side" style="flex: 1; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      <h2 style="margin-bottom: 20px; color: #333; font-family: 'Poppins', sans-serif;">History of Previous Games</h2>
+  <h2 style="margin-bottom: 20px; color: #333; font-family: 'Poppins', sans-serif;">History of Previous Games</h2>
 
-      <!-- Game 1 -->
-      <div class="game_record" style="margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-        <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team A 2 - 1 Team B</p>
-        <p style="margin: 0; font-size: 14px; color: #777;">Date: November 15, 2024</p>
-      </div>
+  <!-- Game 1 -->
+  <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <img src="{{ asset('storage/images/team_a_logo.png') }}" alt="Team A" style="width: 50px; height: 50px; margin-right: 10px;">
+    <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team A 2 - 1 Team B</p>
+    <img src="{{ asset('storage/images/team_b_logo.png') }}" alt="Team B" style="width: 50px; height: 50px; margin-left: 10px;">
+    <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 15, 2024</p>
+  </div>
 
-      <!-- Game 2 -->
-      <div class="game_record" style="margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-        <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team C 3 - 0 Team D</p>
-        <p style="margin: 0; font-size: 14px; color: #777;">Date: November 10, 2024</p>
-      </div>
+  <!-- Game 2 -->
+  <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <img src="{{ asset('storage/images/team_c_logo.png') }}" alt="Team C" style="width: 50px; height: 50px; margin-right: 10px;">
+    <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team C 3 - 0 Team D</p>
+    <img src="{{ asset('storage/images/team_d_logo.png') }}" alt="Team D" style="width: 50px; height: 50px; margin-left: 10px;">
+    <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 10, 2024</p>
+  </div>
 
-      <!-- Game 3 -->
-      <div class="game_record" style="margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-        <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team E 1 - 1 Team F</p>
-        <p style="margin: 0; font-size: 14px; color: #777;">Date: November 5, 2024</p>
-      </div>
+  <!-- Game 3 -->
+  <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <img src="{{ asset('storage/images/team_e_logo.png') }}" alt="Team E" style="width: 50px; height: 50px; margin-right: 10px;">
+    <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team E 1 - 1 Team F</p>
+    <img src="{{ asset('storage/images/team_f_logo.png') }}" alt="Team F" style="width: 50px; height: 50px; margin-left: 10px;">
+    <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 5, 2024</p>
+  </div>
+  
+</div>
 
-      <!-- Placeholder for Adding More Games -->
-      <p style="margin-top: 20px; font-size: 14px; color: #999; text-align: center;">More games will be added by the admin.</p>
-    </div>
   </div>
 </section>
   <!-- end service section -->
@@ -181,145 +185,39 @@
   </div>
 </section>
 
-  <!-- info section -->
 
-  <section class="info_section layout_padding2-top">
-    <div class="container">
-      <div class="info_form">
-        <h4>
-          Our Newsletter
-        </h4>
-        <form action="">
-          <input type="text" placeholder="Enter your email">
-          <div class="d-flex justify-content-end">
-            <button>
-              subscribe
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <h6>
-            About Energym
-          </h6>
-          <p>
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation u
-          </p>
-        </div>
-        <div class="col-md-2 offset-md-1">
-          <h6>
-            Menus
-          </h6>
-          <ul>
-            <li class=" active">
-              <a class="" href="index.html">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="">
-              <a class="" href="about.html">About </a>
-            </li>
-            <li class="">
-              <a class="" href="service.html">Services </a>
-            </li>
-            <li class="">
-              <a class="" href="#contactSection">Contact Us</a>
-            </li>
-            <li class="">
-              <a class="" href="#">Login</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h6>
-            Useful Links
-          </h6>
-          <ul>
-            <li>
-              <a href="">
-                Adipiscing
-              </a>
-            </li>
-            <li>
-              <a href="">
-                Elit, sed
-              </a>
-            </li>
-            <li>
-              <a href="">
-                do Eiusmod
-              </a>
-            </li>
-            <li>
-              <a href="">
-                Tempor
-              </a>
-            </li>
-            <li>
-              <a href="">
-                incididunt
-              </a>
-            </li>
-          </ul>
-        </div>
+
+ <!-- info section -->
+
+ <section class="info_section layout_padding2-top">
         <div class="col-md-3">
           <h6>
             Contact Us
           </h6>
           <div class="info_link-box">
-            <a href="">
-              <img src="images/location-white.png" alt="">
-              <span> No.123, loram ipusm</span>
-            </a>
-            <a href="">
-              <img src="images/call-white.png" alt="">
-              <span>+01 12345678901</span>
-            </a>
-            <a href="">
+          <a href="">
               <img src="images/mail-white.png" alt="">
-              <span> demo123@gmail.com</span>
+              <span> bigodegrossofc@gmail.com</span>
             </a>
           </div>
-          <div class="info_social">
-            <div>
-              <a href="">
-                <img src="images/facebook-logo-button.png" alt="">
-              </a>
-            </div>
-            <div>
-              <a href="">
-                <img src="images/twitter-logo-button.png" alt="">
-              </a>
-            </div>
-            <div>
-              <a href="">
-                <img src="images/linkedin.png" alt="">
-              </a>
-            </div>
-            <div>
-              <a href="">
-                <img src="images/instagram.png" alt="">
-              </a>
-            </div>
-          </div>
+          <div class="info_social" style="position: relative; top: -20px; display: flex; gap: 10px;">
+          <div>
+          <a href="https://www.facebook.com/bigodegrossoFctatui/">
+          <img src="{{ asset('storage/images/facebook-logo-button.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+          </a>
+       </div>
+          <div>
+          <a href="https://www.instagram.com/bigodegrosso.fc/">
+          <img src="{{ asset('storage/images/instagram.png') }}" alt="Instagram" style="width: 30px; height: 30px;">
+    </a>
+  </div>
+</div>
         </div>
       </div>
     </div>
   </section>
-
   <!-- end info section -->
 
-
-  <!-- footer section -->
-  <section class="container-fluid footer_section ">
-    <p>
-      &copy; 2019 All Rights Reserved. Design by
-      <a href="https://html.design/">Free Html Templates</a>
-    </p>
-  </section>
-  <!-- footer section -->
 
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
