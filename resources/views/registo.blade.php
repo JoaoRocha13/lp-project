@@ -18,13 +18,7 @@
         <h2>Registo</h2>
         
         <form action="/register" method="post">
-            <label for="userType">Tipo de Utilizador:</label>
-            <select id="userType" name="userType" required>
-                <option value="cliente">Cliente</option>
-                <option value="admin">Admin</option>
-            </select>
-        
-            <label for="username">Nome de Utilizador:</label>
+             <label for="username">Nome de Utilizador:</label>
             <input type="text" id="username" name="username" required>
         
             <label for="email">Email:</label>

@@ -18,12 +18,7 @@
         
         <h2>Login</h2>
             <form action="/login" method="post">
-            <label for="loginUserType">Tipo de Utilizador:</label>
-            <select id="loginUserType" name="userType" required>
-                <option value="cliente">Cliente</option>
-                <option value="admin">Admin</option>
-            </select>
-            
+           
             <label for="loginUsername">Nome de Utilizador:</label>
             <input type="text" id="loginUsername" name="username" required>
             
