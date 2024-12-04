@@ -28,3 +28,12 @@ Route::get('/store', function () {
 Route::get('/admin', function () {
     return view('admin');
 })->name('admin');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+
+Route::get('/checkout', function () {
+    return view('checkout');
+})->name('checkout');

@@ -1407,3 +1407,145 @@ body.admin-page {
   border-radius: 10px;
   margin-bottom: 20px;
 }
+
+/* Profile Page Styles */
+body.profile-page {
+  background-color: #f4f4f9;
+  font-family: 'Poppins', sans-serif;
+}
+
+.profile-page #profileContent {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page h2 {
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.profile-page .user-details p {
+  font-size: 16px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.profile-page .purchase-history {
+  margin-top: 30px;
+}
+
+.profile-page .purchase-history h3 {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.profile-page .nav-tabs .nav-link {
+  color: #495057;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.profile-page .nav-tabs .nav-link.active {
+  background-color: #1c2331;
+  color: white;
+  border: none;
+}
+
+.profile-page .tab-content {
+  margin-top: 20px;
+}
+
+.profile-page table.table {
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page table.table th {
+  background-color: #1c2331;
+  color: white;
+  text-align: left;
+}
+
+.profile-page table.table td {
+  color: #495057;
+  text-align: left;
+}
+
+.profile-page table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.profile-page table.table-striped tbody tr:nth-of-type(even) {
+  background-color: white;
+}
+/* Checkout Page Specific Styles */
+body.checkout-page {
+  background-color: #f9f9f9;
+  font-family: 'Poppins', sans-serif;
+}
+
+body.checkout-page h2,
+body.checkout-page h4 {
+  color: #333;
+  font-weight: bold;
+}
+
+body.checkout-page .table {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.checkout-page .table th,
+body.checkout-page .table td {
+  vertical-align: middle;
+}
+
+body.checkout-page .form-control {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+body.checkout-page .form-control:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  border-color: #007bff;
+}
+
+body.checkout-page .btn-primary {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+body.checkout-page .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+body.checkout-page .container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.checkout-page .checkout-header {
+  margin-bottom: 40px;
+}
+
+body.checkout-page .form-check-label {
+  margin-left: 10px;
+}
