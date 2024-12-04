@@ -24,3 +24,7 @@ Route::get('/about', function () {
 Route::get('/store', function () {
     return view('store');
 })->name('store');
+
+Route::get('/admin', function () {
+    return view('admin');
+})->name('admin');
