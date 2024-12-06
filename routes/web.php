@@ -37,3 +37,9 @@ Route::get('/profile', function () {
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
+
+
+
+use App\Http\Controllers\Auth\RegisterController;
+
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
