@@ -31,7 +31,7 @@ Route::get('/admin', function () {
 
 Route::get('/profile', function () {
     return view('profile');
-})->name('profile');
+})->name('profile')->middleware('auth'); 
 
 
 Route::get('/checkout', function () {
@@ -41,5 +41,16 @@ Route::get('/checkout', function () {
 
 
 use App\Http\Controllers\Auth\RegisterController;
-
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+use App\Http\Controllers\Auth\LoginController;
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+
+
+use Illuminate\Support\Facades\Auth;
+Route::post('/logout', function () {
+    Auth::logout(); // Faz o logout do usuário
+    request()->session()->invalidate(); // Invalida a sessão
+    request()->session()->regenerateToken(); // Regenera o token CSRF
+    return redirect()->route('index'); // Redireciona para a página inicial
+})->name('logout');

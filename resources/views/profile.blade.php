@@ -46,8 +46,9 @@
           <div id="profileContent" class="section-container">
             <h2>User Profile</h2>
             <div class="user-details">
-              <p><strong>Name:</strong> John Doe</p>
-              <p><strong>Email:</strong> john@example.com</p>
+            <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
+              <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
+              <p><strong>Role:</strong> {{ auth()->user()->role ?? 'Not specified' }}</p>
             </div>
 
             <!-- Purchase History -->
@@ -113,8 +114,20 @@
             </div>
           </div>
         </div>
+        <div class="logout-section mt-4">
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+              </form>
+            </div>
+            <!-- End Logout Button -->
+          </div>
+        </div>
       </div>
     </div>
+    </div>
+      <!-- Logout Button -->
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>

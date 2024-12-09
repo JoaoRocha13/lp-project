@@ -17,8 +17,19 @@
         <img src="{{ asset('storage/images/icon.png') }}" alt="Icon Right" class="icon-right">
         
         <h2>Login</h2>
-            <form action="/login" method="post">
-           
+        @if(session('success'))
+    <p>{{ session('success') }}</p>
+@endif
+
+@if ($errors->any())
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+@endif
+        <form action="{{ route('login') }}" method="post">
+        @csrf
             <label for="loginUsername">Nome de Utilizador:</label>
             <input type="text" id="loginUsername" name="username" required>
             
