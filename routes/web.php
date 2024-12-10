@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PhotoController;
+
+Route::post('save', [PhotoController::class, 'store'])->name('upload.picture');
 
 Route::get('/', function () {
     return view('welcome');
