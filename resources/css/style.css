@@ -1309,6 +1309,35 @@ a:focus {
   font-size: 0.9em;
   text-align: center;
 }
+.profile_button-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaçamento entre os botões */
+}
 
+#admin-tools-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#admin-tools-button:hover {
+  background-color: #5a6268;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-button img {
+  width: 30px;
+  height: 30px;
+}
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */

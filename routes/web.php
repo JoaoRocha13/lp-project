@@ -42,13 +42,11 @@ Route::get('/checkout', function () {
 })->name('checkout');
 
 
-
 use App\Http\Controllers\Auth\RegisterController;
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 use App\Http\Controllers\Auth\LoginController;
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
-
 
 use Illuminate\Support\Facades\Auth;
 Route::post('/logout', function () {
@@ -57,3 +55,8 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken(); // Regenera o token CSRF
     return redirect()->route('index'); // Redireciona para a página inicial
 })->name('logout');
+
+use App\Http\Controllers\AdminController;
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+});
