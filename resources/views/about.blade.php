@@ -29,7 +29,7 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg custom_nav-container">
       <a class="navbar-brand" href="{{ route('index') }}">
-        <img src="{{ asset('storage/images/icon.png') }}" alt="" style="width: 75px; height: 50px;" />
+        <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px;" />
         <span>
           Bigode Grosso FC
         </span>
@@ -37,14 +37,14 @@
       <div class="profile_button-container">
       <a href="{{ route('registo') }}">
           <button id="profile-button" class="profile-button">
-            <img src="{{ asset('storage/images/profile.png') }}" alt="" />
+            <img src="{{ asset('images/profile.png') }}" alt="" />
           </button>
         </a>
       </div>
     <!-- Botão do carrinho -->
       <div class="cart_button-container">
         <button id="cart-button" class="cart-button">
-          <img src="{{ asset('storage/images/cart-icon.png') }}" alt="" />
+          <img src="{{ asset('images/cart-icon.png') }}" alt="" />
         </button>
       </div>
     </nav>
@@ -61,7 +61,7 @@
     <!-- Exemplo de item no carrinho -->
     <div class="cart-item">
       <div class="cart-item-image">
-        <img src="{{ asset('storage/images/product1-jpg') }}" alt="Product" />
+        <img src="{{ asset('images/product1-jpg') }}" alt="Product" />
       </div>
       <div class="cart-item-details">
         <h5>Product Name</h5>
@@ -117,7 +117,7 @@
   <div class="container" style="display: flex; flex-wrap: wrap;">
     <!-- Left Side: Image of the Field -->
     <div class="left_side" style="flex: 1; text-align: center;">
-      <img src="{{ asset('storage/images/campo.jpg') }}" alt="Field" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+      <img src="{{ asset('images/campo.jpg') }}" alt="Field" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
     </div>
 
     <div class="right_side" style="flex: 1; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -125,25 +125,25 @@
 
   <!-- Game 1 -->
   <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-    <img src="{{ asset('storage/images/team_a_logo.png') }}" alt="Team A" style="width: 50px; height: 50px; margin-right: 10px;">
+    <img src="{{ asset('images/team_a_logo.png') }}" alt="Team A" style="width: 50px; height: 50px; margin-right: 10px;">
     <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team A 2 - 1 Team B</p>
-    <img src="{{ asset('storage/images/team_b_logo.png') }}" alt="Team B" style="width: 50px; height: 50px; margin-left: 10px;">
+    <img src="{{ asset('images/team_b_logo.png') }}" alt="Team B" style="width: 50px; height: 50px; margin-left: 10px;">
     <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 15, 2024</p>
   </div>
 
   <!-- Game 2 -->
   <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-    <img src="{{ asset('storage/images/team_c_logo.png') }}" alt="Team C" style="width: 50px; height: 50px; margin-right: 10px;">
+    <img src="{{ asset('images/team_c_logo.png') }}" alt="Team C" style="width: 50px; height: 50px; margin-right: 10px;">
     <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team C 3 - 0 Team D</p>
-    <img src="{{ asset('storage/images/team_d_logo.png') }}" alt="Team D" style="width: 50px; height: 50px; margin-left: 10px;">
+    <img src="{{ asset('images/team_d_logo.png') }}" alt="Team D" style="width: 50px; height: 50px; margin-left: 10px;">
     <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 10, 2024</p>
   </div>
 
   <!-- Game 3 -->
   <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-    <img src="{{ asset('storage/images/team_e_logo.png') }}" alt="Team E" style="width: 50px; height: 50px; margin-right: 10px;">
+    <img src="{{ asset('images/team_e_logo.png') }}" alt="Team E" style="width: 50px; height: 50px; margin-right: 10px;">
     <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team E 1 - 1 Team F</p>
-    <img src="{{ asset('storage/images/team_f_logo.png') }}" alt="Team F" style="width: 50px; height: 50px; margin-left: 10px;">
+    <img src="{{ asset('images/team_f_logo.png') }}" alt="Team F" style="width: 50px; height: 50px; margin-left: 10px;">
     <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 5, 2024</p>
   </div>
   
@@ -203,12 +203,12 @@
           <div class="info_social" style="position: relative; top: -20px; display: flex; gap: 10px;">
           <div>
           <a href="https://www.facebook.com/bigodegrossoFctatui/">
-          <img src="{{ asset('storage/images/facebook-logo-button.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+          <img src="{{ asset('images/facebook-logo-button.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
           </a>
        </div>
           <div>
           <a href="https://www.instagram.com/bigodegrosso.fc/">
-          <img src="{{ asset('storage/images/instagram.png') }}" alt="Instagram" style="width: 30px; height: 30px;">
+          <img src="{{ asset('images/instagram.png') }}" alt="Instagram" style="width: 30px; height: 30px;">
     </a>
   </div>
 </div>

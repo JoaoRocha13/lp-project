@@ -13,8 +13,9 @@
 <body class="login-page">
     <main>
        
-        <img src="{{ asset('storage/images/icon.png') }}" alt="Icon Left" class="icon-left">
-        <img src="{{ asset('storage/images/icon.png') }}" alt="Icon Right" class="icon-right">
+        <img src="{{ asset('images/icon.png') }}" alt="Icon Left" class="icon-left">
+        
+        <img src="{{ asset('images/icon.png') }}" alt="Icon Right" class="icon-right">
         
         <h2>Login</h2>
         @if(session('success'))

@@ -33,7 +33,7 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg custom_nav-container">
       <a class="navbar-brand" href="{{ route('index') }}">
-        <img src="{{ asset('storage/images/icon.png') }}" alt="" style="width: 75px; height: 50px; " />
+        <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px; " />
         <span>
           Bigode Grosso FC
         </span>
@@ -43,14 +43,14 @@
         <!-- Usuário logado: Redireciona para o perfil -->
         <a href="{{ route('profile') }}">
             <button id="profile-button" class="profile-button">
-                <img src="{{ asset('storage/images/profile.png') }}" alt="" />
+                <img src="{{ asset('images/profile.png') }}" alt="" />
             </button>
         </a>
     @else
         <!-- Usuário não logado: Redireciona para a página de registro -->
         <a href="{{ route('registo') }}">
             <button id="profile-button" class="profile-button">
-                <img src="{{ asset('storage/images/profile.png') }}" alt="" />
+                <img src="{{ asset('images/profile.png') }}" alt="" />
             </button>
         </a>
     @endif
@@ -58,7 +58,7 @@
       <!-- Botão do carrinho -->
       <div class="cart_button-container">
         <button id="cart-button" class="cart-button">
-          <img src="{{ asset('storage/images/cart-icon.png') }}" alt="" />
+          <img src="{{ asset('images/cart-icon.png') }}" alt="" />
         </button>
       </div>
     </nav>
@@ -75,7 +75,7 @@
     <!-- Exemplo de item no carrinho -->
     <div class="cart-item">
       <div class="cart-item-image">
-        <img src="{{ asset('storage/images/product1.jpg') }}" alt="Product" />
+        <img src="{{ asset('images/product1.jpg') }}" alt="Product" />
       </div>
       <div class="cart-item-details">
         <h5>Product Name</h5>
@@ -145,7 +145,7 @@
       </div>
       <div class="box">
         <div class="img-box">
-          <img src="{{ asset('storage/images/icon.png') }}" alt="">
+          <img src="{{ asset('images/icon.png') }}" alt="">
         </div>
         <div class="detail-box">
           <p>
@@ -241,7 +241,7 @@
           <div class="carousel-item active">
             <div class="box">
               <div class="img-box">
-                <img src="{{ asset('storage/images/client.png') }}" alt="">
+                <img src="{{ asset('images/client.png') }}" alt="">
               </div>
               <div class="detail-box">
                 <h5>
@@ -257,7 +257,7 @@
           <div class="carousel-item">
             <div class="box">
               <div class="img-box">
-                <img src="{{ asset('storage/images/client.png') }}" alt="">
+                <img src="{{ asset('images/client.png') }}" alt="">
               </div>
               <div class="detail-box">
                 <h5>
@@ -273,7 +273,7 @@
           <div class="carousel-item">
             <div class="box">
               <div class="img-box">
-                <img src="{{ asset('storage/images/client.png') }}" alt="">
+                <img src="{{ asset('images/client.png') }}" alt="">
               </div>
               <div class="detail-box">
                 <h5>

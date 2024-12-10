@@ -29,7 +29,7 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg custom_nav-container">
       <a class="navbar-brand" href="{{ route('index') }}">
-        <img src="{{ asset('storage/images/icon.png') }}" alt="" style="width: 75px; height: 50px;" />
+        <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px;" />
         <span>
           Bigode Grosso FC
         </span>
@@ -37,14 +37,14 @@
       <div class="profile_button-container">
       <a href="{{ route('registo') }}">
           <button id="profile-button" class="profile-button">
-            <img src="{{ asset('storage/images/profile.png') }}" alt="" />
+            <img src="{{ asset('images/profile.png') }}" alt="" />
           </button>
         </a>
       </div>
       <!-- Botão do carrinho -->
       <div class="cart_button-container">
         <button id="cart-button" class="cart-button">
-          <img src="{{ asset('storage/images/cart-icon.png') }}" alt="" />
+          <img src="{{ asset('images/cart-icon.png') }}" alt="" />
         </button>
       </div>
     </nav>
@@ -61,7 +61,7 @@
     <!-- Exemplo de item no carrinho -->
     <div class="cart-item">
       <div class="cart-item-image">
-        <img src="{{ asset('storage/images/product1.jpg') }}" alt="Product" />
+        <img src="{{ asset('images/product1.jpg') }}" alt="Product" />
       </div>
       <div class="cart-item-details">
         <h5>Product Name</h5>
@@ -167,12 +167,12 @@
           <div class="info_social" style="position: relative; top: -20px; display: flex; gap: 10px;">
           <div>
           <a href="https://www.facebook.com/bigodegrossoFctatui/">
-          <img src="{{ asset('storage/images/facebook-logo-button.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+          <img src="{{ asset('images/facebook-logo-button.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
           </a>
        </div>
           <div>
           <a href="https://www.instagram.com/bigodegrosso.fc/">
-          <img src="{{ asset('storage/images/instagram.png') }}" alt="Instagram" style="width: 30px; height: 30px;">
+          <img src="{{ asset('images/instagram.png') }}" alt="Instagram" style="width: 30px; height: 30px;">
     </a>
   </div>
 </div>

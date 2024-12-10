@@ -11,9 +11,9 @@
 <body class="registration-page">
     <main>
         <!-- Left Icon -->
-        <img src="{{ asset('storage/images/icon.png') }}" alt="Icon Left" class="icon-left">
+        <img src="{{ asset('images/icon.png') }}" alt="Icon Left" class="icon-left">
         <!-- Right Icon -->
-        <img src="{{ asset('storage/images/icon.png') }}" alt="Icon Right" class="icon-right">
+        <img src="{{ asset('images/icon.png') }}" alt="Icon Right" class="icon-right">
 
         <h2>Registo</h2>
          
