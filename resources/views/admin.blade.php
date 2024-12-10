@@ -125,121 +125,200 @@
               </tbody>
             </table>
           </div>
+<!-- Section for listing and removing Previous Games -->
+<div id="postGamesSection" class="section-container" style="display: none;">
+  <h2>Post Previous Games</h2>
+  <form>
+    <div class="form-group">
+      <label for="teamA">Team A Name</label>
+      <input type="text" class="form-control" id="teamA" placeholder="Enter Team A name">
+    </div>
+    <div class="form-group">
+      <label for="teamAImage">Team A Image</label>
+      <input type="file" class="form-control-file" id="teamAImage">
+    </div>
+    <div class="form-group">
+      <label for="teamB">Team B Name</label>
+      <input type="text" class="form-control" id="teamB" placeholder="Enter Team B name">
+    </div>
+    <div class="form-group">
+      <label for="teamBImage">Team B Image</label>
+      <input type="file" class="form-control-file" id="teamBImage">
+    </div>
+    <div class="form-group">
+      <label for="scoreA">Team A Score</label>
+      <input type="number" class="form-control" id="scoreA" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label for="scoreB">Team B Score</label>
+      <input type="number" class="form-control" id="scoreB" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label for="gameDate">Date</label>
+      <input type="date" class="form-control" id="gameDate">
+    </div>
+    <button type="submit" class="btn btn-primary">Post Game</button>
+  </form>
+  <h3>List Previous Games</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Game ID</th>
+        <th>Teams</th>
+        <th>Score</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Team A vs. Team B</td>
+        <td>2 - 1</td>
+        <td>2024-12-01</td>
+        <td><button class="btn btn-danger btn-sm">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-          <!-- Post Previous Games Section -->
-          <div id="postGamesSection" class="section-container" style="display: none;">
-            <h2>Post Previous Games</h2>
-            <form>
-              <div class="form-group">
-                <label for="teamA">Team A Name</label>
-                <input type="text" class="form-control" id="teamA" placeholder="Enter Team A name">
-              </div>
-              <div class="form-group">
-                <label for="teamAImage">Team A Image</label>
-                <input type="file" class="form-control-file" id="teamAImage">
-              </div>
-              <div class="form-group">
-                <label for="teamB">Team B Name</label>
-                <input type="text" class="form-control" id="teamB" placeholder="Enter Team B name">
-              </div>
-              <div class="form-group">
-                <label for="teamBImage">Team B Image</label>
-                <input type="file" class="form-control-file" id="teamBImage">
-              </div>
-              <div class="form-group">
-                <label for="scoreA">Team A Score</label>
-                <input type="number" class="form-control" id="scoreA" placeholder="0">
-              </div>
-              <div class="form-group">
-                <label for="scoreB">Team B Score</label>
-                <input type="number" class="form-control" id="scoreB" placeholder="0">
-              </div>
-              <div class="form-group">
-                <label for="gameDate">Date</label>
-                <input type="date" class="form-control" id="gameDate">
-              </div>
-              <button type="submit" class="btn btn-primary">Post Game</button>
-            </form>
-          </div>
-
-          <!-- Post News Section -->
+<!-- Post News Section -->
 <div id="postNewsSection" class="section-container" style="display: none;">
   <h2>Post News</h2>
   <form>
-    <!-- News Title -->
     <div class="form-group">
       <label for="newsTitle">Title</label>
-      <input type="text" class="form-control" id="newsTitle" placeholder="Enter news title (e.g., 🎉 New Player Signed: John Doe)">
+      <input type="text" class="form-control" id="newsTitle" placeholder="Enter news title">
     </div>
-    
-    <!-- News Subheading/Details -->
     <div class="form-group">
-      <label for="newsDetail">Detail (e.g., Position: Midfielder)</label>
-      <input type="text" class="form-control" id="newsDetail" placeholder="Enter additional details (e.g., Position: Midfielder)">
+      <label for="newsDetail">Detail</label>
+      <input type="text" class="form-control" id="newsDetail" placeholder="Enter additional details">
     </div>
-    
-    <!-- News Date -->
     <div class="form-group">
       <label for="newsDate">Date</label>
       <input type="date" class="form-control" id="newsDate">
     </div>
-    
     <button type="submit" class="btn btn-primary">Post News</button>
   </form>
+  <h3>List News</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>News ID</th>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>🎉 New Player Signed: John Doe</td>
+        <td>2024-12-05</td>
+        <td><button class="btn btn-danger btn-sm">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-          <!-- Post Tickets Section -->
-          <div id="postTicketsSection" class="section-container" style="display: none;">
-            <h2>Post Tickets</h2>
-            <form>
-              <div class="form-group">
-                <label for="ticketMatch">Match</label>
-                <input type="text" class="form-control" id="ticketMatch" placeholder="Enter match (e.g., Team C vs. Team D)">
-              </div>
-              <div class="form-group">
-                <label for="ticketDate">Date</label>
-                <input type="date" class="form-control" id="ticketDate">
-              </div>
-              <div class="form-group">
-                <label for="ticketPlace">Place</label>
-                <input type="text" class="form-control" id="ticketPlace" placeholder="Enter place">
-              </div>
-              <div class="form-group">
-                <label for="ticketPrice">Price</label>
-                <input type="number" class="form-control" id="ticketPrice" placeholder="Enter price">
-              </div>
-              <button type="submit" class="btn btn-primary">Post Ticket</button>
-            </form>
-          </div>
+<!-- Post Tickets Section -->
+<div id="postTicketsSection" class="section-container" style="display: none;">
+  <h2>Post Tickets</h2>
+  <form>
+    <div class="form-group">
+      <label for="ticketMatch">Match</label>
+      <input type="text" class="form-control" id="ticketMatch" placeholder="Enter match">
+    </div>
+    <div class="form-group">
+      <label for="ticketDate">Date</label>
+      <input type="date" class="form-control" id="ticketDate">
+    </div>
+    <div class="form-group">
+      <label for="ticketPlace">Place</label>
+      <input type="text" class="form-control" id="ticketPlace" placeholder="Enter place">
+    </div>
+    <div class="form-group">
+      <label for="ticketPrice">Price</label>
+      <input type="number" class="form-control" id="ticketPrice" placeholder="Enter price">
+    </div>
+    <button type="submit" class="btn btn-primary">Post Ticket</button>
+  </form>
+  <h3>List Tickets</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Match</th>
+        <th>Date</th>
+        <th>Place</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Team C vs. Team D</td>
+        <td>2024-12-10</td>
+        <td>Stadium ABC</td>
+        <td>$30.00</td>
+        <td><button class="btn btn-danger btn-sm">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-          <!-- Post Store Items Section -->
-          <div id="postItemsSection" class="section-container" style="display: none;">
-            <h2>Post Store Items</h2>
-            <form>
-              <div class="form-group">
-                <label for="itemName">Item Name</label>
-                <input type="text" class="form-control" id="itemName" placeholder="Enter item name">
-              </div>
-              <div class="form-group">
-                <label for="itemDescription">Description</label>
-                <textarea class="form-control" id="itemDescription" rows="3" placeholder="Enter description"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="itemPrice">Price</label>
-                <input type="number" class="form-control" id="itemPrice" placeholder="Enter price">
-              </div>
-              <div class="form-group">
-                <label for="itemStock">Stock</label>
-                <input type="number" class="form-control" id="itemStock" placeholder="Enter stock quantity">
-              </div>
-              <div class="form-group">
-                <label for="itemImage">Image</label>
-                <input type="file" class="form-control-file" id="itemImage">
-              </div>
-              <button type="submit" class="btn btn-primary">Post Item</button>
-            </form>
-          </div>
-          <div id="managePurchasesSection" class="section-container" style="display: none;">
+<!-- Post Store Items Section -->
+<div id="postItemsSection" class="section-container" style="display: none;">
+  <h2>Post Store Items</h2>
+  <form>
+    <div class="form-group">
+      <label for="itemName">Item Name</label>
+      <input type="text" class="form-control" id="itemName" placeholder="Enter item name">
+    </div>
+    <div class="form-group">
+      <label for="itemDescription">Description</label>
+      <textarea class="form-control" id="itemDescription" rows="3" placeholder="Enter description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="itemPrice">Price</label>
+      <input type="number" class="form-control" id="itemPrice" placeholder="Enter price">
+    </div>
+    <div class="form-group">
+      <label for="itemStock">Stock</label>
+      <input type="number" class="form-control" id="itemStock" placeholder="Enter stock quantity">
+    </div>
+    <div class="form-group">
+      <label for="itemImage">Image</label>
+      <input type="file" class="form-control-file" id="itemImage">
+    </div>
+    <button type="submit" class="btn btn-primary">Post Item</button>
+  </form>
+  <h3>List Store Items</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Item ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Football Jersey</td>
+        <td>$50.00</td>
+        <td>10</td>
+        <td><button class="btn btn-danger btn-sm">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Manage Purchases Section -->
+<div id="managePurchasesSection" class="section-container" style="display: none;">
   <h2>Manage Purchases</h2>
   <table class="table table-striped">
     <thead>
@@ -258,15 +337,17 @@
         <td>John Doe</td>
         <td>Football Jersey, Match Ticket</td>
         <td>$70.00</td>
-        <td>December 4, 2024</td>
+        <td>2024-12-04</td>
         <td>
           <button class="btn btn-success btn-sm accept-purchase" data-id="1">Accept</button>
         </td>
       </tr>
-      <!-- Add more rows dynamically here -->
     </tbody>
   </table>
 </div>
+
+  
+
         </div>
       </div>
     </div>
@@ -276,45 +357,56 @@
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const links = [
-      'viewUsersLink',
-      'postGamesLink',
-      'postNewsLink',
-      'postTicketsLink',
-      'postItemsLink',
-      'managePurchasesLink'
-    ];
-    const sections = [
-      'viewUsersSection',
-      'postGamesSection',
-      'postNewsSection',
-      'postTicketsSection',
-      'postItemsSection',
-      'managePurchasesSection'
-    ];
+ document.addEventListener('DOMContentLoaded', function () {
+  const links = [
+    'viewUsersLink',
+    'postGamesLink',
+    'postNewsLink',
+    'postTicketsLink',
+    'postItemsLink',
+    'managePurchasesLink'
+  ];
+  const sections = [
+    'viewUsersSection',
+    'postGamesSection',
+    'postNewsSection',
+    'postTicketsSection',
+    'postItemsSection',
+    'managePurchasesSection'
+  ];
 
-    // Toggle sections
-    links.forEach(function (link, index) {
-      document.getElementById(link).addEventListener('click', function (e) {
+  // Toggle sections
+  links.forEach(function (link, index) {
+    const linkElement = document.getElementById(link);
+    const sectionElement = document.getElementById(sections[index]);
+
+    if (linkElement && sectionElement) {
+      linkElement.addEventListener('click', function (e) {
         e.preventDefault();
 
         // Hide all sections
         sections.forEach(function (section) {
-          document.getElementById(section).style.display = 'none';
+          const sectionToHide = document.getElementById(section);
+          if (sectionToHide) {
+            sectionToHide.style.display = 'none';
+          }
         });
 
         // Show the selected section
-        document.getElementById(sections[index]).style.display = 'block';
+        sectionElement.style.display = 'block';
 
         // Update active class for menu items
         links.forEach(function (l) {
-          document.getElementById(l).classList.remove('active');
+          const linkToDeactivate = document.getElementById(l);
+          if (linkToDeactivate) {
+            linkToDeactivate.classList.remove('active');
+          }
         });
-        document.getElementById(link).classList.add('active');
+        linkElement.classList.add('active');
       });
-    });
+    }
   });
+});
   document.addEventListener('DOMContentLoaded', function () {
     const cartButton = document.getElementById('cart-button');
     const cartSlideout = document.getElementById('cart-slideout');

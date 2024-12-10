@@ -20,7 +20,8 @@
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
   <!-- Custom styles for this template -->
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+  <link href="{{ asset('css/style.css') }}?v={{ time() }}" rel="stylesheet" />
+
   <!-- responsive style -->
   <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
 </head>
@@ -96,43 +97,39 @@
 
     <!-- end header section -->
     <!-- slider section -->
-    <section class="slider_section position-relative" style="height: calc(100% - 80px); background-image: url('{{ asset('storage/images/bigode.jpg') }}'); background-size: cover;">
+    <section class="slider_section position-relative" style="height: calc(100% - 80px); background-image: url('{{ asset('images/bigode.jpg') }}'); background-size: cover;">
   <div class="container">
-        <div class="custom_nav2">
-          <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <div class="d-flex  flex-column flex-lg-row align-items-center">
-                <ul class="navbar-nav  ">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="#resultSection">Map <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#aboutSection">About </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#serviceSection">Tickets </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#clientsection">Comments</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ route('store') }}">Store</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+    <div class="custom_nav2">
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="d-flex flex-column flex-lg-row align-items-center">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="#resultSection">Map <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#aboutSection">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#serviceSection">Tickets</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#clientsection">Comments</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('store') }}">Store</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <!-- Showcase Section -->
-
+      </nav>
+    </div>
   </div>
-
+</section>
 
   <!-- about section -->
 
@@ -351,12 +348,12 @@
           <div class="info_social" style="position: relative; top: -20px; display: flex; gap: 10px;">
           <div>
           <a href="https://www.facebook.com/bigodegrossoFctatui/">
-          <img src="{{ asset('storage/images/facebook-logo-button.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
+          <img src="{{ asset('images/facebook-logo-button.png') }}" alt="Facebook" style="width: 30px; height: 30px;">
           </a>
        </div>
           <div>
           <a href="https://www.instagram.com/bigodegrosso.fc/">
-          <img src="{{ asset('storage/images/instagram.png') }}" alt="Instagram" style="width: 30px; height: 30px;">
+          <img src="{{ asset('images/instagram.png') }}" alt="Instagram" style="width: 30px; height: 30px;">
     </a>
   </div>
 </div>
