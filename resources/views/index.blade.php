@@ -12,7 +12,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Energym</title>
+  <title>BigodeGrosso</title>
 
    <!-- slider stylesheet -->
    <link rel="stylesheet" type="text/css"

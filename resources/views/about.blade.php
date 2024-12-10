@@ -34,13 +34,31 @@
           Bigode Grosso FC
         </span>
       </a>
-      <div class="profile_button-container">
-      <a href="{{ route('registo') }}">
-          <button id="profile-button" class="profile-button">
-            <img src="{{ asset('images/profile.png') }}" alt="" />
-          </button>
+      <div class="profile_button-container d-flex align-items-center">
+    @if(auth()->check())
+        <!-- Botão Admin Tools -->
+        @if(auth()->user()->role === 'admin')
+            <a href="{{ route('admin') }}">
+                <button id="admin-tools-button" class="btn btn-secondary mr-2">
+                    Admin Tools
+                </button>
+            </a>
+        @endif
+        <!-- Usuário logado: Botão de perfil -->
+        <a href="{{ route('profile') }}">
+            <button id="profile-button" class="profile-button">
+                <img src="{{ asset('images/profile.png') }}" alt="" />
+            </button>
         </a>
-      </div>
+    @else
+        <!-- Usuário não logado: Botão de registro -->
+        <a href="{{ route('registo') }}">
+            <button id="profile-button" class="profile-button">
+                <img src="{{ asset('images/profile.png') }}" alt="" />
+            </button>
+        </a>
+    @endif
+</div>
     <!-- Botão do carrinho -->
       <div class="cart_button-container">
         <button id="cart-button" class="cart-button">
