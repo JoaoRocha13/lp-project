@@ -99,9 +99,13 @@
     <!-- Mais itens aqui -->
   </div>
   <div class="cart-footer">
-    <button class="checkout-btn">Checkout</button>
+    <!-- Botão de checkout com link para a rota -->
+    <form action="{{ route('checkout') }}" method="GET">
+      <button type="submit" class="checkout-btn">Checkout</button>
+    </form>
   </div>
 </div>
+
 
     <!-- end header section -->
     <!-- slider section -->

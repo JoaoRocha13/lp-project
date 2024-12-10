@@ -54,6 +54,37 @@
         </nav>
       </div>
     </header>
+    <!-- Slide-out do carrinho -->
+<div id="cart-slideout" class="cart-slideout">
+  <div class="cart-header">
+    <h4>Your Cart</h4>
+    <button id="close-cart" class="close-cart">&times;</button>
+  </div>
+  <div class="cart-items">
+    <!-- Exemplo de item no carrinho -->
+    <div class="cart-item">
+      <div class="cart-item-image">
+        <img src="{{ asset('images/product1-jpg') }}" alt="Product" />
+      </div>
+      <div class="cart-item-details">
+        <h5>Product Name</h5>
+        <p>$20.00</p>
+        <div class="cart-item-controls">
+          <button class="quantity-btn decrease">-</button>
+          <span class="quantity">1</span>
+          <button class="quantity-btn increase">+</button>
+        </div>
+      </div>
+    </div>
+    <!-- Mais itens aqui -->
+  </div>
+  <div class="cart-footer">
+  <form action="{{ route('checkout') }}" method="GET">
+      <button type="submit" class="checkout-btn">Checkout</button>
+    </form>
+
+  </div>
+</div>
     <!-- End Header Section -->
 
     <!-- Main Content -->

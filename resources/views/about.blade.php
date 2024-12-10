@@ -12,7 +12,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Energym</title>
+  <title>About</title>
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
   <!-- Custom styles for this template -->
@@ -94,7 +94,10 @@
     <!-- Mais itens aqui -->
   </div>
   <div class="cart-footer">
-    <button class="checkout-btn">Checkout</button>
+  <form action="{{ route('checkout') }}" method="GET">
+      <button type="submit" class="checkout-btn">Checkout</button>
+    </form>
+
   </div>
 </div>
 

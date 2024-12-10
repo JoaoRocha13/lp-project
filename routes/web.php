@@ -41,15 +41,20 @@ Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
 
-// Rotas protegidas (Autenticadas e Administrativas)
-Route::middleware([AdminMiddleware::class])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-});
-
+// Página de checkout protegida
 Route::middleware(['auth'])->group(function () {
+    Route::get('/checkout', function () {
+        return view('checkout');
+    })->name('checkout');
+
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
+
+    // Rota Admin protegida com middleware personalizado
+    Route::middleware([AdminMiddleware::class])->group(function () {
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    });
 });
 // Registro e Login
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
