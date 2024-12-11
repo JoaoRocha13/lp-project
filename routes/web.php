@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\AdminController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PhotoController;
 
 // Upload de fotos
 Route::post('save', [PhotoController::class, 'store'])->name('upload.picture');
+
 
 // Páginas públicas
 Route::get('/', function () {
@@ -36,11 +37,6 @@ Route::get('/store', function () {
     return view('store');
 })->name('store');
 
-// Página de checkout
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
-
 // Página de checkout protegida
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout', function () {
@@ -50,12 +46,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
-
-    // Rota Admin protegida com middleware personalizado
-    Route::middleware([AdminMiddleware::class])->group(function () {
-        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    });
 });
+
+// Rotas protegidas (Autenticadas e Administrativas)
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::post('/admin/storePreviousGame', [AdminController::class, 'storePreviousGame'])->name('admin.store.previousGames');
+    Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store'); // Certifique-se de que esta rota está definida corretamente
+    Route::get('/admin/previous-games', [AdminController::class, 'showPreviousGames'])->name('admin.previousGames');
+    Route::delete('/admin/previous-games/{id}', [AdminController::class, 'deletePreviousGame'])->name('admin.previousGames.delete');
+    Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store');
+    Route::delete('/admin/news/{id}', [AdminController::class, 'deleteNews'])->name('admin.news.delete');
+});
+ // Rota para promover usuários a admin
+    Route::post('/admin/promote/{id}', [AdminController::class, 'promoteToAdmin'])->name('admin.promote');
+  
+    Route::get('/about', [AdminController::class, 'about'])->name('about');
 // Registro e Login
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');

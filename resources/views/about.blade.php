@@ -142,67 +142,57 @@
     </div>
 
     <div class="right_side" style="flex: 1; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-  <h2 style="margin-bottom: 20px; color: #333; font-family: 'Poppins', sans-serif;">History of Previous Games</h2>
+    <h2 style="margin-bottom: 20px; color: #333; font-family: 'Poppins', sans-serif; text-align: center;">History of Previous Games</h2>
+    
+    @foreach($previousGames as $game)
+    <div class="game_record" style="display: flex; align-items: center; margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <!-- Team A Logo -->
+        <div style="flex: 1; text-align: center;">
+            @if($game->team_a_logo)
+                <img src="{{ asset('storage/images/' . $game->team_a_logo) }}" alt="Team A Logo" style="width: 70px; height: 70px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            @endif
+            <p style="margin-top: 10px; font-weight: bold; color: #333;">{{ $game->team_a }}</p>
+        </div>
 
-  <!-- Game 1 -->
-  <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-    <img src="{{ asset('images/team_a_logo.png') }}" alt="Team A" style="width: 50px; height: 50px; margin-right: 10px;">
-    <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team A 2 - 1 Team B</p>
-    <img src="{{ asset('images/team_b_logo.png') }}" alt="Team B" style="width: 50px; height: 50px; margin-left: 10px;">
-    <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 15, 2024</p>
-  </div>
+        <!-- Game Score -->
+        <div style="flex: 1; text-align: center; font-size: 18px; font-weight: bold; color: #555;">
+            <p>{{ $game->score_a }} - {{ $game->score_b }}</p>
+            <p style="font-size: 14px; color: #777;">Date: {{ $game->game_date }}</p>
+        </div>
 
-  <!-- Game 2 -->
-  <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-    <img src="{{ asset('images/team_c_logo.png') }}" alt="Team C" style="width: 50px; height: 50px; margin-right: 10px;">
-    <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team C 3 - 0 Team D</p>
-    <img src="{{ asset('images/team_d_logo.png') }}" alt="Team D" style="width: 50px; height: 50px; margin-left: 10px;">
-    <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 10, 2024</p>
-  </div>
-
-  <!-- Game 3 -->
-  <div class="game_record" style="display: flex; align-items: center; margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-    <img src="{{ asset('images/team_e_logo.png') }}" alt="Team E" style="width: 50px; height: 50px; margin-right: 10px;">
-    <p style="margin: 0; font-size: 16px; font-weight: bold; color: #555;">Team E 1 - 1 Team F</p>
-    <img src="{{ asset('images/team_f_logo.png') }}" alt="Team F" style="width: 50px; height: 50px; margin-left: 10px;">
-    <p style="margin-left: auto; font-size: 14px; color: #777;">Date: November 5, 2024</p>
-  </div>
-  
+        <!-- Team B Logo -->
+        <div style="flex: 1; text-align: center;">
+            @if($game->team_b_logo)
+                <img src="{{ asset('storage/images/' . $game->team_b_logo) }}" alt="Team B Logo" style="width: 70px; height: 70px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            @endif
+            <p style="margin-top: 10px; font-weight: bold; color: #333;">{{ $game->team_b }}</p>
+        </div>
+    </div>
+    @endforeach
 </div>
 
   </div>
 </section>
   <!-- end service section -->
    <!-- Updates Section -->
-<section id="updatesSection" class="updates_section layout_padding" style="background: #f9f9f9; padding: 40px 20px; border-top: 2px solid #ddd;">
+   <section id="updatesSection" class="updates_section layout_padding" style="background: #f9f9f9; padding: 40px 20px; border-top: 2px solid #ddd;">
   <div class="container">
     <div class="heading_container">
       <h2 style="text-align: center; margin-bottom: 30px; color: #333; font-family: 'Poppins', sans-serif;">Latest Updates</h2>
     </div>
 
-    <!-- Update 1 -->
+    @foreach($news as $update)
     <div class="update_item" style="margin-bottom: 20px; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      <h4 style="margin: 0; color: #555;">🎉 New Player Signed: John Doe</h4>
-      <p style="margin: 5px 0; font-size: 14px; color: #777;">Position: Midfielder</p>
-      <p style="margin: 5px 0; font-size: 14px; color: #777;">Date: November 20, 2024</p>
+      <h4 style="margin: 0; color: #555;"> {{ $update->title }}</h4>
+      <p style="margin: 5px 0; font-size: 14px; color: #777;">{{ $update->description }}</p>
+      <p style="margin: 5px 0; font-size: 14px; color: #777;">Date: {{ \Carbon\Carbon::parse($update->date)->format('F d, Y') }}</p>
     </div>
-
-    <!-- Update 2 -->
-    <div class="update_item" style="margin-bottom: 20px; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      <h4 style="margin: 0; color: #555;">🚑 Player Injury: Jane Smith</h4>
-      <p style="margin: 5px 0; font-size: 14px; color: #777;">Injury: Sprained Ankle</p>
-      <p style="margin: 5px 0; font-size: 14px; color: #777;">Date: November 18, 2024</p>
-    </div>
-
-    <!-- Update 3 -->
-    <div class="update_item" style="margin-bottom: 20px; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      <h4 style="margin: 0; color: #555;">🏆 Title Won: Regional Championship</h4>
-      <p style="margin: 5px 0; font-size: 14px; color: #777;">Score: Team A 3 - 2 Team B</p>
-      <p style="margin: 5px 0; font-size: 14px; color: #777;">Date: November 10, 2024</p>
-    </div>
+    @endforeach
 
     <!-- Placeholder for More Updates -->
-    <p style="margin-top: 20px; text-align: center; font-size: 14px; color: #999;">More updates will be added by the admin.</p>
+    @if($news->isEmpty())
+    <p style="margin-top: 20px; text-align: center; font-size: 14px; color: #999;">No updates available at the moment.</p>
+    @endif
   </div>
 </section>
 

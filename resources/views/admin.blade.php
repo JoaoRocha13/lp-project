@@ -120,123 +120,169 @@
       <div class="col-md-9">
         <div id="adminContent">
           <!-- View Users Section -->
-          <div id="viewUsersSection" class="section-container">
-            <h2>View Users</h2>
-            <table class="table table-striped">
-              <thead>
+          <div id="viewUsersSection" class="section-container"  style="display: none;">
+    <h2>View Users</h2>
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Promote to Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($users as $user)
                 <tr>
-                  <th>User ID</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Promote to Admin</th>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->role }}</td>
+                    <td>
+                        @if($user->role !== 'admin')
+                            <form action="{{ route('admin.promote', $user->id) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-primary btn-sm">Promote</button>
+                            </form>
+                        @else
+                            <span class="text-muted">Already Admin</span>
+                        @endif
+                    </td>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>john_doe</td>
-                  <td>john@example.com</td>
-                  <td>Client</td>
-                  <td><button class="btn btn-primary btn-sm">Promote</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 <!-- Section for listing and removing Previous Games -->
 <div id="postGamesSection" class="section-container" style="display: none;">
-  <h2>Post Previous Games</h2>
-  <form>
-    <div class="form-group">
-      <label for="teamA">Team A Name</label>
-      <input type="text" class="form-control" id="teamA" placeholder="Enter Team A name">
-    </div>
-    <div class="form-group">
-      <label for="teamAImage">Team A Image</label>
-      <input type="file" class="form-control-file" id="teamAImage">
-    </div>
-    <div class="form-group">
-      <label for="teamB">Team B Name</label>
-      <input type="text" class="form-control" id="teamB" placeholder="Enter Team B name">
-    </div>
-    <div class="form-group">
-      <label for="teamBImage">Team B Image</label>
-      <input type="file" class="form-control-file" id="teamBImage">
-    </div>
-    <div class="form-group">
-      <label for="scoreA">Team A Score</label>
-      <input type="number" class="form-control" id="scoreA" placeholder="0">
-    </div>
-    <div class="form-group">
-      <label for="scoreB">Team B Score</label>
-      <input type="number" class="form-control" id="scoreB" placeholder="0">
-    </div>
-    <div class="form-group">
-      <label for="gameDate">Date</label>
-      <input type="date" class="form-control" id="gameDate">
-    </div>
-    <button type="submit" class="btn btn-primary">Post Game</button>
-  </form>
-  <h3>List Previous Games</h3>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Game ID</th>
-        <th>Teams</th>
-        <th>Score</th>
-        <th>Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Team A vs. Team B</td>
-        <td>2 - 1</td>
-        <td>2024-12-01</td>
-        <td><button class="btn btn-danger btn-sm">Remove</button></td>
-      </tr>
-    </tbody>
-  </table>
+    <h2>Post Previous Games</h2>
+    <form action="{{ route('admin.store.previousGames') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+            <label for="teamA">Team A Name</label>
+            <input type="text" class="form-control" name="team_a" id="teamA" placeholder="Enter Team A name" required>
+        </div>
+        <div class="form-group">
+            <label for="teamAImage">Team A Image</label>
+            <input type="file" class="form-control-file" name="team_a_logo" id="teamAImage" required>
+        </div>
+        <div class="form-group">
+            <label for="teamB">Team B Name</label>
+            <input type="text" class="form-control" name="team_b" id="teamB" placeholder="Enter Team B name" required>
+        </div>
+        <div class="form-group">
+            <label for="teamBImage">Team B Image</label>
+            <input type="file" class="form-control-file" name="team_b_logo" id="teamBImage" required>
+        </div>
+        <div class="form-group">
+            <label for="scoreA">Team A Score</label>
+            <input type="number" class="form-control" name="score_a" id="scoreA" placeholder="0" required>
+        </div>
+        <div class="form-group">
+            <label for="scoreB">Team B Score</label>
+            <input type="number" class="form-control" name="score_b" id="scoreB" placeholder="0" required>
+        </div>
+        <div class="form-group">
+            <label for="gameDate">Date</label>
+            <input type="date" class="form-control" name="game_date" id="gameDate" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Game</button>
+    </form>
+    
+    <h3>List Previous Games</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Game ID</th>
+                <th>Teams</th>
+                <th>Score</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($previousGames as $game)
+                <tr>
+                    <td>{{ $game->id }}</td>
+                    <td>{{ $game->team_a }} vs. {{ $game->team_b }}</td>
+                    <td>{{ $game->score_a }} - {{ $game->score_b }}</td>
+                    <td>{{ $game->game_date }}</td>
+                    <td>
+                        <form action="{{ route('admin.previousGames.delete', $game->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5">No previous games found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
 </div>
-
 <!-- Post News Section -->
 <div id="postNewsSection" class="section-container" style="display: none;">
-  <h2>Post News</h2>
-  <form>
-    <div class="form-group">
-      <label for="newsTitle">Title</label>
-      <input type="text" class="form-control" id="newsTitle" placeholder="Enter news title">
-    </div>
-    <div class="form-group">
-      <label for="newsDetail">Detail</label>
-      <input type="text" class="form-control" id="newsDetail" placeholder="Enter additional details">
-    </div>
-    <div class="form-group">
-      <label for="newsDate">Date</label>
-      <input type="date" class="form-control" id="newsDate">
-    </div>
-    <button type="submit" class="btn btn-primary">Post News</button>
-  </form>
-  <h3>List News</h3>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>News ID</th>
-        <th>Title</th>
-        <th>Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>🎉 New Player Signed: John Doe</td>
-        <td>2024-12-05</td>
-        <td><button class="btn btn-danger btn-sm">Remove</button></td>
-      </tr>
-    </tbody>
-  </table>
+    <h2>Post News</h2>
+    <form action="{{ route('admin.news.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="newsTitle">Title</label>
+            <input type="text" class="form-control" id="newsTitle" name="title" placeholder="Enter news title" required>
+        </div>
+        <div class="form-group">
+            <label for="newsDetail">Description</label>
+            <textarea class="form-control" id="newsDetail" name="description" rows="4" placeholder="Enter news description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="newsDate">Date</label>
+            <input type="date" class="form-control" id="newsDate" name="date" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Post News</button>
+    </form>
+
+    <h3>List News</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>News ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($news as $newsItem)
+                <tr>
+                    <td>{{ $newsItem->id }}</td>
+                    <td>{{ $newsItem->title }}</td>
+                    <td>{{ $newsItem->description }}</td>
+                    <td>{{ $newsItem->date }}</td>
+                    <td>
+                        <form action="{{ route('admin.news.delete', $newsItem->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5">No news found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
 </div>
 
 <!-- Post Tickets Section -->
