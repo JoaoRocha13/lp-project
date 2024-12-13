@@ -181,13 +181,26 @@
       <h2 style="text-align: center; margin-bottom: 30px; color: #333; font-family: 'Poppins', sans-serif;">Latest Updates</h2>
     </div>
 
-    @foreach($news as $update)
-    <div class="update_item" style="margin-bottom: 20px; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      <h4 style="margin: 0; color: #555;"> {{ $update->title }}</h4>
-      <p style="margin: 5px 0; font-size: 14px; color: #777;">{{ $update->description }}</p>
-      <p style="margin: 5px 0; font-size: 14px; color: #777;">Date: {{ \Carbon\Carbon::parse($update->date)->format('F d, Y') }}</p>
+    <div class="news_grid" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+      @foreach($news as $update)
+      <div class="news_card" style="width: 300px; background: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden;">
+        @if($update->image)
+        <div class="news_image" style="width: 100%; height: 180px; overflow: hidden; text-align: center; background-color: #f9f9f9;">
+          <img src="{{ asset('storage/images/' . $update->image) }}" alt="News Image" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        @else
+        <div class="news_image_placeholder" style="width: 100%; height: 180px; background: #ddd; display: flex; align-items: center; justify-content: center;">
+          <span style="color: #888; font-size: 14px;">No Image Available</span>
+        </div>
+        @endif
+        <div class="news_content" style="padding: 15px;">
+          <h4 style="margin: 0 0 10px; color: #555;">{{ $update->title }}</h4>
+          <p style="margin: 0 0 10px; font-size: 14px; color: #777;">{{ Str::limit($update->description, 100, '...') }}</p>
+          <p style="margin: 0; font-size: 12px; color: #aaa;">Date: {{ \Carbon\Carbon::parse($update->date)->format('F d, Y') }}</p>
+        </div>
+      </div>
+      @endforeach
     </div>
-    @endforeach
 
     <!-- Placeholder for More Updates -->
     @if($news->isEmpty())

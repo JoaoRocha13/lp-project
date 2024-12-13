@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
@@ -26,19 +27,21 @@ class PhotoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $imageField)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            $imageField => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
-        $name = $request->file('image')->getClientOriginalName();
-        $request->file('image')->store('public/images');
-        $picture = new Photo();
-        $picture->name = $name;
-        $picture->path = $request->file('image')->hashName();
-        $picture->save();
-        return redirect()->back()->with('status', 'Image Has been uploaded');
-}
+
+        $file = $request->file($imageField);
+        $path = Storage::disk('public')->put('/images', $file);
+
+        $photo = new Photo();
+        $photo->name = $file->getClientOriginalName();
+        $photo->path = basename($path);
+        $photo->save();
+        return $photo; // Certifique-se de retornar o objeto $phot
+    }
 
     /**
      * Display the specified resource.

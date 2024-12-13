@@ -17,7 +17,9 @@ class AdminController extends Controller
 
     return view('admin', compact('users', 'previousGames', 'news')); // Passa todas as variáveis para a view
 }
- public function promoteToAdmin($id)
+
+
+     public function promoteToAdmin($id)
     {
         $user = User::find($id);
 
@@ -29,6 +31,8 @@ class AdminController extends Controller
 
         return redirect()->route('admin')->with('error', 'User not found.');
     }
+
+
     public function storePreviousGame(Request $request)
 {
     $request->validate([
@@ -41,33 +45,32 @@ class AdminController extends Controller
         'team_b_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
-    // Salvar as imagens com o nome original
-    $teamALogo = $request->file('team_a_logo');
-    $teamBLogo = $request->file('team_b_logo');
+    $photoController = new PhotoController();
 
-    $teamALogoPath = $teamALogo->storeAs(
-        'public/images',
-        $teamALogo->getClientOriginalName()
-    );
+    if ($request->hasFile('team_a_logo')) {
+        $teamALogo = $photoController->store($request, 'team_a_logo');
+        $validatedData['team_a_logo'] = $teamALogo->path;
+    }
 
-    $teamBLogoPath = $teamBLogo->storeAs(
-        'public/images',
-        $teamBLogo->getClientOriginalName()
-    );
+    if ($request->hasFile('team_b_logo')) {
+        $teamBLogo = $photoController->store($request, 'team_b_logo');
+        $validatedData['team_b_logo'] = $teamBLogo->path;
+    }
 
-    // Salvar no banco de dados
     PreviousGame::create([
-        'team_a' => $request->team_a,
-        'team_b' => $request->team_b,
-        'score_a' => $request->score_a,
-        'score_b' => $request->score_b,
-        'game_date' => $request->game_date,
-        'team_a_logo' => basename($teamALogoPath),
-        'team_b_logo' => basename($teamBLogoPath),
+        'team_a' => $request->input('team_a'),
+        'team_b' => $request->input('team_b'),
+        'score_a' => $request->input('score_a'),
+        'score_b' => $request->input('score_b'),
+        'game_date' => $request->input('game_date'),
+        'team_a_logo' => $validatedData['team_a_logo'],
+        'team_b_logo' => $validatedData['team_b_logo'],
     ]);
 
     return redirect()->back()->with('success', 'Game posted successfully!');
 }
+
+
 public function showPreviousGames()
 {
     $previousGames = PreviousGame::all(); // Busca todos os jogos
@@ -82,17 +85,33 @@ public function deletePreviousGame($id)
 }
 public function storeNews(Request $request)
 {
+    // Validação dos dados recebidos
     $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'date' => 'required|date',
+        'news_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
-    News::create([
-        'title' => $request->input('title'),
-        'description' => $request->input('description'),
-        'date' => $request->input('date'),
-    ]);
+    // Processamento da imagem
+    $imagePath = null;
+    if ($request->hasFile('news_image')) {
+        $photoController = new PhotoController();
+        $storedImage = $photoController->store($request, 'news_image');
+        $imagePath = $storedImage->path; // Caminho da imagem armazenada
+    }
+
+    // Criação da nova notícia no banco de dados
+    try {
+        News::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'date' => $request->input('date'),
+            'image' => $imagePath, // Caminho da imagem, se presente
+        ]);
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Failed to create news: ' . $e->getMessage());
+    }
 
     return redirect()->back()->with('success', 'News posted successfully!');
 }
