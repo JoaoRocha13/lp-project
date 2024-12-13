@@ -7,6 +7,7 @@ use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\CommentController;
 
 // Upload de fotos
 Route::post('save', [PhotoController::class, 'store'])->name('upload.picture');
@@ -73,3 +74,10 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken(); // Regenera o token CSRF
     return redirect()->route('index'); // Redireciona para a página inicial
 })->name('logout');
+
+//comments
+Route::middleware('auth')->group(function () {
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+});
+
+Route::get('/comments', [CommentController::class, 'index']);

@@ -234,112 +234,91 @@
 
   <!-- client section -->
   <section id="clientsection" class="client_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          What Says Our Customers
-        </h2>
-      </div>
-      <div id="carouselExample2Indicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExample2Indicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExample2Indicators" data-slide-to="1"></li>
-          <li data-target="#carouselExample2Indicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="box">
-              <div class="img-box">
-                <img src="{{ asset('images/client.png') }}" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Consectetur
-                </h5>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="box">
-              <div class="img-box">
-                <img src="{{ asset('images/client.png') }}" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Consectetur
-                </h5>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="box">
-              <div class="img-box">
-                <img src="{{ asset('images/client.png') }}" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Consectetur
-                </h5>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+  <div class="container">
+    <div class="heading_container">
+      <h2>
+        What Says Our Customers
+      </h2>
     </div>
-  </section>
+    <div class="carousel-inner" id="commentsCarousel">
+      <!-- Os comentários serão carregados dinamicamente via JavaScript -->
+    </div>
+  </div>
+</section>
 
-  <!-- end client section -->
+<!-- end client section -->
 
-  
-
-
-  <!-- contact section -->
-  <section id="contactSection" class="contact_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          <span>
-            Leave a comment
-          </span>
-        </h2>
-      </div>
-      <div class="layout_padding2-top">
-        <div class="row">
-          <div class="col-md-6 ">
-            <form action="">
-              <div class="contact_form-container">
-                <div>
-              
-                  <div class="mt-5">
-                    <input type="text" placeholder="Message" />
-                  </div>
-                  <div class="mt-5">
-                    <button type="submit">
-                      Send
-                    </button>
-                  </div>
+<!-- contact section -->
+<section id="contactSection" class="contact_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>
+        <span>
+          Leave a comment
+        </span>
+      </h2>
+    </div>
+    <div class="layout_padding2-top">
+      <div class="row">
+        <div class="col-md-6">
+          <form action="{{ route('comments.store') }}" method="POST">
+            @csrf
+            <div class="contact_form-container">
+              <div>
+                <div class="mt-5">
+                  <textarea name="message" placeholder="Message" required></textarea>
+                </div>
+                <div class="mt-5">
+                  <button type="submit">
+                    Send
+                  </button>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
+          @if(session('success'))
+          <p class="text-success">{{ session('success') }}</p>
+          @endif
         </div>
       </div>
     </div>
-  </section>
-  <!-- end contact section -->
+  </div>
+</section>
+<!-- end contact section -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Fetch and display comments dynamically
+    fetch('/comments')
+      .then(response => response.json())
+      .then(data => {
+        const commentsCarousel = document.getElementById('commentsCarousel');
+        commentsCarousel.innerHTML = '';
+
+        data.forEach(comment => {
+          const carouselItem = document.createElement('div');
+          carouselItem.classList.add('carousel-item');
+          carouselItem.innerHTML = `
+            <div class="box">
+              <div class="img-box">
+                <img src="/images/client.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>${comment.user.name}</h5>
+                <p>${comment.message}</p>
+              </div>
+            </div>
+          `;
+          commentsCarousel.appendChild(carouselItem);
+        });
+
+        // Set the first item as active
+        if (commentsCarousel.children.length > 0) {
+          commentsCarousel.children[0].classList.add('active');
+        }
+      });
+  });
+</script>
 
 
   <!-- info section -->
