@@ -7,6 +7,10 @@ use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\FaturaController;
+use App\Http\Controllers\ProductController;
 
 // Upload de fotos
 Route::post('save', [PhotoController::class, 'store'])->name('upload.picture');
@@ -73,3 +77,29 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken(); // Regenera o token CSRF
     return redirect()->route('index'); // Redireciona para a página inicial
 })->name('logout');
+
+
+// Rotas para os jogos
+Route::post('/games', [GameController::class, 'store']);
+Route::get('/games', [GameController::class, 'index']);
+
+// Rotas para os tickets
+Route::post('/tickets', [TicketController::class, 'store']);
+Route::get('/tickets', [TicketController::class, 'index']);
+
+// Rotas para as faturas
+Route::post('/faturas', [FaturaController::class, 'store']);
+Route::get('/faturas', [FaturaController::class, 'index']);
+
+// Rota para exibir o formulário de adição de produtos
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+
+// Rota para salvar o produto no banco de dados
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+
+// Rota para listar os produtos
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+
+
+

@@ -6,6 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PreviousGame;
 use App\Models\News;
+use App\Models\Game;
+use App\Models\Product;
+use App\Models\Ticket;
+
 
 class AdminController extends Controller
 {
@@ -131,5 +135,25 @@ public function about()
     // Retornar a view com os dados
     return view('about', compact('previousGames', 'news'));
 }
+
+
+    public function addProduct(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+        ]);
+
+        Product::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'quantity' => $request->input('quantity'),
+        ]);
+
+        return redirect()->back()->with('success', 'Product added successfully!');
+    }
 }
 

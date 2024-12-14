@@ -120,7 +120,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="d-flex flex-column flex-lg-row align-items-center">
             <ul class="navbar-nav">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="#resultSection">Map <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">

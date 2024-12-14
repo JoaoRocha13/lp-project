@@ -347,49 +347,56 @@
 <!-- Post Store Items Section -->
 <div id="postItemsSection" class="section-container" style="display: none;">
   <h2>Post Store Items</h2>
-  <form>
+  <form action="{{ route('products.store') }}" method="POST">
+    @csrf
     <div class="form-group">
-      <label for="itemName">Item Name</label>
-      <input type="text" class="form-control" id="itemName" placeholder="Enter item name">
+        <label for="name">Product Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" required>
     </div>
     <div class="form-group">
-      <label for="itemDescription">Description</label>
-      <textarea class="form-control" id="itemDescription" rows="3" placeholder="Enter description"></textarea>
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter product description"></textarea>
     </div>
     <div class="form-group">
-      <label for="itemPrice">Price</label>
-      <input type="number" class="form-control" id="itemPrice" placeholder="Enter price">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01" required>
     </div>
     <div class="form-group">
-      <label for="itemStock">Stock</label>
-      <input type="number" class="form-control" id="itemStock" placeholder="Enter stock quantity">
+        <label for="stock">Stock</label>
+        <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter stock quantity" required>
     </div>
-    <div class="form-group">
-      <label for="itemImage">Image</label>
-      <input type="file" class="form-control-file" id="itemImage">
-    </div>
-    <button type="submit" class="btn btn-primary">Post Item</button>
-  </form>
-  <h3>List Store Items</h3>
+    <button type="submit" class="btn btn-primary">Add Product</button>
+</form>
+</div>
+
+<div id="listItemsSection" class="section-container" style="display: none;">
+  <h1>Product List</h1>
+  @if (session('success'))
+      <div class="alert alert-success">
+          {{ session('success') }}
+      </div>
+  @endif
   <table class="table table-striped">
-    <thead>
+      <thead>
       <tr>
-        <th>Item ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Actions</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Stock</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Football Jersey</td>
-        <td>$50.00</td>
-        <td>10</td>
-        <td><button class="btn btn-danger btn-sm">Remove</button></td>
-      </tr>
-    </tbody>
+      </thead>
+      <tbody>
+      @foreach($products as $product)
+          <tr>
+              <td>{{ $product->id }}</td>
+              <td>{{ $product->name }}</td>
+              <td>{{ $product->description }}</td>
+              <td>{{ $product->price }}</td>
+              <td>{{ $product->stock }}</td>
+          </tr>
+      @endforeach
+      </tbody>
   </table>
 </div>
 
@@ -496,6 +503,44 @@
     // Fecha o carrinho
     closeCartButton.addEventListener('click', function () {
       cartSlideout.classList.remove('open');
+    });
+  });
+
+  document.getElementById('postItemForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Collect form data
+    const itemName = document.getElementById('itemName').value;
+    const itemDescription = document.getElementById('itemDescription').value;
+    const itemPrice = parseFloat(document.getElementById('itemPrice').value);
+    const itemStock = parseInt(document.getElementById('itemStock').value);
+
+    // Prepare FormData for image (optional)
+    const formData = new FormData();
+    formData.append('name', itemName);
+    formData.append('description', itemDescription);
+    formData.append('price', itemPrice);
+    formData.append('stock', itemStock);
+
+    const itemImage = document.getElementById('itemImage').files[0];
+    if (itemImage) {
+      formData.append('image', itemImage);
+    }
+
+    // Send data to API
+    axios.post('/web/products', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(response => {
+      alert('Item posted successfully!');
+      // Clear form fields
+      document.getElementById('postItemForm').reset();
+    })
+    .catch(error => {
+      console.error(error.response.data);
+      alert('Failed to post item. Please try again.');
     });
   });
   </script>
