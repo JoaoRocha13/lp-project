@@ -62,6 +62,9 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::delete('/admin/previous-games/{id}', [AdminController::class, 'deletePreviousGame'])->name('admin.previousGames.delete');
     Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store');
     Route::delete('/admin/news/{id}', [AdminController::class, 'deleteNews'])->name('admin.news.delete');
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('admin.products');
+    Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.delete');
+
 });
  // Rota para promover usuários a admin
     Route::post('/admin/promote/{id}', [AdminController::class, 'promoteToAdmin'])->name('admin.promote');
@@ -99,11 +102,8 @@ Route::get('/tickets', [TicketController::class, 'index']);
 Route::post('/faturas', [FaturaController::class, 'store']);
 Route::get('/faturas', [FaturaController::class, 'index']);
 
-// Rota para exibir o formulário de adição de produtos
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 
-// Rota para salvar o produto no banco de dados
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-
-// Rota para listar os produtos
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+

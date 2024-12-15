@@ -18,8 +18,10 @@ class AdminController extends Controller
     $users = User::all(); // Obtém todos os usuários
     $previousGames = PreviousGame::all(); // Obtém todos os jogos anteriores
     $news = News::all(); // Obtém todas as notícias
+    $products = Product::all(); // Obtém todos os produtos
+    //dd($products);
 
-    return view('admin', compact('users', 'previousGames', 'news')); // Passa todas as variáveis para a view
+    return view('admin', compact('users', 'previousGames', 'news', 'products')); // Passa todas as variáveis para a view
 }
 
 
@@ -137,23 +139,26 @@ public function about()
 }
 
 
-    public function addProduct(Request $request)
+    public function storeProduct(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric',
-            'quantity' => 'required|integer',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        Product::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'quantity' => $request->input('quantity'),
-        ]);
-
+        $product = new Product();
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->stock = $request->input('stock');
+        //$product->image = $request->file('image')->store('products', 'public');
+        $product->save();
+        //return redirect()->route('admin.products')->with('success', 'Product added successfully!');
         return redirect()->back()->with('success', 'Product added successfully!');
+    
+       
     }
 }
 

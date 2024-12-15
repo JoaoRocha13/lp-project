@@ -118,7 +118,7 @@
 
       <!-- Main Content Area -->
       <div class="col-md-9">
-        <div id="adminContent">
+        < id="adminContent">
           <!-- View Users Section -->
           <div id="viewUsersSection" class="section-container"  style="display: none;">
     <h2>View Users</h2>
@@ -230,7 +230,6 @@
         </tbody>
     </table>
 </div>
-<!-- Post News Section -->
 <!-- Post News Section -->
 <div id="postNewsSection" class="section-container" style="margin: 0; padding: 0;">
     <h2 style="margin: 0 0 20px; text-align: center;">Post News</h2>
@@ -345,63 +344,58 @@
 </div>
 
 <!-- Post Store Items Section -->
-<div id="postItemsSection" class="section-container" style="display: none;">
+<div id="postItemsSection" class="section-container">
   <h2>Post Store Items</h2>
   <form action="{{ route('products.store') }}" method="POST">
     @csrf
     <div class="form-group">
-        <label for="name">Product Name</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" required>
+      <label for="name">Product Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" required>
     </div>
     <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter product description"></textarea>
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter product description"></textarea>
     </div>
     <div class="form-group">
-        <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01" required>
+      <label for="price">Price</label>
+      <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01" required>
     </div>
     <div class="form-group">
-        <label for="stock">Stock</label>
-        <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter stock quantity" required>
+      <label for="stock">Stock</label>
+      <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter stock quantity" required>
     </div>
     <button type="submit" class="btn btn-primary">Add Product</button>
-</form>
-</div>
+  </form>
 
-<div id="listItemsSection" class="section-container" style="display: none;">
-  <h1>Product List</h1>
-  @if (session('success'))
-      <div class="alert alert-success">
-          {{ session('success') }}
-      </div>
-  @endif
+  <!-- Table for Product List -->
+  <h3 class="mt-5">Product List</h3>
   <table class="table table-striped">
-      <thead>
+    <thead>
       <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Stock</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
       </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
       @foreach($products as $product)
-          <tr>
-              <td>{{ $product->id }}</td>
-              <td>{{ $product->name }}</td>
-              <td>{{ $product->description }}</td>
-              <td>{{ $product->price }}</td>
-              <td>{{ $product->stock }}</td>
-          </tr>
+        <tr>
+          <td>{{ $product->id }}</td>
+          <td>{{ $product->name }}</td>
+          <td>{{ $product->description }}</td>
+          <td>{{ $product->price }}</td>
+          <td>{{ $product->stock }}</td>
+        </tr>
       @endforeach
-      </tbody>
+    </tbody>
   </table>
 </div>
 
+
 <!-- Manage Purchases Section -->
-<div id="managePurchasesSection" class="section-container" style="display: none;">
+<div id="managePurchasesSection" class="section-container" >
   <h2>Manage Purchases</h2>
   <table class="table table-striped">
     <thead>
@@ -446,19 +440,23 @@
     'postGamesLink',
     'postNewsLink',
     'postTicketsLink',
-    'postItemsLink',
+    'postItemsLink', // Link para Post Store Items
     'managePurchasesLink'
   ];
+
   const sections = [
     'viewUsersSection',
     'postGamesSection',
     'postNewsSection',
     'postTicketsSection',
-    'postItemsSection',
+    'postItemsSection', // Seção correta para Post Store Items
     'managePurchasesSection'
   ];
 
-  // Toggle sections
+  // Exibe a seção Post Store Items por padrão
+  document.getElementById('postItemsSection').style.display = 'block';
+
+  // Alterna entre as seções ao clicar nos links
   links.forEach(function (link, index) {
     const linkElement = document.getElementById(link);
     const sectionElement = document.getElementById(sections[index]);
@@ -467,7 +465,7 @@
       linkElement.addEventListener('click', function (e) {
         e.preventDefault();
 
-        // Hide all sections
+        // Esconde todas as seções
         sections.forEach(function (section) {
           const sectionToHide = document.getElementById(section);
           if (sectionToHide) {
@@ -475,21 +473,13 @@
           }
         });
 
-        // Show the selected section
+        // Mostra a seção clicada
         sectionElement.style.display = 'block';
-
-        // Update active class for menu items
-        links.forEach(function (l) {
-          const linkToDeactivate = document.getElementById(l);
-          if (linkToDeactivate) {
-            linkToDeactivate.classList.remove('active');
-          }
-        });
-        linkElement.classList.add('active');
       });
     }
   });
 });
+
   document.addEventListener('DOMContentLoaded', function () {
     const cartButton = document.getElementById('cart-button');
     const cartSlideout = document.getElementById('cart-slideout');
@@ -506,43 +496,7 @@
     });
   });
 
-  document.getElementById('postItemForm').addEventListener('submit', function (e) {
-    e.preventDefault();
 
-    // Collect form data
-    const itemName = document.getElementById('itemName').value;
-    const itemDescription = document.getElementById('itemDescription').value;
-    const itemPrice = parseFloat(document.getElementById('itemPrice').value);
-    const itemStock = parseInt(document.getElementById('itemStock').value);
-
-    // Prepare FormData for image (optional)
-    const formData = new FormData();
-    formData.append('name', itemName);
-    formData.append('description', itemDescription);
-    formData.append('price', itemPrice);
-    formData.append('stock', itemStock);
-
-    const itemImage = document.getElementById('itemImage').files[0];
-    if (itemImage) {
-      formData.append('image', itemImage);
-    }
-
-    // Send data to API
-    axios.post('/web/products', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then(response => {
-      alert('Item posted successfully!');
-      // Clear form fields
-      document.getElementById('postItemForm').reset();
-    })
-    .catch(error => {
-      console.error(error.response.data);
-      alert('Failed to post item. Please try again.');
-    });
-  });
   </script>
 </body>
 
