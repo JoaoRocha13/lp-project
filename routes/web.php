@@ -7,6 +7,7 @@ use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\FaturaController;
@@ -78,6 +79,13 @@ Route::post('/logout', function () {
     return redirect()->route('index'); // Redireciona para a página inicial
 })->name('logout');
 
+//comments
+Route::middleware('auth')->group(function () {
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+});
+
+Route::get('/comments', [CommentController::class, 'index']);
+
 
 // Rotas para os jogos
 Route::post('/games', [GameController::class, 'store']);
@@ -99,7 +107,3 @@ Route::post('/products', [ProductController::class, 'store'])->name('products.st
 
 // Rota para listar os produtos
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
-
-
-
