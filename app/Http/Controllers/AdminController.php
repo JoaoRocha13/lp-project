@@ -156,7 +156,8 @@ public function about()
         //$product->image = $request->file('image')->store('products', 'public');
         $product->save();
         //return redirect()->route('admin.products')->with('success', 'Product added successfully!');
-        return redirect()->back()->with('success', 'Product added successfully!');
+        return redirect()->route('admin');
+
     
        
     }

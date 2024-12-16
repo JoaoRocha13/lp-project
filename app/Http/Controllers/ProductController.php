@@ -9,8 +9,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all(); // Obtém todos os produtos
-        return view('admin', compact('products'));
+        return redirect()->route('admin');
     }
 
     public function store(Request $request)
@@ -20,7 +19,9 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|numeric|min:0'
+            'stock' => 'required|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048' // Validação da imagem
+            
         ]);
 
         // Inserção no banco
@@ -30,6 +31,7 @@ class ProductController extends Controller
                 'description' => $request->description,
                 'price' => $request->price,
                 'stock' => $request->stock,
+                
             ]);
 
             return redirect()->route('products.index');
@@ -38,4 +40,10 @@ class ProductController extends Controller
             dd($e->getMessage());
         }
     }
+    public function destroy($id)
+{
+    $product = Product::findOrFail($id);
+    $product->delete();
+    return redirect()->route('admin')->with('success', 'Product removed successfully!');
+}
 }

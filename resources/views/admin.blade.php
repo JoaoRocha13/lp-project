@@ -118,7 +118,7 @@
 
       <!-- Main Content Area -->
       <div class="col-md-9">
-        < id="adminContent">
+        <div id="adminContent">
           <!-- View Users Section -->
           <div id="viewUsersSection" class="section-container"  style="display: none;">
     <h2>View Users</h2>
@@ -160,6 +160,7 @@
         </tbody>
     </table>
 </div>
+
 <!-- Section for listing and removing Previous Games -->
 <div id="postGamesSection" class="section-container" style="display: none;">
     <h2>Post Previous Games</h2>
@@ -369,15 +370,17 @@
 
   <!-- Table for Product List -->
   <h3 class="mt-5">Product List</h3>
-  <table class="table table-striped">
+<table class="table table-striped">
     <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Stock</th>
-      </tr>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <!-- Nova coluna para Actions -->
+            <th>Actions</th>
+        </tr>
     </thead>
     <tbody>
       @foreach($products as $product)
@@ -387,10 +390,17 @@
           <td>{{ $product->description }}</td>
           <td>{{ $product->price }}</td>
           <td>{{ $product->stock }}</td>
+          <td>
+            <form action="{{ route('admin.products.delete', $product->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger btn-sm">Remove</button>
+            </form>
+          </td>
         </tr>
       @endforeach
     </tbody>
-  </table>
+</table>
 </div>
 
 
