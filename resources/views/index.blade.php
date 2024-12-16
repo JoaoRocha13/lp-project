@@ -39,31 +39,37 @@
           Bigode Grosso FC
         </span>
       </a>
-      <div class="profile_button-container d-flex align-items-center">
+      <div class="profile_button-container">
     @if(auth()->check())
-        <!-- Botão Admin Tools -->
-        @if(auth()->user()->role === 'admin')
-            <a href="{{ route('admin') }}">
-                <button id="admin-tools-button" class="btn btn-secondary mr-2">
-                    Admin Tools
-                </button>
-            </a>
-        @endif
-        <!-- Usuário logado: Botão de perfil -->
         <a href="{{ route('profile') }}">
-            <button id="profile-button" class="profile-button">
-                <img src="{{ asset('images/profile.png') }}" alt="" />
+            <button id="profile-button" class="profile-button" style="border: none; background: none;">
+                @if(auth()->user()->profile_photo && file_exists(public_path('storage/profile_photos/' . auth()->user()->name . '.jpg')))
+                    <img src="{{ asset('storage/profile_photos/' . auth()->user()->name . '.jpg') }}" 
+                         alt="{{ auth()->user()->name }}" 
+                         title="{{ auth()->user()->name }}" 
+                         class="rounded-circle" 
+                         style="width: 40px; height: 40px; object-fit: cover;">
+                @else
+                    <img src="{{ asset('images/profile.png') }}" 
+                         alt="Default Profile" 
+                         class="rounded-circle" 
+                         style="width: 40px; height: 40px; object-fit: cover;">
+                @endif
             </button>
         </a>
     @else
-        <!-- Usuário não logado: Botão de registro -->
+        <!-- Usuário não logado -->
         <a href="{{ route('registo') }}">
             <button id="profile-button" class="profile-button">
-                <img src="{{ asset('images/profile.png') }}" alt="" />
+                <img src="{{ asset('images/profile.png') }}" 
+                     alt="Default Profile" 
+                     class="rounded-circle" 
+                     style="width: 40px; height: 40px; object-fit: cover;">
             </button>
         </a>
     @endif
 </div>
+
       <!-- Botão do carrinho -->
       <div class="cart_button-container">
         <button id="cart-button" class="cart-button">
@@ -120,7 +126,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="d-flex flex-column flex-lg-row align-items-center">
             <ul class="navbar-nav">
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="#resultSection">Map <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
@@ -234,16 +240,37 @@
 
   <!-- client section -->
   <section id="clientsection" class="client_section layout_padding">
-  <div class="container">
-    <div class="heading_container">
-      <h2>
-        What Says Our Customers
-      </h2>
+    <div class="container">
+        <div class="heading_container">
+            <h2>What Says Our Customers</h2>
+        </div>
+        <div class="row">
+            @foreach($comments as $comment)
+                <div class="col-md-4 mb-4">
+                    <div class="card p-3 shadow-sm">
+                        <!-- Foto de Perfil do Usuário -->
+                        <div class="text-center mb-3">
+                            @if($comment->user->profile_photo && file_exists(public_path('storage/profile_photos/' . $comment->user->name . '.jpg')))
+                                <img src="{{ asset('storage/profile_photos/' . $comment->user->name . '.jpg') }}" 
+                                     alt="{{ $comment->user->name }}" 
+                                     class="rounded-circle" 
+                                     style="width: 60px; height: 60px; object-fit: cover;">
+                            @else
+                                <img src="{{ asset('images/profile.png') }}" 
+                                     alt="Default Profile" 
+                                     class="rounded-circle" 
+                                     style="width: 60px; height: 60px; object-fit: cover;">
+                            @endif
+                        </div>
+                        <!-- Detalhes do Comentário -->
+                        <h5 class="text-center">{{ $comment->user->name }}</h5>
+                        <p class="text-muted text-center">{{ $comment->created_at->format('d M, Y') }}</p>
+                        <p class="text-center">{{ $comment->message }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-    <div class="carousel-inner" id="commentsCarousel">
-      <!-- Os comentários serão carregados dinamicamente via JavaScript -->
-    </div>
-  </div>
 </section>
 
 <!-- end client section -->

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use Illuminate\Container\Attributes\Auth;
 
 class CommentController extends Controller
 {
@@ -24,6 +25,6 @@ class CommentController extends Controller
     public function index()
     {
         $comments = Comment::with('user')->latest()->get();
-        return response()->json($comments);
+        return view('index', compact('comments'));
     }
 }

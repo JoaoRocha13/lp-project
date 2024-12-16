@@ -17,35 +17,50 @@
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container">
+          <!-- Logo -->
           <a class="navbar-brand" href="{{ route('index') }}">
-            <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px;" />
+            <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;" />
             <span>Bigode Grosso FC</span>
           </a>
+
+          <!-- Profile Button Container -->
           <div class="profile_button-container d-flex align-items-center">
-    @if(auth()->check())
-        <!-- Botão Admin Tools -->
-        @if(auth()->user()->role === 'admin')
-            <a href="{{ route('admin') }}">
-                <button id="admin-tools-button" class="btn btn-secondary mr-2">
-                    Admin Tools
+            @if(auth()->check())
+              <!-- Admin Tools Button -->
+              @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin') }}">
+                  <button id="admin-tools-button" class="btn btn-secondary mr-2">Admin Tools</button>
+                </a>
+              @endif
+
+              <!-- Logged-in User: Profile Button -->
+              <a href="{{ route('profile') }}">
+                <button id="profile-button" class="profile-button">
+                  @if(auth()->user()->profile_photo)
+                    <!-- User Profile Photo -->
+                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
+                         alt="Profile Picture" 
+                         class="rounded-circle" 
+                         style="width: 40px; height: 40px; object-fit: cover;">
+                  @else
+                    <!-- Default Profile Icon -->
+                    <img src="{{ asset('images/profile.png') }}" 
+                         alt="Default Profile Icon" 
+                         class="rounded-circle" 
+                         style="width: 40px; height: 40px; object-fit: cover;">
+                  @endif
                 </button>
-            </a>
-        @endif
-        <!-- Usuário logado: Botão de perfil -->
-        <a href="{{ route('profile') }}">
-            <button id="profile-button" class="profile-button">
-                <img src="{{ asset('images/profile.png') }}" alt="" />
-            </button>
-        </a>
-    @else
-        <!-- Usuário não logado: Botão de registro -->
-        <a href="{{ route('registo') }}">
-            <button id="profile-button" class="profile-button">
-                <img src="{{ asset('images/profile.png') }}" alt="" />
-            </button>
-        </a>
-    @endif
-</div>
+              </a>
+            @else
+              <!-- Guest User: Register Button -->
+              <a href="{{ route('registo') }}">
+                <button id="profile-button" class="profile-button">
+                  <img src="{{ asset('images/profile.png') }}" alt="Register Icon" />
+                </button>
+              </a>
+            @endif
+          </div>
+
           <div class="cart_button-container">
             <button id="cart-button" class="cart-button">
               <img src="{{ asset('images/cart-icon.png') }}" alt="" />
@@ -98,8 +113,51 @@
             <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
               <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
               <p><strong>Role:</strong> {{ auth()->user()->role ?? 'Not specified' }}</p>
-            </div>
 
+                          <!-- Atualizar Foto de Perfil -->
+              <div class="update-photo-section mt-4">
+  <p class="section-subtitle mb-3"><strong>Atualizar Foto de Perfil:</strong></p>
+  
+  <!-- Formulário para Upload de Foto -->
+  <form action="{{ route('profile.photo.update') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+    @csrf
+
+    <!-- Botão de Escolha de Foto -->
+    <label for="profile_photo" class="me-3 mb-0">
+      <span class="btn btn-secondary">Escolher Foto</span>
+      <input type="file" id="profile_photo" name="profile_photo" accept="image/*" style="display: none;" onchange="previewImage(event)">
+    </label>
+
+    <!-- Preview da Imagem -->
+    <div class="photo-preview">
+      <img id="preview" 
+        src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/profile.png') }}" 
+        alt="Foto de Perfil" class="rounded-circle border" />
+    </div>
+
+    <!-- Botão de Envio -->
+    <button type="submit" class="btn btn-primary ms-3">Atualizar</button>
+  </form>
+</div>
+
+<!-- JavaScript para Preview -->
+<script>
+  function previewImage(event) {
+    const input = event.target;
+    const reader = new FileReader();
+
+    reader.onload = function () {
+      const preview = document.getElementById('preview');
+      preview.src = reader.result;
+      preview.style.display = 'block';
+    };
+
+    if (input.files && input.files[0]) {
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+            </div>
             <!-- Purchase History -->
             <div class="purchase-history mt-4">
               <h3>Purchase History</h3>

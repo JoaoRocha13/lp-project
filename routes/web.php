@@ -12,9 +12,13 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\FaturaController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 
 // Upload de fotos
-Route::post('save', [PhotoController::class, 'store'])->name('upload.picture');
+Route::post('/profile/photo/update', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
+
+//Foto de Perfil
+Route::post('/profile/update_picture', [ProfileController::class, 'updatePicture'])->name('profile.update_picture');
 
 
 // Páginas públicas
@@ -87,7 +91,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
-Route::get('/comments', [CommentController::class, 'index']);
+Route::get('/index', [CommentController::class, 'index'])->name('index');
 
 
 // Rotas para os jogos
@@ -105,5 +109,7 @@ Route::get('/faturas', [FaturaController::class, 'index']);
 
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+
 
 

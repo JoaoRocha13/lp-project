@@ -1340,6 +1340,33 @@ a:focus {
   height: 30px;
 }
 
+/*profile picture
+
+/* Título do "Atualizar Foto de Perfil" */
+.section-subtitle {
+  font-size: 1000px;
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 10px;
+}
+
+/* Botão Escolher Foto */
+.btn-secondary {
+  font-size: 0.9rem;
+  padding: 6px 12px;
+}
+
+/* Preview da Imagem */
+.photo-preview img {
+  width: 80px;
+  height: 80px;
+
+  border-radius: 50%; /* Formato circular */
+  border: 2px solid #007bff;
+  padding: 2px;
+}
+
+
 
 
 
