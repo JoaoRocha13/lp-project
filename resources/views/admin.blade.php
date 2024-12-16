@@ -119,15 +119,15 @@
       <!-- Main Content Area -->
       <div class="col-md-9">
         <div id="adminContent">
+  @if(session('success'))
+      <div class="alert alert-success">{{ session('success') }}</div>
+  @endif
+  @if(session('error'))
+      <div class="alert alert-danger">{{ session('error') }}</div>
+  @endif
           <!-- View Users Section -->
           <div id="viewUsersSection" class="section-container"  style="display: none;">
     <h2>View Users</h2>
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
     <table class="table table-striped">
         <thead>
             <tr>
@@ -232,7 +232,7 @@
     </table>
 </div>
 <!-- Post News Section -->
-<div id="postNewsSection" class="section-container" style="margin: 0; padding: 0;">
+<div id="postNewsSection" class="section-container" style="display: none; margin: 0; padding: 0;">
     <h2 style="margin: 0 0 20px; text-align: center;">Post News</h2>
     <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data" style="margin: 0;">
         @csrf
@@ -345,9 +345,9 @@
 </div>
 
 <!-- Post Store Items Section -->
-<div id="postItemsSection" class="section-container">
+<div id="postItemsSection" class="section-container"  style="display: none;">
   <h2>Post Store Items</h2>
-  <form action="{{ route('products.store') }}" method="POST">
+  <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <label for="name">Product Name</label>
@@ -361,12 +361,19 @@
       <label for="price">Price</label>
       <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01" required>
     </div>
+    <!-- Campo para Stock -->
     <div class="form-group">
       <label for="stock">Stock</label>
       <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter stock quantity" required>
     </div>
+    <!-- Campo para imagem do produto -->
+    <div class="form-group">
+      <label for="image">Product Image</label>
+      <input type="file" class="form-control-file" name="image" id="image" accept="image/*">
+    </div>
+    
     <button type="submit" class="btn btn-primary">Add Product</button>
-  </form>
+</form>
 
   <!-- Table for Product List -->
   <h3 class="mt-5">Product List</h3>
@@ -378,6 +385,7 @@
             <th>Description</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>Image</th>
             <!-- Nova coluna para Actions -->
             <th>Actions</th>
         </tr>
@@ -390,6 +398,13 @@
           <td>{{ $product->description }}</td>
           <td>{{ $product->price }}</td>
           <td>{{ $product->stock }}</td>
+          <td>
+            @if($product->image)
+                <img src="{{ asset('storage/images/' . $product->image) }}" alt="Product Image" style="width: 100px; height: auto; display: block; margin: auto;">
+            @else
+                <span>No Image</span>
+            @endif
+          </td>
           <td>
             <form action="{{ route('admin.products.delete', $product->id) }}" method="POST" style="display:inline-block;">
                 @csrf
@@ -405,7 +420,7 @@
 
 
 <!-- Manage Purchases Section -->
-<div id="managePurchasesSection" class="section-container" >
+<div id="managePurchasesSection" class="section-container" style="display: none;" >
   <h2>Manage Purchases</h2>
   <table class="table table-striped">
     <thead>
@@ -453,6 +468,7 @@
     'postItemsLink', // Link para Post Store Items
     'managePurchasesLink'
   ];
+  
 
   const sections = [
     'viewUsersSection',
@@ -462,10 +478,7 @@
     'postItemsSection', // Seção correta para Post Store Items
     'managePurchasesSection'
   ];
-
-  // Exibe a seção Post Store Items por padrão
-  document.getElementById('postItemsSection').style.display = 'block';
-
+  
   // Alterna entre as seções ao clicar nos links
   links.forEach(function (link, index) {
     const linkElement = document.getElementById(link);
@@ -505,6 +518,7 @@
       cartSlideout.classList.remove('open');
     });
   });
+  
 
 
   </script>

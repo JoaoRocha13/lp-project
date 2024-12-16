@@ -9,13 +9,13 @@ class AddColumnsToPreviousGamesTable extends Migration
     public function up()
     {
         Schema::table('previous_games', function (Blueprint $table) {
-            $table->string('team_a')->after('id');
-            $table->string('team_b')->after('team_a');
+            $table->string('team_a')->nullable()->after('id');
+            $table->string('team_b')->nullable()->after('team_a');
             $table->string('team_a_logo')->nullable()->after('team_b');
             $table->string('team_b_logo')->nullable()->after('team_a_logo');
             $table->integer('score_a')->default(0)->after('team_b_logo');
             $table->integer('score_b')->default(0)->after('score_a');
-            $table->date('game_date')->after('score_b');
+            $table->date('game_date')->nullable()->after('score_b');
         });
     }
 

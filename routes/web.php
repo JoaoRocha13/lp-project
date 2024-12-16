@@ -21,7 +21,7 @@ Route::post('save', [PhotoController::class, 'store'])->name('upload.picture');
 
 // Páginas públicas
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/login', function () {
@@ -57,8 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Rotas protegidas (Autenticadas e Administrativas)
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
-    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
-
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::post('/admin/storePreviousGame', [AdminController::class, 'storePreviousGame'])->name('admin.store.previousGames');
     Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store'); // Certifique-se de que esta rota está definida corretamente
     Route::get('/admin/previous-games', [AdminController::class, 'showPreviousGames'])->name('admin.previousGames');
@@ -105,8 +104,7 @@ Route::get('/tickets', [TicketController::class, 'index']);
 Route::post('/faturas', [FaturaController::class, 'store']);
 Route::get('/faturas', [FaturaController::class, 'index']);
 
-
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::post('/products', [AdminController::class, 'storeProduct'])->name('products.store');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 
