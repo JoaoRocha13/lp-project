@@ -12,7 +12,10 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\FaturaController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
+
 
 // Upload de fotos
 Route::post('/profile/photo/update', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
@@ -23,7 +26,7 @@ Route::post('/profile/update_picture', [ProfileController::class, 'updatePicture
 
 // Páginas públicas
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/login', function () {
@@ -106,10 +109,23 @@ Route::get('/tickets', [TicketController::class, 'index']);
 Route::post('/faturas', [FaturaController::class, 'store']);
 Route::get('/faturas', [FaturaController::class, 'index']);
 
-
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::post('/products', [AdminController::class, 'storeProduct'])->name('products.store');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 
+// Rota para processar o link de verificação
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill(); // Marca o email como verificado
+    return redirect()->route('index')->with('success', 'Email verificado com sucesso!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
+// Aviso para verificar email
+Route::get('/email/verify', function () {
+    return view('registo');
+})->middleware('auth')->name('verification.notice');
 
+// Reenviar o email de verificação
+Route::post('/email/resend', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Email de verificação reenviado!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

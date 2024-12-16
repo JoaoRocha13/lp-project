@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
+
 
 class CommentController extends Controller
 {
@@ -15,7 +16,7 @@ class CommentController extends Controller
         ]);
 
         Comment::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::user()->id,
             'message' => $request->message,
         ]);
 

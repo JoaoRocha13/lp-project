@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PreviousGame;
 use App\Models\News;
-use App\Models\Game;
 use App\Models\Product;
 use App\Models\Ticket;
 
@@ -139,26 +138,34 @@ public function about()
 }
 
 
-    public function storeProduct(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        $product = new Product();
-        $product->name = $request->input('name');
-        $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->stock = $request->input('stock');
-        //$product->image = $request->file('image')->store('products', 'public');
-        $product->save();
-        //return redirect()->route('admin.products')->with('success', 'Product added successfully!');
-        return redirect()->back()->with('success', 'Product added successfully!');
-    
-       
+public function storeProduct(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $imagePath = null;
+    if ($request->hasFile('image')) {
+        $photoController = new PhotoController();
+        $storedImage = $photoController->store($request, 'image');
+        $imagePath = $storedImage->path;
     }
+
+    Product::create([
+        'name' => $request->input('name'),
+        'description' => $request->input('description'),
+        'price' => $request->input('price'),
+        'stock' => $request->input('stock'),
+        'image' => $imagePath,
+    ]);
+
+    return redirect()->route('admin')
+        ->with('section', 'postItemsSection')
+        ->with('success', 'Product added successfully!');
+}
 }
 

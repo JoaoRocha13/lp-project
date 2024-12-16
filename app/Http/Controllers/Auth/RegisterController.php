@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 
+
+
 class RegisterController extends Controller
 {
     public function store(Request $request)
@@ -28,10 +30,15 @@ class RegisterController extends Controller
             'role' => 'cliente', // Papel padrão para novos usuários
         ]);
 
-        // Login automático após registro (opcional)
-        Auth::login($user);
+         // Enviar o email de verificação
+         $user->sendEmailVerificationNotification();
+         
+         
 
-        // Redirecionar após o registro
-        return redirect()->route('index')->with('success', 'Conta criada com sucesso!');
-    }
+    // Autenticar o usuário, mas forçar a verificação
+    Auth::login($user);
+
+    return redirect()->route('verification.notice')
+                     ->with('success', 'Por favor, verifique seu email.');
+}
 }
