@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Notifications\VerifyEmail;
+
 
 
 class RegisterController extends Controller
@@ -28,10 +30,15 @@ class RegisterController extends Controller
             'role' => 'cliente', // Papel padrão para novos usuários
         ]);
 
-        // Login automático após registro (opcional)
-        Auth::login($user);
+         // Enviar o email de verificação
+         $user->sendEmailVerificationNotification();
+         
+         
 
-        // Redirecionar após o registro
-        return redirect()->route('index')->with('success', 'Conta criada com sucesso!');
-    }
+    // Autenticar o usuário, mas forçar a verificação
+    Auth::login($user);
+
+    return redirect()->route('verification.notice')
+                     ->with('success', 'Por favor, verifique seu email.');
+}
 }

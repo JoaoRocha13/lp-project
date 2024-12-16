@@ -21,11 +21,25 @@
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
+                <p>Verifique a sua caixa de entrada e clique no link para verificar o email.</p>
+                
+                @auth
+                <!-- Form para reenviar o email de verificação -->
+                @if (session('message'))
+                    <div class="alert alert-success">{{ session('message') }}</div>
+                @endif
+                
+                <form method="POST" action="{{ route('verification.send') }}">
+                    @csrf
+                    <button type="submit">Reenviar Email de Verificação</button>
+                </form>
+                @endauth
+
             </div>
         @endif
 
         <!-- Mensagens de Erro -->
-        @if ($errors->any())
+        @if ($errors->any() && !session('success'))
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -34,24 +48,28 @@
                 </ul>
             </div>
         @endif
+
+        @if(!session('success'))
         <form action="{{ route('register.store') }}" method="post">
-    @csrf
-    <label for="username">Nome de Utilizador:</label>
-    <input type="text" id="username" name="username" required>
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    
-    <label for="password">Palavra-Passe:</label>
-    <input type="password" id="password" name="password" required>
-    
-    <label for="password_confirmation">Confirmar Palavra-Passe:</label>
-    <input type="password" id="password_confirmation" name="password_confirmation" required>
-    
-    <button type="submit">Registar</button>
-</form>
+            @csrf
+            <label for="username">Nome de Utilizador:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Palavra-Passe:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <label for="password_confirmation">Confirmar Palavra-Passe:</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" required>
+            
+            <button type="submit">Registar</button>
+        </form>
+        @endif
+
         <div class="footer-text">
-            Já tem uma conta? <a href="{{ route('login') }}">>Faça login</a>
+            Já tem uma conta? <a href="{{ route('login') }}">Faça login</a>
         </div>
     </main>
 </body>
