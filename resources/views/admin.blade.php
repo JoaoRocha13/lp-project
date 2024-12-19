@@ -2,164 +2,147 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-  <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 </head>
 
 <body class="sub_page admin-page">
-
   <div class="hero_area">
-    <!-- header section strats -->
-    <!-- Botão do carrinho no header -->
-<header class="header_section">
-  <div class="container">
-    <nav class="navbar navbar-expand-lg custom_nav-container">
-      <a class="navbar-brand" href="{{ route('index') }}">
-        <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px;" />
-        <span>
-          Bigode Grosso FC
-        </span>
-      </a>
-      <div class="profile_button-container d-flex align-items-center">
-    @if(auth()->check())
-        <!-- Botão Admin Tools -->
-        @if(auth()->user()->role === 'admin')
-            <a href="{{ route('admin') }}">
-                <button id="admin-tools-button" class="btn btn-secondary mr-2">
-                    Admin Tools
-                </button>
-            </a>
-        @endif
-        <!-- Usuário logado: Botão de perfil -->
-        <a href="{{ route('profile') }}">
-            <button id="profile-button" class="profile-button">
-                <img src="{{ asset('images/profile.png') }}" alt="" />
-            </button>
-        </a>
-    @else
-        <!-- Usuário não logado: Botão de registro -->
-        <a href="{{ route('registo') }}">
-            <button id="profile-button" class="profile-button">
-                <img src="{{ asset('images/profile.png') }}" alt="" />
-            </button>
-        </a>
-    @endif
-</div>
-      <!-- Botão do carrinho -->
-      <div class="cart_button-container">
-        <button id="cart-button" class="cart-button">
-          <img src="{{ asset('images/cart-icon.png') }}" alt="" />
-        </button>
-      </div>
-    </nav>
-  </div>
-</header>
 
-<!-- Slide-out do carrinho -->
-<div id="cart-slideout" class="cart-slideout">
-  <div class="cart-header">
-    <h4>Your Cart</h4>
-    <button id="close-cart" class="close-cart">&times;</button>
-  </div>
-  <div class="cart-items">
-    <!-- Exemplo de item no carrinho -->
-    <div class="cart-item">
-      <div class="cart-item-image">
-        <img src="{{ asset('images/product1.jpg') }}" alt="Product" />
+    <!-- Header Section -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="{{ route('index') }}">
+            <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px;">
+            <span>Bigode Grosso FC</span>
+          </a>
+          <div class="profile_button-container d-flex align-items-center">
+            @if(auth()->check())
+              @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin') }}">
+                  <button id="admin-tools-button" class="btn btn-secondary mr-2">Admin Tools</button>
+                </a>
+              @endif
+              <a href="{{ route('profile') }}">
+                <button id="profile-button" class="profile-button">
+                  <img src="{{ asset('images/profile.png') }}" alt="">
+                </button>
+              </a>
+            @else
+              <a href="{{ route('registo') }}">
+                <button id="profile-button" class="profile-button">
+                  <img src="{{ asset('images/profile.png') }}" alt="">
+                </button>
+              </a>
+            @endif
+          </div>
+          <div class="cart_button-container">
+            <button id="cart-button" class="cart-button">
+              <img src="{{ asset('images/cart-icon.png') }}" alt="">
+            </button>
+          </div>
+        </nav>
       </div>
-      <div class="cart-item-details">
-        <h5>Product Name</h5>
-        <p>$20.00</p>
-        <div class="cart-item-controls">
-          <button class="quantity-btn decrease">-</button>
-          <span class="quantity">1</span>
-          <button class="quantity-btn increase">+</button>
+    </header>
+
+    <!-- Cart Slideout -->
+    <div id="cart-slideout" class="cart-slideout">
+      <div class="cart-header">
+        <h4>Your Cart</h4>
+        <button id="close-cart" class="close-cart">&times;</button>
+      </div>
+      <div class="cart-items">
+        <div class="cart-item">
+          <div class="cart-item-image">
+            <img src="{{ asset('images/product1.jpg') }}" alt="Product">
+          </div>
+          <div class="cart-item-details">
+            <h5>Product Name</h5>
+            <p>$20.00</p>
+            <div class="cart-item-controls">
+              <button class="quantity-btn decrease">-</button>
+              <span class="quantity">1</span>
+              <button class="quantity-btn increase">+</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Mais itens aqui -->
-  </div>
-  <div class="cart-footer">
-    <button class="checkout-btn">Checkout</button>
-  </div>
-</div>
-
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar -->
-      <div class="col-md-3" id="adminSidebar">
-        <h4>Admin Menu</h4>
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="viewUsersLink">View Users</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="postGamesLink">Post Previous Games</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="postNewsLink">Post News</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="postTicketsLink">Post Tickets</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="postItemsLink">Post Store Items</a>
-          </li>
-          <li class="nav-item">
-        <a class="nav-link" href="#" id="managePurchasesLink">Manage Purchases</a>
-  </li>
-        </ul>
+      <div class="cart-footer">
+        <button class="checkout-btn">Checkout</button>
       </div>
+    </div>
 
-      <!-- Main Content Area -->
-      <div class="col-md-9">
-        <div id="adminContent">
-  @if(session('success'))
-      <div class="alert alert-success">{{ session('success') }}</div>
-  @endif
-  @if(session('error'))
-      <div class="alert alert-danger">{{ session('error') }}</div>
-  @endif
-          <!-- View Users Section -->
-          <div id="viewUsersSection" class="section-container"  style="display: none;">
-    <h2>View Users</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>User ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Promote to Admin</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $user)
-                <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
-                    <td>
+    <!-- Admin Dashboard Layout -->
+    <div class="container-fluid">
+      <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-3" id="adminSidebar">
+          <h4>Admin Menu</h4>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#" id="viewUsersLink">View Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="postGamesLink">Post Previous Games</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="postNewsLink">Post News</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="postTicketsLink">Post Tickets</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="postItemsLink">Post Store Items</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="managePurchasesLink">Manage Purchases</a></li>
+          </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="col-md-9">
+          <div id="adminContent">
+
+            @if(session('success'))
+              <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if(session('error'))
+              <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+
+            <!-- View Users Section -->
+            <div id="viewUsersSection" class="section-container" style="display: none;">
+              <h2>View Users</h2>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Promote to Admin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($users as $user)
+                    <tr>
+                      <td>{{ $user->id }}</td>
+                      <td>{{ $user->name }}</td>
+                      <td>{{ $user->email }}</td>
+                      <td>{{ $user->role }}</td>
+                      <td>
                         @if($user->role !== 'admin')
-                            <form action="{{ route('admin.promote', $user->id) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-primary btn-sm">Promote</button>
-                            </form>
+                          <form action="{{ route('admin.promote', $user->id) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-primary btn-sm">Promote</button>
+                          </form>
                         @else
-                            <span class="text-muted">Already Admin</span>
+                          <span class="text-muted">Already Admin</span>
                         @endif
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
 
 <!-- Section for listing and removing Previous Games -->
 <div id="postGamesSection" class="section-container" style="display: none;">
@@ -447,80 +430,55 @@
     </tbody>
   </table>
 </div>
+</div>
+</div>
+</div>
+</div>
 
-  
-
-        </div>
-      </div>
-    </div>
-    
-  </div>
-
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- Scripts -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
   <script>
- document.addEventListener('DOMContentLoaded', function () {
-  const links = [
-    'viewUsersLink',
-    'postGamesLink',
-    'postNewsLink',
-    'postTicketsLink',
-    'postItemsLink', // Link para Post Store Items
-    'managePurchasesLink'
-  ];
-  
+    document.addEventListener('DOMContentLoaded', function () {
+      const links = [
+        'viewUsersLink', 'postGamesLink', 'postNewsLink', 'postTicketsLink', 'postItemsLink', 'managePurchasesLink'
+      ];
+      const sections = [
+        'viewUsersSection', 'postGamesSection', 'postNewsSection', 'postTicketsSection', 'postItemsSection', 'managePurchasesSection'
+      ];
 
-  const sections = [
-    'viewUsersSection',
-    'postGamesSection',
-    'postNewsSection',
-    'postTicketsSection',
-    'postItemsSection', // Seção correta para Post Store Items
-    'managePurchasesSection'
-  ];
-  
-  // Alterna entre as seções ao clicar nos links
-  links.forEach(function (link, index) {
-    const linkElement = document.getElementById(link);
-    const sectionElement = document.getElementById(sections[index]);
+      links.forEach(function (link, index) {
+        const linkElement = document.getElementById(link);
+        const sectionElement = document.getElementById(sections[index]);
 
-    if (linkElement && sectionElement) {
-      linkElement.addEventListener('click', function (e) {
-        e.preventDefault();
+        if (linkElement && sectionElement) {
+          linkElement.addEventListener('click', function (e) {
+            e.preventDefault();
 
-        // Esconde todas as seções
-        sections.forEach(function (section) {
-          const sectionToHide = document.getElementById(section);
-          if (sectionToHide) {
-            sectionToHide.style.display = 'none';
-          }
-        });
+            sections.forEach(function (section) {
+              const sectionToHide = document.getElementById(section);
+              if (sectionToHide) {
+                sectionToHide.style.display = 'none';
+              }
+            });
 
-        // Mostra a seção clicada
-        sectionElement.style.display = 'block';
+            sectionElement.style.display = 'block';
+          });
+        }
       });
-    }
-  });
-});
+    });
 
-  document.addEventListener('DOMContentLoaded', function () {
     const cartButton = document.getElementById('cart-button');
     const cartSlideout = document.getElementById('cart-slideout');
     const closeCartButton = document.getElementById('close-cart');
 
-    // Abre o carrinho
     cartButton.addEventListener('click', function () {
       cartSlideout.classList.add('open');
     });
 
-    // Fecha o carrinho
     closeCartButton.addEventListener('click', function () {
       cartSlideout.classList.remove('open');
     });
-  });
-  
-
-
   </script>
 </body>
 

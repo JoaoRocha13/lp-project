@@ -350,6 +350,7 @@ a:focus {
 /* slider section */
 .slider_section {
   height: calc(100% - 80px);
+  background: url('../images/bigode.jpg') no-repeat center center;
   background-size: cover;
 }
 
