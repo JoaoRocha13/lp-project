@@ -129,3 +129,8 @@ Route::post('/email/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Email de verificação reenviado!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+//Fatura
+Route::get('/fatura', function () {
+    return view('fatura');
+})->name('fatura');

@@ -28,8 +28,8 @@
             @if(auth()->check())
               <a href="{{ route('profile') }}">
                 <button id="profile-button" class="profile-button" style="border: none; background: none;">
-                  @if(auth()->user()->profile_photo && file_exists(public_path('storage/profile_photos/' . auth()->user()->name . '.jpg')))
-                    <img src="{{ asset('storage/profile_photos/' . auth()->user()->name . '.jpg') }}" 
+                  @if(auth()->user()->profile_photo)
+                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
                          alt="{{ auth()->user()->name }}" 
                          class="rounded-circle" 
                          style="width: 40px; height: 40px; object-fit: cover;">
