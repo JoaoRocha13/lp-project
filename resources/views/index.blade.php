@@ -37,9 +37,25 @@
               @endif
               <!-- Botão de Perfil -->
               <a href="{{ route('profile') }}">
+                <button id="profile-button" class="profile-button" style="border: none; background: none;">
+                  @if(auth()->user()->profile_photo)
+                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
+                         alt="{{ auth()->user()->name }}" 
+                         class="rounded-circle" 
+                         style="width: 40px; height: 40px; object-fit: cover;">
+                  @else
+                    <img src="{{ asset('images/profile.png') }}" 
+                         alt="Default Profile" 
+                         class="rounded-circle" 
+                         style="width: 40px; height: 40px; object-fit: cover;">
+                  @endif
+                </button>
+              </a>
+            @else
+              <a href="{{ route('registo') }}">
                 <button id="profile-button" class="profile-button">
-                  <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/profile.png') }}" 
-                       alt="Profile" 
+                  <img src="{{ asset('images/profile.png') }}" 
+                       alt="Default Profile" 
                        class="rounded-circle" 
                        style="width: 40px; height: 40px; object-fit: cover;">
                 </button>
