@@ -37,25 +37,9 @@
               @endif
               <!-- Botão de Perfil -->
               <a href="{{ route('profile') }}">
-                <button id="profile-button" class="profile-button" style="border: none; background: none;">
-                  @if(auth()->user()->profile_photo)
-                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
-                         alt="{{ auth()->user()->name }}" 
-                         class="rounded-circle" 
-                         style="width: 40px; height: 40px; object-fit: cover;">
-                  @else
-                    <img src="{{ asset('images/profile.png') }}" 
-                         alt="Default Profile" 
-                         class="rounded-circle" 
-                         style="width: 40px; height: 40px; object-fit: cover;">
-                  @endif
-                </button>
-              </a>
-            @else
-              <a href="{{ route('registo') }}">
                 <button id="profile-button" class="profile-button">
-                  <img src="{{ asset('images/profile.png') }}" 
-                       alt="Default Profile" 
+                  <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/profile.png') }}" 
+                       alt="Profile" 
                        class="rounded-circle" 
                        style="width: 40px; height: 40px; object-fit: cover;">
                 </button>
@@ -206,29 +190,22 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contactSection" class="contact_section layout_padding">
-      <div class="container">
-        <div class="heading_container">
-          <h2>Leave a comment</h2>
-        </div>
-        <div class="layout_padding2-top">
-          <div class="row">
-            <div class="col-md-6">
-              <form action="{{ route('comments.store') }}" method="POST">
-                @csrf
-                <div class="contact_form-container">
-                  <textarea name="message" placeholder="Message" required></textarea>
-                  <button type="submit">Send</button>
-                </div>
-              </form>
-              @if(session('success'))
-                <p class="text-success">{{ session('success') }}</p>
-              @endif
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Contact Section -->
+<section id="contactSection" class="contact_section">
+  <div class="heading_container">
+    <h2>Leave a comment</h2>
+  </div>
+  <div class="contact_form-container">
+    <form action="{{ route('comments.store') }}" method="POST">
+      @csrf
+      <textarea name="message" placeholder="Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    @if(session('success'))
+      <p class="text-success">{{ session('success') }}</p>
+    @endif
+  </div>
+</section>
 
     <!-- Info Section -->
     <section class="info_section layout_padding2-top">
