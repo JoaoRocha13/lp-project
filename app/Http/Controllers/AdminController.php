@@ -98,20 +98,17 @@ public function AddNewGame(Request $request) {
         'tickets_available' => 'required|integer|min:0',
     ]);
 
-    try {
-        Game::create([
-            'team_a' => $request->team_a,
-            'team_b' => $request->team_b,
-            'game_date' => $request->game_date,
-            'game_location' => $request->game_location,
-            'ticket_price' => $request->ticket_price,
-            'tickets_available' => $request->tickets_available,
-        ]);
+    // Criação do novo jogo no banco de dados
+    Game::create([
+        'team_a' => $request->input('team_a'),
+        'team_b' => $request->input('team_b'),
+        'game_date' => $request->input('game_date'),
+        'game_location' => $request->input('game_location'),
+        'ticket_price' => $request->input('ticket_price'),
+        'tickets_available' => $request->input('tickets_available'),
+    ]);
 
-        return redirect()->route('admin')->with('success', 'Game added successfully!');
-    } catch (\Exception $e) {
-        return redirect()->route('admin')->with('error', 'Failed to add game: ' . $e->getMessage());
-    }
+    return redirect()->route('admin')->with('section', 'postGamesSection')->with('success', 'Game added successfully!');
     
 }
 public function storeNews(Request $request)
@@ -171,27 +168,26 @@ public function storeProduct(Request $request)
         'description' => 'required|string',
         'price' => 'required|numeric|min:0',
         'stock' => 'required|integer|min:0',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
-    $imagePath = null;
+    /*$imagePath = null;
     if ($request->hasFile('image')) {
         $photoController = new PhotoController();
         $storedImage = $photoController->store($request, 'image');
         $imagePath = $storedImage->path;
-    }
+    }*/
 
     Product::create([
         'name' => $request->input('name'),
         'description' => $request->input('description'),
         'price' => $request->input('price'),
         'stock' => $request->input('stock'),
-        'image' => $imagePath,
     ]);
 
     return redirect()->route('admin')
         ->with('section', 'postItemsSection')
         ->with('success', 'Product added successfully!');
 }
+
 }
 

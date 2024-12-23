@@ -265,8 +265,8 @@
 <!-- Games Section -->
 <div id="postGamesSection" class="section-container" style="display: none;">
   <h2>Post Games</h2>
-  @csrf
-  <form action = "{{ route('games.store') }}" method="POST">
+  <form action = "{{ route('admin.games') }}" method="POST">
+    @csrf
     <div class="form-group">
       <label for="teamA">Team A</label>
       <input type="text" class="form-control" id="teamA" name="team_a" placeholder="Enter team A" required>
@@ -325,7 +325,7 @@
 <!-- Post Store Items Section -->
 <div id="postItemsSection" class="section-container"  style="display: none;">
   <h2>Post Store Items</h2>
-  <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ route('admin.products') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <label for="name">Product Name</label>

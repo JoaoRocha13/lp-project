@@ -68,9 +68,11 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/previous-games', [AdminController::class, 'showPreviousGames'])->name('admin.previousGames');
     Route::delete('/admin/previous-games/{id}', [AdminController::class, 'deletePreviousGame'])->name('admin.previousGames.delete');
     Route::delete('/admin/news/{id}', [AdminController::class, 'deleteNews'])->name('admin.news.delete');
-    Route::get('/admin/products', [AdminController::class, 'showProducts'])->name('admin.products');
+    Route::get('/admin/products', [AdminController::class, 'index'])->name('admin.products');
+    Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.products');
     Route::delete('/admin/products/{id}', [AdminController::class, 'destroy'])->name('admin.products.delete');
-    Route::get('/admin/games', [AdminController::class, 'showGames'])->name('admin.games');
+    Route::get('/admin/games', [AdminController::class, 'index'])->name('admin.games');
+    Route::post('/admin/games', [AdminController::class, 'AddNewGame'])->name('admin.games');
 
 });
  // Rota para promover usuários a admin
@@ -96,20 +98,12 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/index', [CommentController::class, 'index'])->name('index');
 
-
-// Rotas para os jogos
-Route::get('/games', [GameController::class, 'index'])->name('games.index');
-Route::post('/games', [GameController::class, 'store'])->name('games.store');
-
 // Rotas para os tickets
 Route::get('/tickets', [TicketController::class, 'index']);
 
 // Rotas para as faturas
 Route::post('/faturas', [FaturaController::class, 'store']);
 Route::get('/faturas', [FaturaController::class, 'index']);
-
-Route::post('/products', [AdminController::class, 'storeProduct'])->name('products.store');
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 
 // Rota para processar o link de verificação

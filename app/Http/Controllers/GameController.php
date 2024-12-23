@@ -11,8 +11,7 @@
     class GameController extends Controller {
     
         public function index() {
-            $games = Game::all();
-            $users = User::all();
+            $games = Game::all();   
             $previousGames = Game::all();
             return view('games.index', compact('games', 'users', 'previousGames'));
         }
