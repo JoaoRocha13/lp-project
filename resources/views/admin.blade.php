@@ -23,7 +23,7 @@
         <nav class="navbar navbar-expand-lg custom_nav-container">
           <!-- Logo e Título -->
           <a class="navbar-brand" href="{{ route('index') }}">
-            <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;" />
+            <img src="{{ asset('images/icon.png') }}" alt="Logo"  />
             <span>Bigode Grosso FC</span>
           </a>
 
@@ -197,69 +197,70 @@
     </table>
 </div>
 <!-- Post News Section -->
-<div id="postNewsSection" class="section-container" style="display: none; margin: 0; padding: 0;">
-    <h2 style="margin: 0 0 20px; text-align: center;">Post News</h2>
-    <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data" style="margin: 0;">
-        @csrf
-        <div class="form-group" style="margin-bottom: 15px;">
-            <label for="newsTitle">Title</label>
-            <input type="text" class="form-control" id="newsTitle" name="title" placeholder="Enter news title" required>
-        </div>
-        <div class="form-group" style="margin-bottom: 15px;">
-            <label for="newsDetail">Description</label>
-            <textarea class="form-control" id="newsDetail" name="description" rows="4" placeholder="Enter news description" required></textarea>
-        </div>
-        <div class="form-group" style="margin-bottom: 15px;">
-            <label for="newsDate">Date</label>
-            <input type="date" class="form-control" id="newsDate" name="date" required>
-        </div>
-        <div class="form-group" style="margin-bottom: 15px;">
-            <label for="newsImage">Image</label>
-            <input type="file" class="form-control-file" id="newsImage" name="news_image">
-        </div>
-        <button type="submit" class="btn btn-primary" style="margin-bottom: 20px;">Post News</button>
-    </form>
-    <h3 style="margin: 0 0 20px; text-align: center;">List News</h3>
-    <table class="table table-striped" style="margin: 0; padding: 0; width: 100%; border-spacing: 0; border-collapse: collapse;">
-        <thead style="background-color: #f8f9fa;">
-            <tr>
-                <th style="padding: 10px; text-align: left;">News ID</th>
-                <th style="padding: 10px; text-align: left;">Title</th>
-                <th style="padding: 10px; text-align: left;">Description</th>
-                <th style="padding: 10px; text-align: left;">Date</th>
-                <th style="padding: 10px; text-align: left;">Image</th>
-                <th style="padding: 10px; text-align: left;">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($news as $newsItem)
-                <tr>
-                    <td style="padding: 10px;">{{ $newsItem->id }}</td>
-                    <td style="padding: 10px;">{{ $newsItem->title }}</td>
-                    <td style="padding: 10px;">{{ $newsItem->description }}</td>
-                    <td style="padding: 10px;">{{ $newsItem->date }}</td>
-                    <td style="padding: 10px;">
-                        @if($newsItem->image)
-                            <img src="{{ asset('storage/images/' . $newsItem->image) }}" alt="News Image" style="width: 100px; height: auto; display: block; margin: auto;">
-                        @else
-                            <span>No Image</span>
-                        @endif
-                    </td>
-                    <td style="padding: 10px;">
-                        <form action="{{ route('admin.news.delete', $newsItem->id) }}" method="POST" style="margin: 0;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6" style="text-align: center; padding: 10px;">No news found.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+<div id="postNewsSection" class="section-container" style="display: none;">
+  <h2>Post News</h2>
+  <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="form-group">
+      <label for="newsTitle">Title</label>
+      <input type="text" class="form-control" id="newsTitle" name="title" placeholder="Enter news title" required>
+    </div>
+    <div class="form-group">
+      <label for="newsDetail">Description</label>
+      <textarea class="form-control" id="newsDetail" name="description" rows="4" placeholder="Enter news description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="newsDate">Date</label>
+      <input type="date" class="form-control" id="newsDate" name="date" required>
+    </div>
+    <div class="form-group">
+      <label for="newsImage">Image</label>
+      <input type="file" class="form-control-file" id="newsImage" name="news_image">
+    </div>
+    <button type="submit" class="btn btn-primary">Post News</button>
+  </form>
+  
+  <h3>List News</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>News ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Image</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @forelse($news as $newsItem)
+        <tr>
+          <td>{{ $newsItem->id }}</td>
+          <td>{{ $newsItem->title }}</td>
+          <td>{{ $newsItem->description }}</td>
+          <td>{{ $newsItem->date }}</td>
+          <td>
+            @if($newsItem->image)
+              <img src="{{ asset('storage/images/' . $newsItem->image) }}" alt="News Image" style="width: 100px;">
+            @else
+              <span>No Image</span>
+            @endif
+          </td>
+          <td>
+            <form action="{{ route('admin.news.delete', $newsItem->id) }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+          </td>
+        </tr>
+      @empty
+        <tr>
+          <td colspan="6">No news found.</td>
+        </tr>
+      @endforelse
+    </tbody>
+  </table>
 </div>
 
 <!-- Games Section -->
