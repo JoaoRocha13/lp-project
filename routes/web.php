@@ -64,13 +64,13 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::post('/admin/storePreviousGame', [AdminController::class, 'storePreviousGame'])->name('admin.store.previousGames');
-    Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store'); // Certifique-se de que esta rota está definida corretamente
+    Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store'); 
     Route::get('/admin/previous-games', [AdminController::class, 'showPreviousGames'])->name('admin.previousGames');
     Route::delete('/admin/previous-games/{id}', [AdminController::class, 'deletePreviousGame'])->name('admin.previousGames.delete');
-    Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store');
     Route::delete('/admin/news/{id}', [AdminController::class, 'deleteNews'])->name('admin.news.delete');
-    Route::get('/admin/products', [ProductController::class, 'index'])->name('admin.products');
-    Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.delete');
+    Route::get('/admin/products', [AdminController::class, 'showProducts'])->name('admin.products');
+    Route::delete('/admin/products/{id}', [AdminController::class, 'destroy'])->name('admin.products.delete');
+    Route::get('/admin/games', [AdminController::class, 'showGames'])->name('admin.games');
 
 });
  // Rota para promover usuários a admin
@@ -98,11 +98,10 @@ Route::get('/index', [CommentController::class, 'index'])->name('index');
 
 
 // Rotas para os jogos
-Route::post('/games', [GameController::class, 'store']);
-Route::get('/games', [GameController::class, 'index']);
+Route::get('/games', [GameController::class, 'index'])->name('games.index');
+Route::post('/games', [GameController::class, 'store'])->name('games.store');
 
 // Rotas para os tickets
-Route::post('/tickets', [TicketController::class, 'store']);
 Route::get('/tickets', [TicketController::class, 'index']);
 
 // Rotas para as faturas

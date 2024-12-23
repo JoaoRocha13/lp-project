@@ -15,12 +15,16 @@ class PreviousGame extends Model
      * @var array
      */
     protected $fillable = [
-        'team_a',
-        'team_b',
-        'team_a_logo',
-        'team_b_logo',
-        'score_a',
-        'score_b',
-        'game_date',
+        'jogo_id',
+        'time_a',
+        'time_b',
+        'placar_a',
+        'placar_b',
+        'data',
     ];
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class, 'game_id');
+    }
 }

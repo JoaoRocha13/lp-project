@@ -89,9 +89,9 @@
           <h4>Admin Menu</h4>
           <ul class="nav flex-column">
             <li class="nav-item"><a class="nav-link" href="#" id="viewUsersLink">View Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="#" id="postGamesLink">Post Previous Games</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="postPreviousGamesLink">Post Previous Games</a></li>
             <li class="nav-item"><a class="nav-link" href="#" id="postNewsLink">Post News</a></li>
-            <li class="nav-item"><a class="nav-link" href="#" id="postTicketsLink">Post Tickets</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="postGamesLink">Post Games</a></li>
             <li class="nav-item"><a class="nav-link" href="#" id="postItemsLink">Post Store Items</a></li>
             <li class="nav-item"><a class="nav-link" href="#" id="managePurchasesLink">Manage Purchases</a></li>
           </ul>
@@ -145,9 +145,9 @@
             </div>
 
 <!-- Section for listing and removing Previous Games -->
-<div id="postGamesSection" class="section-container" style="display: none;">
+<div id="postPreviousGamesSection" class="section-container" style="display: none;">
     <h2>Post Previous Games</h2>
-    <form action="{{ route('admin.store.previousGames') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.previousGames') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="teamA">Team A Name</label>
@@ -280,33 +280,41 @@
     </table>
 </div>
 
-<!-- Post Tickets Section -->
-<div id="postTicketsSection" class="section-container" style="display: none;">
-  <h2>Post Tickets</h2>
-  <form>
+<!-- Games Section -->
+<div id="postGamesSection" class="section-container" style="display: none;">
+  <h2>Post Games</h2>
+  @csrf
+  <form action = "{{ route('games.store') }}" method="POST">
     <div class="form-group">
-      <label for="ticketMatch">Match</label>
-      <input type="text" class="form-control" id="ticketMatch" placeholder="Enter match">
+      <label for="teamA">Team A</label>
+      <input type="text" class="form-control" id="teamA" name="team_a" placeholder="Enter team A" required>
     </div>
     <div class="form-group">
-      <label for="ticketDate">Date</label>
-      <input type="date" class="form-control" id="ticketDate">
+      <label for="teamB">Team B</label>
+      <input type="text" class="form-control" id="teamB" name="team_b" placeholder="Enter team B" required>
     </div>
     <div class="form-group">
-      <label for="ticketPlace">Place</label>
-      <input type="text" class="form-control" id="ticketPlace" placeholder="Enter place">
+      <label for="gameDate">Date e Hora</label>
+      <input type="datetime-local" class="form-control" id="gameDate" name="game_date" required>
     </div>
     <div class="form-group">
-      <label for="ticketPrice">Price</label>
-      <input type="number" class="form-control" id="ticketPrice" placeholder="Enter price">
+      <label for="place">Place</label>
+      <input type="text" class="form-control" id="place" name="place" placeholder="Enter place" required>
     </div>
-    <button type="submit" class="btn btn-primary">Post Ticket</button>
+    <div class="form-group">
+      <label for="Price">Price</label>
+      <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" required>
+    </div>
+    <div class="form-group">
+      <label for="tickets">Tickets</label>
+      <input type="intiger" class="form-control" id="tickets" name="tickets" placeholder="Enter number of tickets" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  <h3>List Tickets</h3>
+  <h3>List Games</h3>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Ticket ID</th>
         <th>Match</th>
         <th>Date</th>
         <th>Place</th>
@@ -316,13 +324,18 @@
     </thead>
     <tbody>
       <tr>
-        <td>1</td>
-        <td>Team C vs. Team D</td>
-        <td>2024-12-10</td>
-        <td>Stadium ABC</td>
-        <td>$30.00</td>
-        <td><button class="btn btn-danger btn-sm">Remove</button></td>
+          @forelse($games as $game)
+          <td>{{ $game->team_a }} vs. {{ $game->team_b }}</td>
+          <td>{{ $game->game_date }}</td>
+          <td>{{ $game->place }}</td>
+          <td>{{ $game->price }}</td>
+          <td>{{ $game->tickets }}</td>          
       </tr>
+      @empty
+        <tr>
+          <td colspan="5">No games found.</td>
+        </tr>
+          @endforelse
     </tbody>
   </table>
 </div>
@@ -441,10 +454,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const links = [
-        'viewUsersLink', 'postGamesLink', 'postNewsLink', 'postTicketsLink', 'postItemsLink', 'managePurchasesLink'
+        'viewUsersLink', 'postPreviousGamesLink', 'postNewsLink', 'postGamesLink', 'postItemsLink', 'managePurchasesLink'
       ];
       const sections = [
-        'viewUsersSection', 'postGamesSection', 'postNewsSection', 'postTicketsSection', 'postItemsSection', 'managePurchasesSection'
+        'viewUsersSection', 'postPreviousGamesSection', 'postNewsSection', 'postGamesSection', 'postItemsSection', 'managePurchasesSection'
       ];
 
       links.forEach(function (link, index) {

@@ -10,13 +10,18 @@
 
         protected $fillable = [
             'game_id',
-            'price',
-            'available_quantity',
+            'user_id',
+            'quantity',
         ];
 
-        /*public function game() {
-            return $this->belongsTo(Game::class);
-        }*/
+        
+        public function game() {
+            return $this->belongsTo(Game::class, 'game_id');
+        }
+
+        public function user() {
+            return $this->belongsTo(User::class, 'user_id');
+        }
     }
 
 

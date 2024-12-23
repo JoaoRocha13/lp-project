@@ -9,13 +9,23 @@
     {
         use HasFactory;
 
-        protected $fillable = ['name', 'game_date', 'location'];
+        protected $table = 'games';
+        protected $fillable = [
+            'team_a',
+            'team_b',
+            'game_date',
+            'local',
+            'ticket_price',
+            'tickets_available'
+            
+        ];
 
-        /*public function faturas()
+        public function tickets()
         {
-            return $this->belongsToMany(Fatura::class)->withPivot('quantity', 'price');
-        }*/ 
+            return $this->hasMany(Ticket::class, 'game_id');
+        }
 
+        
     }   
 
 ?>

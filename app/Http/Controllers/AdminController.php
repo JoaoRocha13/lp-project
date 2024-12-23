@@ -8,6 +8,7 @@ use App\Models\PreviousGame;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Ticket;
+use App\Models\Game;
 
 
 class AdminController extends Controller
@@ -18,9 +19,11 @@ class AdminController extends Controller
     $previousGames = PreviousGame::all(); // Obtém todos os jogos anteriores
     $news = News::all(); // Obtém todas as notícias
     $products = Product::all(); // Obtém todos os produtos
+    $games = Game::all(); // Obtém todos os jogos
+    $tickets = Ticket::all(); // Obtém todos os tickets
     //dd($products);
 
-    return view('admin', compact('users', 'previousGames', 'news', 'products')); // Passa todas as variáveis para a view
+    return view('admin', compact('users', 'previousGames', 'news', 'products', 'games', 'tickets')); // Passa todas as variáveis para a view
 }
 
 
@@ -82,11 +85,34 @@ public function showPreviousGames()
     return view('admin', compact('previousGames'));
 }
 
-public function deletePreviousGame($id)
-{
-    $game = PreviousGame::findOrFail($id); // Localiza o jogo pelo ID
-    $game->delete(); // Deleta o jogo
-    return redirect()->route('admin')->with('success', 'Previous Game removed successfully!');
+
+public function AddNewGame(Request $request) {
+
+    // Validação dos dados recebidos
+    $request->validate([
+        'team_a' => 'required|string|max:50',
+        'team_b' => 'required|string|max:50',
+        'game_date' => 'required|date',
+        'game_location' => 'required|string|max:100',
+        'ticket_price' => 'required|numeric|min:0',
+        'tickets_available' => 'required|integer|min:0',
+    ]);
+
+    try {
+        Game::create([
+            'team_a' => $request->team_a,
+            'team_b' => $request->team_b,
+            'game_date' => $request->game_date,
+            'game_location' => $request->game_location,
+            'ticket_price' => $request->ticket_price,
+            'tickets_available' => $request->tickets_available,
+        ]);
+
+        return redirect()->route('admin')->with('success', 'Game added successfully!');
+    } catch (\Exception $e) {
+        return redirect()->route('admin')->with('error', 'Failed to add game: ' . $e->getMessage());
+    }
+    
 }
 public function storeNews(Request $request)
 {
