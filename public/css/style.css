@@ -743,6 +743,7 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: 'Roboto', sans-serif;
+  overflow-x: hidden; /* Evita o scroll horizontal */
 }
 
 .registration-page,
@@ -898,6 +899,59 @@ html, body {
 body.admin-page {
   background-color: #f4f4f9;
   font-family: 'Poppins', sans-serif;
+}
+
+body.admin-page .header_section {
+  background-color: #ffffff;
+  border-bottom: 2px solid #e9ecef;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center; /* Alinha logo e texto verticalmente */
+  justify-content: space-between; /* Ajusta a posição */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body.admin-page .header_section .navbar-brand {
+  display: flex; /* Permite o alinhamento do logo e do texto */
+  align-items: center;
+  margin-left: 300px; /* Move o título e o símbolo para a direita */
+}
+
+body.admin-page .header_section .navbar-brand img {
+  width: 75px; /* Tamanho do símbolo */
+  height: 50px; /* Tamanho do símbolo */
+  margin-right: 10px; /* Espaçamento entre o logo e o texto */
+}
+
+body.admin-page .header_section .navbar-brand span {
+  font-size: 1.5rem; /* Tamanho do texto */
+  font-weight: 600; /* Peso da fonte */
+  color: #343a40; /* Cor do texto */
+}
+
+/* Ajuste para itens adicionais à direita */
+body.admin-page .header_section .right-icons {
+  display: flex;
+  gap: 15px; /* Espaçamento entre ícones ou botões */
+  align-items: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  body.admin-page .header_section {
+    flex-wrap: wrap; /* Permite quebra de linha */
+    justify-content: center; /* Centraliza elementos */
+    padding: 10px 15px;
+  }
+
+  body.admin-page .header_section .navbar-brand img {
+    width: 50px;
+    height: 35px;
+  }
+
+  body.admin-page .header_section .navbar-brand span {
+    font-size: 1.2rem;
+  }
 }
 
 /* Sidebar */
@@ -1123,6 +1177,7 @@ body.admin-page {
     display: block;
   }
 }
+
 
 
 /* ////////////////////////////////////////////////////////////////////////////Profile Page Styles /////////////////////////////////////*/
