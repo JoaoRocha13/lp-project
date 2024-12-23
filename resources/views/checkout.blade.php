@@ -9,6 +9,9 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
   <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
   <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
 </head>
 
@@ -74,25 +77,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Football Jersey</td>
-              <td>2</td>
-              <td>$50.00</td>
-              <td>$100.00</td>
-            </tr>
-            <tr>
-              <td>Match Ticket</td>
-              <td>1</td>
-              <td>$30.00</td>
-              <td>$30.00</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th colspan="3" class="text-right">Total</th>
-              <th>$130.00</th>
-            </tr>
-          </tfoot>
+  @php $total = 0; @endphp
+  @foreach ($cart as $productId => $item)
+    @php $subtotal = $item['price'] * $item['quantity']; $total += $subtotal; @endphp
+    <tr>
+      <td>{{ $item['name'] }}</td>
+      <td>
+        <input type="number" class="quantity-input" data-id="{{ $productId }}" value="{{ $item['quantity'] }}" min="1" style="width: 60px;">
+      </td>
+      <td>€{{ number_format($item['price'], 2, ',', '.') }}</td>
+      <td>€{{ number_format($subtotal, 2, ',', '.') }}</td>
+      <td>
+        <button class="btn btn-danger remove-product-btn" data-id="{{ $productId }}" style="padding: 5px 10px;">Remover</button>
+      </td>
+    </tr>
+  @endforeach
+</tbody>
+<tfoot>
+  <tr>
+    <th colspan="3" class="text-right">Total</th>
+    <th>€{{ number_format($total, 2, ',', '.') }}</th>
+  </tr>
+</tfoot>
         </table>
       </div>
 
@@ -138,10 +144,94 @@
       </div>
     </div>
   </div>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script>
-  
+<!-- Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+  $(document).ready(function () {
+    // Listener para mudanças na quantidade
+    $(document).on('change', '.quantity-input', function () {
+        const productId = $(this).data('id');
+        const quantity = $(this).val();
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        if (quantity < 1) {
+            alert('A quantidade não pode ser menor que 1.');
+            $(this).val(1);
+            return;
+        }
+
+        $.ajax({
+            url: "{{ route('cart.update') }}",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: {
+                product_id: productId,
+                quantity: quantity
+            },
+            success: function (response) {
+                const updatedCart = response.cart;
+                let total = 0;
+
+                for (const id in updatedCart) {
+                    const item = updatedCart[id];
+                    const itemSubtotal = item.price * item.quantity;
+                    $(`input[data-id="${id}"]`).closest('tr').find('td:nth-child(4)').text(`€${itemSubtotal.toFixed(2)}`);
+                    total += itemSubtotal;
+                }
+
+                $('tfoot th:last-child').text(`€${total.toFixed(2)}`);
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert('Erro ao atualizar a quantidade.');
+            }
+        });
+    });
+
+    // Listener para remover produto
+    $(document).on('click', '.remove-product-btn', function () {
+        const productId = $(this).data('id');
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        if (!confirm('Tem certeza de que deseja remover este item do carrinho?')) {
+            return;
+        }
+
+        $.ajax({
+            url: "{{ route('cart.remove') }}",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: {
+                product_id: productId
+            },
+            success: function (response) {
+                // Remove a linha do produto
+                $(`button[data-id="${productId}"]`).closest('tr').remove();
+
+                // Atualiza o total
+                let total = 0;
+                for (const id in response.cart) {
+                    const item = response.cart[id];
+                    total += item.price * item.quantity;
+                }
+
+                $('tfoot th:last-child').text(`€${total.toFixed(2)}`);
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert('Erro ao remover o produto.');
+            }
+        });
+    });
+});
+</script>
 </body>
 
 </html>

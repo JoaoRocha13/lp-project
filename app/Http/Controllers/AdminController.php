@@ -168,25 +168,32 @@ public function storeProduct(Request $request)
         'description' => 'required|string',
         'price' => 'required|numeric|min:0',
         'stock' => 'required|integer|min:0',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
-    /*$imagePath = null;
+    $imagePath = null;
     if ($request->hasFile('image')) {
         $photoController = new PhotoController();
         $storedImage = $photoController->store($request, 'image');
         $imagePath = $storedImage->path;
-    }*/
+    }
 
     Product::create([
         'name' => $request->input('name'),
         'description' => $request->input('description'),
         'price' => $request->input('price'),
         'stock' => $request->input('stock'),
+        'image' => $imagePath,
     ]);
 
     return redirect()->route('admin')
         ->with('section', 'postItemsSection')
         ->with('success', 'Product added successfully!');
+}
+public function showStore()
+{
+    $products = Product::all(); // Carregar todos os produtos
+    return view('store', compact('products'));
 }
 
 }

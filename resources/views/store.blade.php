@@ -12,6 +12,10 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <title>Store</title>
 
   <!-- bootstrap core css -->
@@ -67,37 +71,6 @@
         </nav>
       </div>
     </header>
-
-<!-- Slide-out do carrinho -->
-<div id="cart-slideout" class="cart-slideout">
-  <div class="cart-header">
-    <h4>Your Cart</h4>
-    <button id="close-cart" class="close-cart">&times;</button>
-  </div>
-  <div class="cart-items">
-    <!-- Exemplo de item no carrinho -->
-    <div class="cart-item">
-      <div class="cart-item-image">
-        <img src="{{ asset('images/product1.jpg') }}" alt="Product" />
-      </div>
-      <div class="cart-item-details">
-        <h5>Product Name</h5>
-        <p>$20.00</p>
-        <div class="cart-item-controls">
-          <button class="quantity-btn decrease">-</button>
-          <span class="quantity">1</span>
-          <button class="quantity-btn increase">+</button>
-        </div>
-      </div>
-    </div>
-    <!-- Mais itens aqui -->
-  </div>
-  <form action="{{ route('checkout') }}" method="GET">
-      <button type="submit" class="checkout-btn">Checkout</button>
-    </form>
-  </div>
-</div>
-
     <!-- end header section -->
     <!-- slider section -->
     <section class=" slider_section position-relative">
@@ -134,39 +107,23 @@
     </div>
 
     <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-      <!-- Product 1 -->
-      <div class="col-md-3 product_card" style="background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
-        <img src="{{ asset('storage/images/product1.jpg') }}" alt="Product 1" style="width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px;">
-        <h5 style="color: #555; font-weight: bold; font-size: 18px;">Football Jersey</h5>
-        <p style="color: #777; font-size: 14px;">$50.00</p>
-        <button class="add_to_cart_btn" data-name="Football Jersey" data-price="50.00" style="padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Add to Cart</button>
+  @foreach ($products as $product)
+  <div class="col-md-3 product_card" style="background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
+    @if($product->image)
+      <div class="product_image" style="height: 150px; margin-bottom: 10px;">
+        <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: contain;">
       </div>
-
-      <!-- Product 2 -->
-      <div class="col-md-3 product_card" style="background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
-        <img src="{{ asset('storage/images/product2.jpg') }}" alt="Product 2" style="width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px;">
-        <h5 style="color: #555; font-weight: bold; font-size: 18px;">Team Cap</h5>
-        <p style="color: #777; font-size: 14px;">$20.00</p>
-        <button class="add_to_cart_btn" data-name="Team Cap" data-price="20.00" style="padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Add to Cart</button>
+    @else
+      <div class="product_image_placeholder" style="height: 150px; background: #ddd; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+        <span style="color: #888; font-size: 14px;">No Image Available</span>
       </div>
-
-      <!-- Product 3 -->
-      <div class="col-md-3 product_card" style="background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
-        <img src="{{ asset('storage/images/product3.jpg') }}" alt="Product 3" style="width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px;">
-        <h5 style="color: #555; font-weight: bold; font-size: 18px;">Match Ball</h5>
-        <p style="color: #777; font-size: 14px;">$30.00</p>
-        <button class="add_to_cart_btn" data-name="Match Ball" data-price="30.00" style="padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Add to Cart</button>
-      </div>
-
-      <!-- Product 4 -->
-      <div class="col-md-3 product_card" style="background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
-        <img src="{{ asset('storage/images/product4.jpg') }}" alt="Product 4" style="width: 100%; height: 150px; object-fit: contain; margin-bottom: 10px;">
-        <h5 style="color: #555; font-weight: bold; font-size: 18px;">Water Bottle</h5>
-        <p style="color: #777; font-size: 14px;">$15.00</p>
-        <button class="add_to_cart_btn" data-name="Water Bottle" data-price="15.00" style="padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Add to Cart</button>
-      </div>
-    </div>
+    @endif
+    <h5 style="color: #555; font-weight: bold; font-size: 18px;">{{ $product->name }}</h5>
+    <p style="color: #777; font-size: 14px;">€{{ number_format($product->price, 2, ',', '.') }}</p>
+    <button class="add_to_cart_btn" data-id="{{ $product->id }}" style="padding: 10px 15px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Add to Cart</button>
   </div>
+  @endforeach
+</div>
 </section>
 
   <!-- info section -->
@@ -199,9 +156,49 @@
     </div>
   </section>
 
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+ $(document).ready(function () {
+    $(document).on('click', '.add_to_cart_btn', function () {
+        const productId = $(this).data('id');
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            url: "{{ route('cart.add') }}",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: {
+                product_id: productId
+            },
+            success: function (response) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Item adicionado ao carrinho com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: function (xhr) {
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao adicionar o item ao carrinho.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
+
+
+</script>
   
 </body>
 

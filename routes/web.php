@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CartController;
 
 
 // Upload de fotos
@@ -101,6 +102,12 @@ Route::get('/index', [CommentController::class, 'index'])->name('index');
 // Rotas para os tickets
 Route::get('/tickets', [TicketController::class, 'index']);
 
+Route::get('/store', [AdminController::class, 'showStore'])->name('store');
+
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/checkout', [CartController::class, 'getCart'])->name('checkout');
+Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
 // Rotas para as faturas
 Route::post('/faturas', [FaturaController::class, 'store']);
 Route::get('/faturas', [FaturaController::class, 'index']);
@@ -127,3 +134,4 @@ Route::post('/email/resend', function (Request $request) {
 Route::get('/fatura', function () {
     return view('fatura');
 })->name('fatura');
+
