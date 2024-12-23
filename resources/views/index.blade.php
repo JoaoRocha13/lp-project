@@ -124,7 +124,6 @@
             <img src="{{ asset('images/icon.png') }}" alt="">
           </div>
           <div class="detail-box">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             <a href="{{ route('about') }}">Read More</a>
           </div>
         </div>
