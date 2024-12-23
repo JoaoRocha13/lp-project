@@ -18,78 +18,59 @@
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container">
+          <!-- Logo e Título -->
           <a class="navbar-brand" href="{{ route('index') }}">
-            <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px;">
+            <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;" />
             <span>Bigode Grosso FC</span>
           </a>
-          <div class="profile_button-container d-flex align-items-center">
+
+          <!-- Ícones de Perfil e Carrinho -->
+          <div class="navbar-icons d-flex align-items-center">
             @if(auth()->check())
               @if(auth()->user()->role === 'admin')
                 <a href="{{ route('admin') }}">
-                  <button id="admin-tools-button" class="btn btn-secondary mr-2">Admin Tools</button>
+                  <button id="admin-tools-button" class="btn btn-secondary me-2">Admin Tools</button>
                 </a>
               @endif
+              <!-- Botão de Perfil -->
               <a href="{{ route('profile') }}">
                 <button id="profile-button" class="profile-button">
-                  <img src="{{ asset('images/profile.png') }}" alt="">
+                  <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/profile.png') }}" 
+                       alt="Profile" 
+                       class="rounded-circle" 
+                       style="width: 40px; height: 40px; object-fit: cover;">
                 </button>
               </a>
             @else
+              <!-- Botão de Registro -->
               <a href="{{ route('registo') }}">
                 <button id="profile-button" class="profile-button">
-                  <img src="{{ asset('images/profile.png') }}" alt="">
+                  <img src="{{ asset('images/profile.png') }}" alt="Default Profile Icon">
                 </button>
               </a>
             @endif
-          </div>
-          <div class="cart_button-container">
-            <button id="cart-button" class="cart-button">
-              <img src="{{ asset('images/cart-icon.png') }}" alt="">
-            </button>
+
+            <!-- Botão de Carrinho -->
+            <a href="{{ route('checkout') }}" class="cart-button">
+              <img src="{{ asset('images/cart-icon.png') }}" alt="Cart" style="width: 40px; height: 40px;">
+            </a>
           </div>
         </nav>
       </div>
     </header>
 
-    <!-- Cart Slideout -->
-    <div id="cart-slideout" class="cart-slideout">
-      <div class="cart-header">
-        <h4>Your Cart</h4>
-        <button id="close-cart" class="close-cart">&times;</button>
-      </div>
-      <div class="cart-items">
-        <div class="cart-item">
-          <div class="cart-item-image">
-            <img src="{{ asset('images/product1-jpg') }}" alt="Product">
-          </div>
-          <div class="cart-item-details">
-            <h5>Product Name</h5>
-            <p>$20.00</p>
-            <div class="cart-item-controls">
-              <button class="quantity-btn decrease">-</button>
-              <span class="quantity">1</span>
-              <button class="quantity-btn increase">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cart-footer">
-        <form action="{{ route('checkout') }}" method="GET">
-          <button type="submit" class="checkout-btn">Checkout</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Slider Section -->
+    <!-- Navbar Amarela -->
     <section class="slider_section position-relative">
       <div class="container">
         <div class="custom_nav2">
           <nav class="navbar navbar-expand-lg custom_nav-container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <!-- Botão Toggler -->
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav">
+            <!-- Links da Navbar -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
                   <a class="nav-link" href="{{ route('index') }}">Home</a>
                 </li>
@@ -191,20 +172,8 @@
 
   <!-- Scripts -->
   <script src="js/jquery-3.4.1.min.js"></script>
+  
   <script src="js/bootstrap.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const cartButton = document.getElementById('cart-button');
-      const cartSlideout = document.getElementById('cart-slideout');
-      const closeCartButton = document.getElementById('close-cart');
-      cartButton.addEventListener('click', function () {
-        cartSlideout.classList.add('open');
-      });
-      closeCartButton.addEventListener('click', function () {
-        cartSlideout.classList.remove('open');
-      });
-    });
-  </script>
 </body>
 
 </html>

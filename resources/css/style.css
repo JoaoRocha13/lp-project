@@ -1095,10 +1095,11 @@ a:focus {
 .footer_section a {
   color: #ffffff;
 }
-/* Registration Page Styles (Scoped to .registration-page) */
+/* ////////////////////////////////////////REGISTO/////////////////////////////////// */
+
 .registration-page {
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #2a397d, #764ba2); /* Yellowish to Dark Blue */
+  background-color: #2a397d; /* Cor sólida */
   margin: 0;
   padding: 0;
   display: flex;
@@ -1109,8 +1110,8 @@ a:focus {
 }
 
 .registration-page main {
-  width: 450px;
-  max-width: 100%;
+  max-width: 450px;
+  width: 90%;
   background-color: #ffffff;
   padding: 30px;
   border-radius: 10px;
@@ -1119,21 +1120,22 @@ a:focus {
   position: relative;
 }
 
-/* Icons on Both Sides */
-.registration-page .icon-left, .registration-page .icon-right {
+/* Ícones em ambos os lados */
+.registration-page .icon-left,
+.registration-page .icon-right {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 500px; /* Icon size */
+  width: 150px; /* Reduzido para telas menores */
   height: auto;
 }
 
 .registration-page .icon-left {
-  left: -480px; /* Adjust left offset */
+  left: -180px;
 }
 
 .registration-page .icon-right {
-  right: -480px; /* Adjust right offset */
+  right: -180px;
 }
 
 .registration-page h2 {
@@ -1154,7 +1156,8 @@ a:focus {
   text-align: left;
 }
 
-.registration-page input, .registration-page select {
+.registration-page input,
+.registration-page select {
   padding: 12px;
   font-size: 1em;
   border: 1px solid #ccc;
@@ -1162,7 +1165,8 @@ a:focus {
   transition: box-shadow 0.3s;
 }
 
-.registration-page input:focus, .registration-page select:focus {
+.registration-page input:focus,
+.registration-page select:focus {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   outline: none;
 }
@@ -1197,6 +1201,44 @@ a:focus {
   text-decoration: underline;
 }
 
+/* Responsividade */
+@media (max-width: 768px) {
+  .registration-page main {
+    padding: 20px;
+  }
+
+  .registration-page .icon-left,
+  .registration-page .icon-right {
+    display: none; /* Oculta os ícones para telas menores */
+  }
+
+  .registration-page h2 {
+    font-size: 1.8em;
+  }
+
+  .registration-page input,
+  .registration-page button {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-page h2 {
+    font-size: 1.5em;
+  }
+
+  .registration-page input,
+  .registration-page button {
+    font-size: 0.8em;
+    padding: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .registration-page .icon-left,
+  .registration-page .icon-right {
+      display: none; /* Remove ícones para telas menores */
+  }
+}
 /* Login Page Styles (Scoped to .login-page) */
 .login-page {
   font-family: 'Roboto', sans-serif;

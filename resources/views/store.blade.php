@@ -23,51 +23,50 @@
 
 <body class="sub_page">
   <div class="hero_area">
-    <!-- header section strats -->
-    <!-- Botão do carrinho no header -->
-<header class="header_section">
-  <div class="container">
-    <nav class="navbar navbar-expand-lg custom_nav-container">
-      <a class="navbar-brand" href="{{ route('index') }}">
-        <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px;" />
-        <span>
-          Bigode Grosso FC
-        </span>
-      </a>
-      <div class="profile_button-container d-flex align-items-center">
-    @if(auth()->check())
-        <!-- Botão Admin Tools -->
-        @if(auth()->user()->role === 'admin')
-            <a href="{{ route('admin') }}">
-                <button id="admin-tools-button" class="btn btn-secondary mr-2">
-                    Admin Tools
+  <!-- Header Section -->
+  <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <!-- Logo e Título -->
+          <a class="navbar-brand" href="{{ route('index') }}">
+            <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;" />
+            <span>Bigode Grosso FC</span>
+          </a>
+
+          <!-- Ícones de Perfil e Carrinho -->
+          <div class="navbar-icons d-flex align-items-center">
+            @if(auth()->check())
+              @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin') }}">
+                  <button id="admin-tools-button" class="btn btn-secondary me-2">Admin Tools</button>
+                </a>
+              @endif
+              <!-- Botão de Perfil -->
+              <a href="{{ route('profile') }}">
+                <button id="profile-button" class="profile-button">
+                  <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/profile.png') }}" 
+                       alt="Profile" 
+                       class="rounded-circle" 
+                       style="width: 40px; height: 40px; object-fit: cover;">
                 </button>
+              </a>
+            @else
+              <!-- Botão de Registro -->
+              <a href="{{ route('registo') }}">
+                <button id="profile-button" class="profile-button">
+                  <img src="{{ asset('images/profile.png') }}" alt="Default Profile Icon">
+                </button>
+              </a>
+            @endif
+
+            <!-- Botão de Carrinho -->
+            <a href="{{ route('checkout') }}" class="cart-button">
+              <img src="{{ asset('images/cart-icon.png') }}" alt="Cart" style="width: 40px; height: 40px;">
             </a>
-        @endif
-        <!-- Usuário logado: Botão de perfil -->
-        <a href="{{ route('profile') }}">
-            <button id="profile-button" class="profile-button">
-                <img src="{{ asset('images/profile.png') }}" alt="" />
-            </button>
-        </a>
-    @else
-        <!-- Usuário não logado: Botão de registro -->
-        <a href="{{ route('registo') }}">
-            <button id="profile-button" class="profile-button">
-                <img src="{{ asset('images/profile.png') }}" alt="" />
-            </button>
-        </a>
-    @endif
-</div>
-      <!-- Botão do carrinho -->
-      <div class="cart_button-container">
-        <button id="cart-button" class="cart-button">
-          <img src="{{ asset('images/cart-icon.png') }}" alt="" />
-        </button>
+          </div>
+        </nav>
       </div>
-    </nav>
-  </div>
-</header>
+    </header>
 
 <!-- Slide-out do carrinho -->
 <div id="cart-slideout" class="cart-slideout">
@@ -203,23 +202,7 @@
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
 
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const cartButton = document.getElementById('cart-button');
-    const cartSlideout = document.getElementById('cart-slideout');
-    const closeCartButton = document.getElementById('close-cart');
-
-    // Abre o carrinho
-    cartButton.addEventListener('click', function () {
-      cartSlideout.classList.add('open');
-    });
-
-    // Fecha o carrinho
-    closeCartButton.addEventListener('click', function () {
-      cartSlideout.classList.remove('open');
-    });
-  });
-</script>
+  
 </body>
 
 </html>
