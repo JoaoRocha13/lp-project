@@ -93,24 +93,34 @@ public function AddNewGame(Request $request) {
         'team_a' => 'required|string|max:50',
         'team_b' => 'required|string|max:50',
         'game_date' => 'required|date',
-        'game_location' => 'required|string|max:100',
+        'local' => 'required|string|max:100', 
         'ticket_price' => 'required|numeric|min:0',
         'tickets_available' => 'required|integer|min:0',
     ]);
-
-    // Criação do novo jogo no banco de dados
+    
+    // Criação do novo jogo na bd
     Game::create([
         'team_a' => $request->input('team_a'),
         'team_b' => $request->input('team_b'),
         'game_date' => $request->input('game_date'),
-        'game_location' => $request->input('game_location'),
+        'local' => $request->input('local'),
         'ticket_price' => $request->input('ticket_price'),
         'tickets_available' => $request->input('tickets_available'),
     ]);
+    
 
     return redirect()->route('admin')->with('section', 'postGamesSection')->with('success', 'Game added successfully!');
     
 }
+
+public function deleteGame($id)
+{
+    $game = Game::findOrFail($id); // Localiza o jogo pelo ID
+    $game->delete(); // Deleta o jogo
+    return redirect()->route('admin')->with('success', 'Game removed successfully!');
+}
+
+
 public function storeNews(Request $request)
 {
     // Validação dos dados recebidos
