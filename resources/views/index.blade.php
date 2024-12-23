@@ -15,92 +15,65 @@
 </head>
 
 <body>
+<body class="home-page">
   <div class="hero_area">
     <!-- Header Section -->
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container">
+          <!-- Logo e Título -->
           <a class="navbar-brand" href="{{ route('index') }}">
-            <img src="{{ asset('images/icon.png') }}" alt="" style="width: 75px; height: 50px;">
+            <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;" />
             <span>Bigode Grosso FC</span>
           </a>
-          <div class="profile_button-container">
+
+          <!-- Ícones de Perfil e Carrinho -->
+          <div class="navbar-icons d-flex align-items-center">
             @if(auth()->check())
+              @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin') }}">
+                  <button id="admin-tools-button" class="btn btn-secondary me-2">Admin Tools</button>
+                </a>
+              @endif
+              <!-- Botão de Perfil -->
               <a href="{{ route('profile') }}">
-                <button id="profile-button" class="profile-button" style="border: none; background: none;">
-                  @if(auth()->user()->profile_photo)
-                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
-                         alt="{{ auth()->user()->name }}" 
-                         class="rounded-circle" 
-                         style="width: 40px; height: 40px; object-fit: cover;">
-                  @else
-                    <img src="{{ asset('images/profile.png') }}" 
-                         alt="Default Profile" 
-                         class="rounded-circle" 
-                         style="width: 40px; height: 40px; object-fit: cover;">
-                  @endif
-                </button>
-              </a>
-            @else
-              <a href="{{ route('registo') }}">
                 <button id="profile-button" class="profile-button">
-                  <img src="{{ asset('images/profile.png') }}" 
-                       alt="Default Profile" 
+                  <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/profile.png') }}" 
+                       alt="Profile" 
                        class="rounded-circle" 
                        style="width: 40px; height: 40px; object-fit: cover;">
                 </button>
               </a>
+            @else
+              <!-- Botão de Registro -->
+              <a href="{{ route('registo') }}">
+                <button id="profile-button" class="profile-button">
+                  <img src="{{ asset('images/profile.png') }}" alt="Default Profile Icon">
+                </button>
+              </a>
             @endif
-          </div>
-          <div class="cart_button-container">
-            <button id="cart-button" class="cart-button">
-              <img src="{{ asset('images/cart-icon.png') }}" alt="">
-            </button>
+
+            <!-- Botão de Carrinho -->
+            <a href="{{ route('checkout') }}" class="cart-button">
+              <img src="{{ asset('images/cart-icon.png') }}" alt="Cart" style="width: 40px; height: 40px;">
+            </a>
           </div>
         </nav>
       </div>
     </header>
-
-    <!-- Cart Slideout -->
-    <div id="cart-slideout" class="cart-slideout">
-      <div class="cart-header">
-        <h4>Your Cart</h4>
-        <button id="close-cart" class="close-cart">&times;</button>
-      </div>
-      <div class="cart-items">
-        <!-- Example Cart Item -->
-        <div class="cart-item">
-          <div class="cart-item-image">
-            <img src="{{ asset('images/product1.jpg') }}" alt="Product">
-          </div>
-          <div class="cart-item-details">
-            <h5>Product Name</h5>
-            <p>$20.00</p>
-            <div class="cart-item-controls">
-              <button class="quantity-btn decrease">-</button>
-              <span class="quantity">1</span>
-              <button class="quantity-btn increase">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cart-footer">
-        <form action="{{ route('checkout') }}" method="GET">
-          <button type="submit" class="checkout-btn">Checkout</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Slider Section -->
+    
+    <!-- Navbar Amarela -->
     <section class="slider_section position-relative">
       <div class="container">
         <div class="custom_nav2">
           <nav class="navbar navbar-expand-lg custom_nav-container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <!-- Botão Toggler -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav">
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mx-auto">
                 <li class="nav-item active"><a class="nav-link" href="#resultSection">Map</a></li>
                 <li class="nav-item"><a class="nav-link" href="#aboutSection">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#serviceSection">Tickets</a></li>
@@ -165,15 +138,23 @@
 
     <!-- Result Section -->
     <section id="resultSection" class="result_section">
-      <div class="col-md-6">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
         <div class="map_container">
           <div class="map-responsive">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.524402799665!2d-34.9247716902675!3d-8.149800865357298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7aae188fe3e6c31%3A0x856b8e019ffe763!2sCampo%20De%20Futebol%20Dos%20Guararapes!5e0!3m2!1sen!2sus!4v1732291246630!5m2!1sen!2sus" width="800" height="300" frameborder="0" style="border:0; width: 100%; height:100%" allowfullscreen></iframe>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.524402799665!2d-34.9247716902675!3d-8.149800865357298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7aae188fe3e6c31%3A0x856b8e019ffe763!2sCampo%20De%20Futebol%20Dos%20Guararapes!5e0!3m2!1sen!2sus!4v1732291246630!5m2!1sen!2sus" 
+              frameborder="0" 
+              style="border:0; width: 100%; height: 100%;" 
+              allowfullscreen>
+            </iframe>
           </div>
         </div>
       </div>
-    </section>
-
+    </div>
+  </div>
+</section>
     <!-- Client Section -->
     <section id="clientsection" class="client_section layout_padding">
       <div class="container">
@@ -208,29 +189,22 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contactSection" class="contact_section layout_padding">
-      <div class="container">
-        <div class="heading_container">
-          <h2>Leave a comment</h2>
-        </div>
-        <div class="layout_padding2-top">
-          <div class="row">
-            <div class="col-md-6">
-              <form action="{{ route('comments.store') }}" method="POST">
-                @csrf
-                <div class="contact_form-container">
-                  <textarea name="message" placeholder="Message" required></textarea>
-                  <button type="submit">Send</button>
-                </div>
-              </form>
-              @if(session('success'))
-                <p class="text-success">{{ session('success') }}</p>
-              @endif
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Contact Section -->
+<section id="contactSection" class="contact_section">
+  <div class="heading_container">
+    <h2>Leave a comment</h2>
+  </div>
+  <div class="contact_form-container">
+    <form action="{{ route('comments.store') }}" method="POST">
+      @csrf
+      <textarea name="message" placeholder="Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    @if(session('success'))
+      <p class="text-success">{{ session('success') }}</p>
+    @endif
+  </div>
+</section>
 
     <!-- Info Section -->
     <section class="info_section layout_padding2-top">
@@ -256,22 +230,8 @@
     <!-- Scripts -->
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const cartButton = document.getElementById('cart-button');
-        const cartSlideout = document.getElementById('cart-slideout');
-        const closeCartButton = document.getElementById('close-cart');
-
-        cartButton.addEventListener('click', function () {
-          cartSlideout.classList.add('open');
-        });
-
-        closeCartButton.addEventListener('click', function () {
-          cartSlideout.classList.remove('open');
-        });
-      });
-    </script>
-  </div>
+    </div>
+</body>
 </body>
 
 </html>

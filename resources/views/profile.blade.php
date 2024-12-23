@@ -14,78 +14,54 @@
 </head>
 
 <body class="sub_page profile-page">
-  <div class="hero_area">
+<div class="hero_area">
 
-    <!-- Header Section -->
-    <header class="header_section">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="{{ route('index') }}">
-            <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;">
-            <span>Bigode Grosso FC</span>
-          </a>
+<!-- Header Section -->
+<header class="header_section">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg custom_nav-container">
+      <!-- Logo e Título -->
+      <a class="navbar-brand" href="{{ route('index') }}">
+        <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;" />
+        <span>Bigode Grosso FC</span>
+      </a>
 
-          <div class="profile_button-container d-flex align-items-center">
-            @if(auth()->check())
-              @if(auth()->user()->role === 'admin')
-                <a href="{{ route('admin') }}">
-                  <button id="admin-tools-button" class="btn btn-secondary me-2">Admin Tools</button>
-                </a>
-              @endif
-              <a href="{{ route('profile') }}">
-                <button id="profile-button" class="profile-button">
-                  <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/profile.png') }}" 
-                       alt="Profile" 
-                       class="rounded-circle" 
-                       style="width: 40px; height: 40px; object-fit: cover;">
-                </button>
-              </a>
-            @else
-              <a href="{{ route('registo') }}">
-                <button id="profile-button" class="profile-button">
-                  <img src="{{ asset('images/profile.png') }}" alt="Default Profile Icon">
-                </button>
-              </a>
-            @endif
-          </div>
-
-          <div class="cart_button-container">
-            <button id="cart-button" class="cart-button">
-              <img src="{{ asset('images/cart-icon.png') }}" alt="">
+      <!-- Ícones de Perfil e Carrinho -->
+      <div class="navbar-icons d-flex align-items-center">
+        @if(auth()->check())
+          @if(auth()->user()->role === 'admin')
+            <a href="{{ route('admin') }}">
+              <button id="admin-tools-button" class="btn btn-secondary me-2">Admin Tools</button>
+            </a>
+          @endif
+          <!-- Botão de Perfil -->
+          <a href="{{ route('profile') }}">
+            <button id="profile-button" class="profile-button">
+              <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/profile.png') }}" 
+                   alt="Profile" 
+                   class="rounded-circle" 
+                   style="width: 40px; height: 40px; object-fit: cover;">
             </button>
-          </div>
-        </nav>
-      </div>
-    </header>
+          </a>
+        @else
+          <!-- Botão de Registro -->
+          <a href="{{ route('registo') }}">
+            <button id="profile-button" class="profile-button">
+              <img src="{{ asset('images/profile.png') }}" alt="Default Profile Icon">
+            </button>
+          </a>
+        @endif
 
-    <!-- Cart Slide-out -->
-    <div id="cart-slideout" class="cart-slideout">
-      <div class="cart-header">
-        <h4>Your Cart</h4>
-        <button id="close-cart" class="close-cart">&times;</button>
+        <!-- Botão de Carrinho -->
+        <a href="{{ route('checkout') }}" class="cart-button">
+          <img src="{{ asset('images/cart-icon.png') }}" alt="Cart" style="width: 40px; height: 40px;">
+        </a>
       </div>
-      <div class="cart-items">
-        <div class="cart-item">
-          <div class="cart-item-image">
-            <img src="{{ asset('images/product1-jpg') }}" alt="Product">
-          </div>
-          <div class="cart-item-details">
-            <h5>Product Name</h5>
-            <p>$20.00</p>
-            <div class="cart-item-controls">
-              <button class="quantity-btn decrease">-</button>
-              <span class="quantity">1</span>
-              <button class="quantity-btn increase">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cart-footer">
-        <form action="{{ route('checkout') }}" method="GET">
-          <button type="submit" class="checkout-btn">Checkout</button>
-        </form>
-      </div>
-    </div>
+    </nav>
+  </div>
+</header>
+</div>
+
 
     <!-- Profile Section -->
     <div class="container-fluid">
@@ -200,19 +176,6 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const cartButton = document.getElementById('cart-button');
-      const cartSlideout = document.getElementById('cart-slideout');
-      const closeCartButton = document.getElementById('close-cart');
-
-      cartButton.addEventListener('click', function () {
-        cartSlideout.classList.add('open');
-      });
-
-      closeCartButton.addEventListener('click', function () {
-        cartSlideout.classList.remove('open');
-      });
-    });
   </script>
 </body>
 
