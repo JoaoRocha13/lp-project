@@ -88,34 +88,35 @@
   <!-- Service Section -->
   <section class="service_section layout_padding" style="display: flex; gap: 20px; align-items: flex-start;">
     <div class="container" style="display: flex; flex-wrap: wrap;">
-      <div class="left_side" style="flex: 1; text-align: center;">
-        <img src="{{ asset('images/campo.jpg') }}" alt="Field" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-      </div>
-      <div class="right_side" style="flex: 1; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        <h2 style="text-align: center;">History of Previous Games</h2>
-        @foreach($previousGames as $game)
-          <div class="game_record" style="display: flex; align-items: center; margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-            <div style="flex: 1; text-align: center;">
-              @if($game->team_a_logo)
-                <img src="{{ asset('storage/images/' . $game->team_a_logo) }}" alt="Team A Logo" style="width: 70px; height: 70px; border-radius: 50%;">
-              @endif
-              <p>{{ $game->team_a }}</p>
+        <div class="left_side" style="flex: 1; text-align: center;">
+            <img src="{{ asset('images/campo.jpg') }}" alt="Field" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+        </div>
+        <div class="right_side" style="flex: 1; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-height: 850px; overflow-y: auto;">
+            <h2 style="text-align: center;">History of Previous Games</h2>
+            @foreach($previousGames as $game)
+            <div class="game_record" style="display: flex; align-items: center; margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <div style="flex: 1; text-align: center;">
+                    @if($game->team_a_logo)
+                    <img src="{{ asset('storage/images/' . $game->team_a_logo) }}" alt="Team A Logo" style="width: 70px; height: 70px; border-radius: 50%;">
+                    @endif
+                    <p>{{ $game->team_a }}</p>
+                </div>
+                <div style="flex: 1; text-align: center; font-size: 18px;">
+                    <p>{{ $game->score_a }} - {{ $game->score_b }}</p>
+                    <p style="font-size: 14px;">Date: {{ $game->game_date }}</p>
+                </div>
+                <div style="flex: 1; text-align: center;">
+                    @if($game->team_b_logo)
+                    <img src="{{ asset('storage/images/' . $game->team_b_logo) }}" alt="Team B Logo" style="width: 70px; height: 70px; border-radius: 50%;">
+                    @endif
+                    <p>{{ $game->team_b }}</p>
+                </div>
             </div>
-            <div style="flex: 1; text-align: center; font-size: 18px;">
-              <p>{{ $game->score_a }} - {{ $game->score_b }}</p>
-              <p style="font-size: 14px;">Date: {{ $game->game_date }}</p>
-            </div>
-            <div style="flex: 1; text-align: center;">
-              @if($game->team_b_logo)
-                <img src="{{ asset('storage/images/' . $game->team_b_logo) }}" alt="Team B Logo" style="width: 70px; height: 70px; border-radius: 50%;">
-              @endif
-              <p>{{ $game->team_b }}</p>
-            </div>
-          </div>
-        @endforeach
-      </div>
+            @endforeach
+        </div>
     </div>
-  </section>
+</section>
+
 
   <!-- Updates Section -->
   <section id="updatesSection" class="updates_section layout_padding" style="background: #f9f9f9; padding: 40px 20px;">
@@ -142,6 +143,9 @@
             </div>
           </div>
         @endforeach
+        <div id="pagination-links" style="text-align: center;">
+          {{ $news->links('pagination::bootstrap-4') }}
+      </div>
       </div>
       @if($news->isEmpty())
         <p style="text-align: center;">No updates available at the moment.</p>

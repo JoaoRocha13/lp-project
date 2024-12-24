@@ -164,7 +164,7 @@ public function about()
 {
     // Obter todos os jogos anteriores e notícias
     $previousGames = PreviousGame::all();
-    $news = News::all();
+    $news = News::paginate(3);
 
     // Retornar a view com os dados
     return view('about', compact('previousGames', 'news'));
