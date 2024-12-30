@@ -69,11 +69,12 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/previous-games', [AdminController::class, 'showPreviousGames'])->name('admin.previousGames');
     Route::delete('/admin/previous-games/{id}', [AdminController::class, 'deletePreviousGame'])->name('admin.previousGames.delete');
     Route::delete('/admin/news/{id}', [AdminController::class, 'deleteNews'])->name('admin.news.delete');
-    Route::get('/admin/products', [AdminController::class, 'index'])->name('admin.products');
-    Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.products');
+    Route::get('/admin/products', [AdminController::class, 'index'])->name('admin.products.index');
+    Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');
     Route::delete('/admin/products/{id}', [AdminController::class, 'destroy'])->name('admin.products.delete');
-    Route::get('/admin/games', [AdminController::class, 'index'])->name('admin.games');
-    Route::post('/admin/games', [AdminController::class, 'AddNewGame'])->name('admin.games');
+    Route::get('/admin/games', [AdminController::class, 'index'])->name('admin.games.index');
+    Route::post('/admin/games', [AdminController::class, 'AddNewGame'])->name('admin.games.store');
+    Route::delete('/admin/games/{id}', [AdminController::class, 'deleteGame'])->name('admin.games.delete');
 
 });
  // Rota para promover usuários a admin

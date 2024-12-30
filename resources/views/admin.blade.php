@@ -266,31 +266,31 @@
 <!-- Games Section -->
 <div id="postGamesSection" class="section-container" style="display: none;">
   <h2>Post Games</h2>
-  <form action = "{{ route('admin.games') }}" method="POST">
+  <form action="{{ route('admin.games.store') }}" method="POST">
     @csrf
     <div class="form-group">
-      <label for="teamA">Team A</label>
+      <label for="team_a">Team A</label>
       <input type="text" class="form-control" id="teamA" name="team_a" placeholder="Enter team A" required>
     </div>
     <div class="form-group">
-      <label for="teamB">Team B</label>
+      <label for="team_b">Team B</label>
       <input type="text" class="form-control" id="teamB" name="team_b" placeholder="Enter team B" required>
     </div>
     <div class="form-group">
-      <label for="gameDate">Date e Hora</label>
-      <input type="datetime-local" class="form-control" id="gameDate" name="game_date" required>
+      <label for="game_date">Date e Hora</label>
+      <input type="datetime-local" class="form-control" id="game_date" name="game_date" required>
     </div>
     <div class="form-group">
-      <label for="place">Place</label>
-      <input type="text" class="form-control" id="place" name="place" placeholder="Enter place" required>
+      <label for="local">Place</label>
+      <input type="text" class="form-control" id="local" name="local" placeholder="Enter place" required>
     </div>
     <div class="form-group">
-      <label for="Price">Price</label>
-      <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" required>
+      <label for="ticket_price">Price</label>
+      <input type="number" class="form-control" id="price" name="ticket_price" placeholder="Enter price" required>
     </div>
     <div class="form-group">
-      <label for="tickets">Tickets</label>
-      <input type="intiger" class="form-control" id="tickets" name="tickets" placeholder="Enter number of tickets" required>
+      <label for="tickets_available">Tickets</label>
+      <input type="number" class="form-control" id="tickets" name="tickets_available" placeholder="Enter number of tickets" required>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
@@ -300,20 +300,27 @@
       <tr>
         <th>Match</th>
         <th>Date</th>
-        <th>Place</th>
+        <th>Local</th>
         <th>Price</th>
+        <th>Tickets Available</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr>
           @forelse($games as $game)
-          <td>{{ $game->team_a }} vs. {{ $game->team_b }}</td>
+          <td>{{ $game->team_a }} vs {{ $game->team_b }}</td>
           <td>{{ $game->game_date }}</td>
-          <td>{{ $game->place }}</td>
-          <td>{{ $game->price }}</td>
-          <td>{{ $game->tickets }}</td>          
-      </tr>
+          <td>{{ $game->local }}</td>
+          <td>{{ $game->ticket_price }}</td>
+          <td>{{ $game->tickets_available }}</td>
+          <td>
+            <form action="{{ route('admin.games.delete', $game->id) }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </tr>
       @empty
         <tr>
           <td colspan="5">No games found.</td>
@@ -326,7 +333,7 @@
 <!-- Post Store Items Section -->
 <div id="postItemsSection" class="section-container"  style="display: none;">
   <h2>Post Store Items</h2>
-  <form action="{{ route('admin.products') }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <label for="name">Product Name</label>
