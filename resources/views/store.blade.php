@@ -73,30 +73,27 @@
     </header>
     <!-- end header section -->
     <!-- slider section -->
-    <section class=" slider_section position-relative">
+    <!-- Navbar Amarela -->
+    <section class="slider_section position-relative">
       <div class="container">
         <div class="custom_nav2">
-          <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <nav class="navbar navbar-expand-lg custom_nav-container">
+            <!-- Botão Toggler -->
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <div class="d-flex  flex-column flex-lg-row align-items-center">
-                <ul class="navbar-nav  ">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('index') }}">Home <span class="sr-only">(current)</span></a>
-                  </li>
-                  
-                </ul>
-              </div>
+            <!-- Links da Navbar -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{ route('index') }}">Home</a>
+                </li>
+              </ul>
             </div>
           </nav>
         </div>
       </div>
     </section>
-    <!-- end slider section -->
   </div>
 
   <section class="store_section layout_padding" style="padding: 40px 20px;">
