@@ -17,7 +17,7 @@
             <button type="submit">Reenviar Email de Verificação</button>
         </form>
 
-        <p>Já verificou o email? <a href="{{ route('index') }}">Ir para homepage</a></p>
+        <p>Já verificou o email? <a href="{{ route('home') }}">Ir para homepage</a></p>
     </div>
 </body>
 </html>

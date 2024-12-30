@@ -19,7 +19,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container">
           <!-- Logo e Título -->
-          <a class="navbar-brand" href="{{ route('index') }}">
+          <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;" />
             <span>Bigode Grosso FC</span>
           </a>
@@ -69,7 +69,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{{ route('index') }}">Home</a>
+                  <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ route('store') }}">Store</a>

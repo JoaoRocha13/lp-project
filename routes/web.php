@@ -6,12 +6,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\GameController;
-use App\Http\Controllers\TicketController;
 use App\Http\Controllers\FaturaController;
-use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
@@ -38,9 +34,9 @@ Route::get('/registo', function () {
     return view('registo');
 })->name('registo');
 
-Route::get('/index', function () {
-    return view('index');
-})->name('index');
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
 
 Route::get('/about', function () {
     return view('about');
@@ -90,7 +86,7 @@ Route::post('/logout', function () {
     Auth::logout(); // Faz o logout do usuário
     request()->session()->invalidate(); // Invalida a sessão
     request()->session()->regenerateToken(); // Regenera o token CSRF
-    return redirect()->route('index'); // Redireciona para a página inicial
+    return redirect()->route('home'); // Redireciona para a página inicial
 })->name('logout');
 
 //comments
@@ -98,10 +94,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
-Route::get('/index', [CommentController::class, 'index'])->name('index');
+// Route para a home com comentários
+Route::get('/home', [CommentController::class, 'index'])->name('home');
 
-// Rotas para os tickets
-Route::get('/tickets', [TicketController::class, 'index']);
+
+
 
 Route::get('/store', [AdminController::class, 'showStore'])->name('store');
 
@@ -117,7 +114,7 @@ Route::get('/faturas', [FaturaController::class, 'index']);
 // Rota para processar o link de verificação
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill(); // Marca o email como verificado
-    return redirect()->route('index')->with('success', 'Email verificado com sucesso!');
+    return redirect()->route('home')->with('success', 'Email verificado com sucesso!');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 // Aviso para verificar email

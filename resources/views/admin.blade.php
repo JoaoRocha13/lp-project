@@ -22,7 +22,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container">
           <!-- Logo e Título -->
-          <a class="navbar-brand" href="{{ route('index') }}">
+          <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/icon.png') }}" alt="Logo"  />
             <span>Bigode Grosso FC</span>
           </a>

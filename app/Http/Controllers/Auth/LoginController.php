@@ -20,7 +20,7 @@ class LoginController extends Controller
         if (Auth::attempt(['name' => $credentials['username'], 'password' => $credentials['password']])) {
             // Redirecionar para a página inicial após sucesso
             $request->session()->regenerate();
-            return redirect()->intended('index')->with('success', 'Login realizado com sucesso!');
+            return redirect()->intended('home')->with('success', 'Login realizado com sucesso!');
         }
 
         // Se falhar, retornar com mensagem de erro

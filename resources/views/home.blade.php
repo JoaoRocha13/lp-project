@@ -22,7 +22,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container">
           <!-- Logo e Título -->
-          <a class="navbar-brand" href="{{ route('index') }}">
+          <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/icon.png') }}" alt="Logo" style="width: 75px; height: 50px;" />
             <span>Bigode Grosso FC</span>
           </a>
@@ -103,38 +103,38 @@
       </div>
     </section>
 
-    <!-- Tickets Section -->
-    <section id="serviceSection" class="tickets_section layout_padding">
-      <div class="container">
+    <!-- Games Section -->
+   <!-- Games Section -->
+<section id="gamesSection" class="games_section layout_padding">
+    <div class="container">
         <div class="heading_container">
-          <h2>Available Tickets</h2>
+            <h2>Upcoming Games</h2>
         </div>
-        <div class="tickets_container">
-          <div class="ticket_box">
-            <div class="ticket_details">
-              <h3>Match: Team A vs. Team B</h3>
-              <p>Date: December 10, 2024</p>
-              <p>Place: Stadium XYZ</p>
-              <p>Price: $50.00</p>
-            </div>
-            <div class="ticket_action">
-              <button class="add_to_cart_btn">Add to Cart</button>
-            </div>
-          </div>
-          <div class="ticket_box">
-            <div class="ticket_details">
-              <h3>Match: Team C vs. Team D</h3>
-              <p>Date: December 15, 2024</p>
-              <p>Place: Arena ABC</p>
-              <p>Price: $65.00</p>
-            </div>
-            <div class="ticket_action">
-              <button class="add_to_cart_btn">Add to Cart</button>
-            </div>
-          </div>
+        <div class="row">
+            @forelse($games as $game)
+                <div class="col-md-4 mb-4">
+                    <div class="card p-3 shadow-sm">
+                        <h5 class="text-center">{{ $game->team_a }} vs {{ $game->team_b }}</h5>
+                        <p class="text-center text-muted">{{ \Carbon\Carbon::parse($game->game_date)->format('d M, Y - H:i') }}</p>
+                        <p class="text-center">Location: {{ $game->local }}</p>
+                        <p class="text-center">Tickets: {{ $game->tickets_available }}</p>
+                        <form action="{{ route('cart.add') }}" method="POST" class="text-center">
+                            @csrf
+                            <input type="hidden" name="game_id" value="{{ $game->id }}">
+                            <input type="hidden" name="ticket_price" value="{{ $game->ticket_price }}">
+                            <button type="submit" class="btn btn-primary mt-2">Buy Ticket</button>
+                        </form>
+                    </div>
+                </div>
+            @empty
+                <p class="text-center">No upcoming games available.</p>
+            @endforelse
+            <div class="d-flex justify-content-center mt-4">
+          {{ $games->links('pagination::bootstrap-4') }}
         </div>
-      </div>
-    </section>
+        </div>
+    </div>
+</section>
 
     <!-- Result Section -->
     <section id="resultSection" class="result_section">
@@ -155,38 +155,42 @@
     </div>
   </div>
 </section>
-    <!-- Client Section -->
-    <section id="clientsection" class="client_section layout_padding">
-      <div class="container">
+   <!-- Comments Section -->
+<section id="clientsection" class="client_section layout_padding">
+    <div class="container">
         <div class="heading_container">
-          <h2>What Says Our Customers</h2>
+            <h2>What Says Our Customers</h2>
         </div>
         <div class="row">
-          @foreach($comments as $comment)
-            <div class="col-md-4 mb-4">
-              <div class="card p-3 shadow-sm">
-                <div class="text-center mb-3">
-                  @if($comment->user->profile_photo && file_exists(public_path('storage/profile_photos/' . $comment->user->name . '.jpg')))
-                    <img src="{{ asset('storage/profile_photos/' . $comment->user->name . '.jpg') }}" 
-                         alt="{{ $comment->user->name }}" 
-                         class="rounded-circle" 
-                         style="width: 60px; height: 60px; object-fit: cover;">
-                  @else
-                    <img src="{{ asset('images/profile.png') }}" 
-                         alt="Default Profile" 
-                         class="rounded-circle" 
-                         style="width: 60px; height: 60px; object-fit: cover;">
-                  @endif
-                </div>
-                <h5 class="text-center">{{ $comment->user->name }}</h5>
-                <p class="text-muted text-center">{{ $comment->created_at->format('d M, Y') }}</p>
-                <p class="text-center">{{ $comment->message }}</p>
-              </div>
-            </div>
-          @endforeach
+            @if(isset($comments) && $comments->isNotEmpty())
+                @foreach($comments as $comment)
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3 shadow-sm">
+                            <div class="text-center mb-3">
+                                @if($comment->user && $comment->user->profile_photo)
+                                    <img src="{{ asset('storage/' . $comment->user->profile_photo) }}" 
+                                         alt="{{ $comment->user->name }}" 
+                                         class="rounded-circle" 
+                                         style="width: 60px; height: 60px; object-fit: cover;">
+                                @else
+                                    <img src="{{ asset('images/profile.png') }}" 
+                                         alt="Default Profile" 
+                                         class="rounded-circle" 
+                                         style="width: 60px; height: 60px; object-fit: cover;">
+                                @endif
+                            </div>
+                            <h5 class="text-center">{{ $comment->user->name }}</h5>
+                            <p class="text-muted text-center">{{ $comment->created_at->format('d M, Y') }}</p>
+                            <p class="text-center">{{ $comment->message }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <p class="text-center">No comments available.</p>
+            @endif
         </div>
-      </div>
-    </section>
+    </div>
+</section>
 
     <!-- Contact Section -->
     <!-- Contact Section -->

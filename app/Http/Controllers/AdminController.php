@@ -1,18 +1,25 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Models\PreviousGame;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Ticket;
 use App\Models\Game;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        // Compartilha jogos futuros com todas as views
+        View::share('games', Game::where('game_date', '>=', now())->latest()->get());
+    }
+
+    
     public function index()
 {
     $users = User::all(); // Obtém todos os usuários
@@ -205,6 +212,13 @@ public function showStore()
     $products = Product::all(); // Carregar todos os produtos
     return view('store', compact('products'));
 }
+public function showGames()
+{
+    // Pega apenas os jogos futuros, ordenados por data
+    $games = Game::paginate(6);
 
+    // Retorna para a view home
+    return view('home', compact('games'));
+}
 }
 

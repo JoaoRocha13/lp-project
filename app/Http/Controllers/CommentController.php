@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Game;
 
 
 class CommentController extends Controller
@@ -20,12 +21,15 @@ class CommentController extends Controller
             'message' => $request->message,
         ]);
 
-        return redirect()->back()->with('success', 'Comment added successfully!');
+        return redirect()->route('home')->with('success', 'Comment added successfully!');
     }
 
     public function index()
-    {
-        $comments = Comment::with('user')->latest()->get();
-        return view('index', compact('comments'));
-    }
+{
+    $comments = Comment::with('user')->latest()->get(); // Busca os comentários mais recentes
+    $games = Game::paginate(6); // Busca os jogos com paginação
+
+    // Passa as variáveis para a view
+    return view('home', compact('comments', 'games'));
+}
 }
