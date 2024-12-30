@@ -15,12 +15,17 @@ class PreviousGame extends Model
      * @var array
      */
     protected $fillable = [
-        'jogo_id',
-        'time_a',
-        'time_b',
-        'placar_a',
-        'placar_b',
-        'data',
+        'game_id',
+        'team_a',
+        'team_b',
+        'score_a',
+        'score_b',
+        'game_date',
+        'local', // Adicionado
+        'ticket_price', // Adicionado
+        'tickets_available', // Adicionado
+        'team_a_logo', // Adicionado
+        'team_b_logo', // Adicionado
     ];
 
     public function game()

@@ -60,10 +60,10 @@ Route::middleware(['auth'])->group(function () {
 // Rotas protegidas (Autenticadas e Administrativas)
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    Route::post('/admin/storePreviousGame', [AdminController::class, 'storePreviousGame'])->name('admin.store.previousGames');
-    Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store'); 
+    Route::post('/admin/previous-games', [AdminController::class, 'storePreviousGame'])->name('admin.previousGames.store');
     Route::get('/admin/previous-games', [AdminController::class, 'showPreviousGames'])->name('admin.previousGames');
     Route::delete('/admin/previous-games/{id}', [AdminController::class, 'deletePreviousGame'])->name('admin.previousGames.delete');
+    Route::post('/admin/storeNews', [AdminController::class, 'storeNews'])->name('admin.news.store'); 
     Route::delete('/admin/news/{id}', [AdminController::class, 'deleteNews'])->name('admin.news.delete');
     Route::get('/admin/products', [AdminController::class, 'index'])->name('admin.products.index');
     Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');

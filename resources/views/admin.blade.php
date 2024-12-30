@@ -129,8 +129,8 @@
 <!-- Section for listing and removing Previous Games -->
 <div id="postPreviousGamesSection" class="section-container" style="display: none;">
     <h2>Post Previous Games</h2>
-    <form action="{{ route('admin.previousGames') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+    <form action="{{ route('admin.previousGames.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
         <div class="form-group">
             <label for="teamA">Team A Name</label>
             <input type="text" class="form-control" name="team_a" id="teamA" placeholder="Enter Team A name" required>
@@ -159,8 +159,20 @@
             <label for="gameDate">Date</label>
             <input type="date" class="form-control" name="game_date" id="gameDate" required>
         </div>
-        <button type="submit" class="btn btn-primary">Post Game</button>
-    </form>
+        <div class="form-group">
+        <label for="local">Game Location</label>
+        <input type="text" class="form-control" name="local" id="local" placeholder="Enter game location" required>
+    </div>
+    <div class="form-group">
+        <label for="ticketPrice">Ticket Price</label>
+        <input type="number" class="form-control" name="ticket_price" id="ticketPrice" placeholder="Enter ticket price" required>
+    </div>
+    <div class="form-group">
+        <label for="ticketsAvailable">Tickets Available</label>
+        <input type="number" class="form-control" name="tickets_available" id="ticketsAvailable" placeholder="Enter number of tickets available" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Post Game</button>
+</form>
     
     <h3>List Previous Games</h3>
     <table class="table table-striped">
@@ -171,7 +183,7 @@
                 <th>Score</th>
                 <th>Date</th>
                 <th>Actions</th>
-            </tr>
+                 </tr>
         </thead>
         <tbody>
             @forelse($previousGames as $game)

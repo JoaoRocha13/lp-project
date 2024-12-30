@@ -94,7 +94,7 @@
             <div class="game_record" style="display: flex; align-items: center; margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
                 <div style="flex: 1; text-align: center;">
                     @if($game->team_a_logo)
-                    <img src="{{ asset('storage/images/' . $game->team_a_logo) }}" alt="Team A Logo" style="width: 70px; height: 70px; border-radius: 50%;">
+                    <img src="{{ asset('storage/' . $game->team_a_logo) }}" alt="Team A Logo" style="width: 70px; height: 70px; border-radius: 50%;">
                     @endif
                     <p>{{ $game->team_a }}</p>
                 </div>
@@ -104,7 +104,7 @@
                 </div>
                 <div style="flex: 1; text-align: center;">
                     @if($game->team_b_logo)
-                    <img src="{{ asset('storage/images/' . $game->team_b_logo) }}" alt="Team B Logo" style="width: 70px; height: 70px; border-radius: 50%;">
+                    <img src="{{ asset('storage/' . $game->team_b_logo) }}" alt="Team B Logo" style="width: 70px; height: 70px; border-radius: 50%;">
                     @endif
                     <p>{{ $game->team_b }}</p>
                 </div>
