@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\StripeController;
 
 
 // Upload de fotos
@@ -110,6 +111,9 @@ Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('ca
 Route::post('/faturas', [FaturaController::class, 'store']);
 Route::get('/faturas', [FaturaController::class, 'index']);
 
+Route::get('stripe/checkout', [StripeController::class, 'checkoutForm'])->name('checkout.form');
+Route::post('stripe/checkout/process', [StripeController::class, 'processPayment'])->name('checkout.process');
+
 
 // Rota para processar o link de verificação
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -128,8 +132,7 @@ Route::post('/email/resend', function (Request $request) {
     return back()->with('message', 'Email de verificação reenviado!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-//Fatura
-Route::get('/fatura', function () {
-    return view('fatura');
-})->name('fatura');
+
+
+
 

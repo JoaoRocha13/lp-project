@@ -96,8 +96,6 @@ if ($request->hasFile('team_b_logo')) {
         'score_b' => $request->input('score_b'),
         'game_date' => $request->input('game_date'),
         'local' => $request->input('local'),
-        'ticket_price' => $request->input('ticket_price'),
-        'tickets_available' => $request->input('tickets_available'),
         'team_a_logo' => $teamALogoPath, // Caminho do logo do time A
         'team_b_logo' => $teamBLogoPath, // Caminho do logo do time B
     ]);

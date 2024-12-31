@@ -123,4 +123,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    'stripe_key' => env('STRIPE_PUBLIC'),
+
+    
+
 ];
