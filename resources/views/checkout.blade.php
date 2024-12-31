@@ -77,23 +77,28 @@
             </tr>
           </thead>
           <tbody>
-  @php $total = 0; @endphp
-  @foreach ($cart as $productId => $item)
+@php $total = 0; @endphp
+@foreach ($cart as $itemKey => $item)
     @php $subtotal = $item['price'] * $item['quantity']; $total += $subtotal; @endphp
     <tr>
-      <td>{{ $item['name'] }}</td>
-      <td>
-        <input type="number" class="quantity-input" data-id="{{ $productId }}" value="{{ $item['quantity'] }}" min="1" style="width: 60px;">
-      </td>
-      <td>€{{ number_format($item['price'], 2, ',', '.') }}</td>
-      <td>€{{ number_format($subtotal, 2, ',', '.') }}</td>
-      <td>
-        <button class="btn btn-danger remove-product-btn" data-id="{{ $productId }}" style="padding: 5px 10px;">Remover</button>
-      </td>
+        <td>{{ $item['name'] }}</td>
+        <td>
+            <input type="number" class="quantity-input" data-key="{{ $itemKey }}" value="{{ $item['quantity'] }}" min="1" style="width: 60px;">
+        </td>
+        <td>€{{ number_format($item['price'], 2, ',', '.') }}</td>
+        <td>€{{ number_format($subtotal, 2, ',', '.') }}</td>
+        <td>
+            <button class="btn btn-danger remove-product-btn" data-key="{{ $itemKey }}" style="padding: 5px 10px;">Remover</button>
+        </td>
     </tr>
-  @endforeach
+@endforeach
 </tbody>
 <tfoot>
+    <tr>
+        <th colspan="3" class="text-right">Total</th>
+        <th>€{{ number_format($total, 2, ',', '.') }}</th>
+    </tr>
+</tfoot>
   <tr>
     <th colspan="3" class="text-right">Total</th>
     <th>€{{ number_format($total, 2, ',', '.') }}</th>
@@ -149,11 +154,11 @@
 
 <!-- Bootstrap -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-  $(document).ready(function () {
-    // Listener para mudanças na quantidade
+<script>
+$(document).ready(function () {
+    // Atualizar quantidade
     $(document).on('change', '.quantity-input', function () {
-        const productId = $(this).data('id');
+        const itemKey = $(this).data('key'); // Chave única do item no carrinho
         const quantity = $(this).val();
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
@@ -170,17 +175,17 @@
                 'X-CSRF-TOKEN': csrfToken
             },
             data: {
-                product_id: productId,
+                item_key: itemKey, // Passa a chave única do item
                 quantity: quantity
             },
             success: function (response) {
                 const updatedCart = response.cart;
                 let total = 0;
 
-                for (const id in updatedCart) {
-                    const item = updatedCart[id];
+                for (const key in updatedCart) {
+                    const item = updatedCart[key];
                     const itemSubtotal = item.price * item.quantity;
-                    $(`input[data-id="${id}"]`).closest('tr').find('td:nth-child(4)').text(`€${itemSubtotal.toFixed(2)}`);
+                    $(`input[data-key="${key}"]`).closest('tr').find('td:nth-child(4)').text(`€${itemSubtotal.toFixed(2)}`);
                     total += itemSubtotal;
                 }
 
@@ -193,9 +198,9 @@
         });
     });
 
-    // Listener para remover produto
+    // Remover item
     $(document).on('click', '.remove-product-btn', function () {
-        const productId = $(this).data('id');
+        const itemKey = $(this).data('key'); // Chave única do item no carrinho
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
         if (!confirm('Tem certeza de que deseja remover este item do carrinho?')) {
@@ -209,16 +214,16 @@
                 'X-CSRF-TOKEN': csrfToken
             },
             data: {
-                product_id: productId
+                item_key: itemKey // Passa a chave única do item
             },
             success: function (response) {
-                // Remove a linha do produto
-                $(`button[data-id="${productId}"]`).closest('tr').remove();
+                // Remove a linha do item
+                $(`button[data-key="${itemKey}"]`).closest('tr').remove();
 
                 // Atualiza o total
                 let total = 0;
-                for (const id in response.cart) {
-                    const item = response.cart[id];
+                for (const key in response.cart) {
+                    const item = response.cart[key];
                     total += item.price * item.quantity;
                 }
 
@@ -226,11 +231,12 @@
             },
             error: function (xhr) {
                 console.error(xhr.responseText);
-                alert('Erro ao remover o produto.');
+                alert('Erro ao remover o item.');
             }
         });
     });
 });
+
 </script>
 </body>
 

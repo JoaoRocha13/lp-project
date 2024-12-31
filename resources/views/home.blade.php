@@ -12,6 +12,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ time() }}">
   <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -104,35 +105,34 @@
     </section>
 
     <!-- Games Section -->
-   <!-- Games Section -->
-<section id="gamesSection" class="games_section layout_padding">
+    <section id="gamesSection" class="games_section layout_padding">
     <div class="container">
         <div class="heading_container">
             <h2>Upcoming Games</h2>
         </div>
         <div class="row">
             @forelse($games as $game)
-                <div class="col-md-4 mb-4">
-                    <div class="card p-3 shadow-sm">
-                        <h5 class="text-center">{{ $game->team_a }} vs {{ $game->team_b }}</h5>
-                        <p class="text-center text-muted">{{ \Carbon\Carbon::parse($game->game_date)->format('d M, Y - H:i') }}</p>
-                        <p class="text-center">Location: {{ $game->local }}</p>
-                        <p class="text-center">Tickets: {{ $game->tickets_available }}</p>
-                        <form action="{{ route('cart.add') }}" method="POST" class="text-center">
-                            @csrf
-                            <input type="hidden" name="game_id" value="{{ $game->id }}">
-                            <input type="hidden" name="ticket_price" value="{{ $game->ticket_price }}">
-                            <button type="submit" class="btn btn-primary mt-2">Buy Ticket</button>
-                        </form>
-                    </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5 class="text-center">{{ $game->team_a }} vs {{ $game->team_b }}</h5>
+                    <p class="text-center text-muted">{{ \Carbon\Carbon::parse($game->game_date)->format('d M, Y - H:i') }}</p>
+                    <p class="text-center">Location: {{ $game->local }}</p>
+                    <p class="text-center">Tickets: {{ $game->tickets_available }}</p>
+                    <button 
+                        class="btn btn-primary mt-2 add_to_cart_btn" 
+                        data-id="{{ $game->id }}" 
+                        data-price="{{ $game->ticket_price }}">
+                        Buy Ticket
+                    </button>
                 </div>
+            </div>
             @empty
-                <p class="text-center">No upcoming games available.</p>
+            <p class="text-center">No upcoming games available.</p>
             @endforelse
-            <div class="d-flex justify-content-center mt-4">
+        </div>
+        <div id="pagination-links" style="text-align: center;">
           {{ $games->links('pagination::bootstrap-4') }}
-        </div>
-        </div>
+      </div>
     </div>
 </section>
 
@@ -230,12 +230,65 @@
         </div>
       </div>
     </section>
-
-    <!-- Scripts -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.js"></script>
     </div>
 </body>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+$(document).ready(function () {
+    // Listener para adicionar bilhetes ao carrinho
+    $(document).on('click', '.add_to_cart_btn', function (e) {
+        e.preventDefault(); // Previne o comportamento padrão
+
+        const gameId = $(this).data('id');
+        const ticketPrice = $(this).data('price');
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Verifica se os dados estão presentes
+        if (!gameId || !ticketPrice) {
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Dados do bilhete inválidos.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+        $.ajax({
+            url: "{{ route('cart.add') }}",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: {
+                game_id: gameId,
+                ticket_price: ticketPrice
+            },
+            success: function (response) {
+                console.log(response); // Debug
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Bilhete adicionado ao carrinho com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText); // Debug
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao adicionar o bilhete ao carrinho.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
+</script>
 </body>
 
 </html>
