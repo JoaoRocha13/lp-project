@@ -15,6 +15,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\StripeController;
 
 
+
 // Upload de fotos
 Route::post('/profile/photo/update', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
 
@@ -132,6 +133,8 @@ Route::post('/email/resend', function (Request $request) {
     return back()->with('message', 'Email de verificação reenviado!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+//Rota para faturas
+Route::get('/admin/faturas', [AdminController::class, 'showFaturas'])->name('admin.faturas');    
 
 
 

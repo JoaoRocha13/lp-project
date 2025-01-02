@@ -116,8 +116,19 @@
             <input type="hidden" name="amount" value="{{ $total }}">
             <input type="hidden" name="cart" value='{{ json_encode($cart) }}'>
             <div class="form-group">
-              <label for="fullName">Full Name</label>
-              <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full name" required>
+              <label for="localidade">Localidade</label>
+              <input type="text" class="form-control" id="localidade" name="localidade" placeholder="Digite a sua localidade" required>
+            </div>
+            <div class="form-group mt-3">
+            <label for="codigo-postal">Código Postal</label>
+              <input type="text" class="form-control" id="codigo-postal" name="codigo_postal" placeholder="1234-567" 
+                      pattern="\d{4}-\d{3}" title="O código postal deve estar no formato 1234-567" required>
+            </div>
+            <div class="form-group mt-4">
+              <label for="telefone">Número de Telefone</label>
+              <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Digite o seu número de telefone" 
+                      pattern="^\+?[0-9]{9,15}$" 
+                      title="O número de telefone deve ter entre 9 e 15 dígitos e pode começar com +." required>
             </div>
             <h4>Payment Information</h4>
             <div class="mb-3">

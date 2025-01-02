@@ -10,6 +10,7 @@ use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\PhotoController;
+use App\Models\Fatura;
 
 
 class AdminController extends Controller
@@ -29,9 +30,10 @@ class AdminController extends Controller
     $products = Product::all(); // Obtém todos os produtos
     $games = Game::all(); // Obtém todos os jogos
     $tickets = Ticket::all(); // Obtém todos os tickets
+    $faturas = \App\Models\Fatura::all();
     //dd($products);
 
-    return view('admin', compact('users', 'previousGames', 'news', 'products', 'games', 'tickets')); // Passa todas as variáveis para a view
+    return view('admin', compact('users', 'previousGames', 'news', 'products', 'games', 'tickets', 'faturas')); // Passa todas as variáveis para a view
 }
 
 
@@ -237,5 +239,10 @@ public function showGames()
     // Retorna para a view home
     return view('home', compact('games'));
 }
+public function showFaturas()
+    {
+        $faturas = Fatura::all();
+        return view('admin', compact('faturas'));
+    }
 }
 

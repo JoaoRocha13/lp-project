@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use Stripe\Charge;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Fatura;
+
 class StripeController extends Controller
 {
     /**
@@ -70,6 +75,39 @@ class StripeController extends Controller
 
         Log::info('Cobrança criada com sucesso.', ['charge' => $charge]);
 
+        // Salvar fatura na base de dados
+        Fatura::create([
+            'user_id' => auth()->id(),
+            'nome' => auth()->user()->name,
+            'codigo_postal' => $request->input('codigo_postal'),
+            'localidade' => $request->input('localidade'),
+            'telefone' => $request->input('telefone'),
+            'itens' => json_encode($request->input('cart')),
+            'total' => $request->input('amount'),
+        ]);
+
+        Log::info('Fatura salva com sucesso.');
+
+        $pdf = Pdf::loadView('fatura', [
+            'user' => auth()->user(),
+            'cart' => $request->input('cart'),
+            'total' => $request->input('amount'),
+            'charge' => $charge,
+            'telefone' => $request->input('telefone'),
+            'localidade' => $request->input('localidade'),
+            'codigo_postal' => $request->input('codigo_postal'),
+        ]);
+        
+
+        // Salvar o PDF no servidor (opcional, para referência futura)
+        return $pdf->stream('fatura.pdf');
+        
+        
+
+        // Retornar mensagem de sucesso e oferecer o download
+        session()->flash('success', 'Pagamento realizado com sucesso! Sua fatura foi gerada.');
+        return $pdf->download('fatura_' . $charge->id . '.pdf');
+
         // Redireciona com mensagem de sucesso
         return redirect()->back()->with('success', 'Pagamento realizado com sucesso!');
     } catch (\Illuminate\Validation\ValidationException $e) {
@@ -82,4 +120,6 @@ class StripeController extends Controller
         Log::error('Erro geral ao criar cobrança.', ['error' => $e->getMessage()]);
         return redirect()->back()->with('error', 'Erro ao processar pagamento: ' . $e->getMessage());
     }
-} }
+} 
+
+}

@@ -1,16 +1,29 @@
 <?php
 
-    namespace App\Models;
+namespace App\Models;
 
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-    class Fatura extends Model
-    {
-        use HasFactory;
+class Fatura extends Model
+{
+    use HasFactory;
 
-        protected $fillable = ['user_id', 'status', 'type', 'total_price'];
-    }
-    
+    protected $fillable = [
+        'user_id',
+        'nome',
+        'codigo_postal',
+        'localidade',
+        'telefone',
+        'itens',
+        'total',
+    ];
+
+    protected $casts = [
+        'itens' => 'array', // Converte JSON para array automaticamente
+    ];
+}
+
+
 
 ?>

@@ -75,10 +75,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>O Nome da Sua Empresa</h1>
-        <p>O Slogan da Sua Empresa</p>
-        <p>Endereço: Código Postal, Localidade<br>
-           Telefone: (número) | Fax: (número)</p>
+        <h1>Bigode Grosso Store</h1>
     </div>
 
     <table class="details">
@@ -86,22 +83,17 @@
             <td><strong>DATA:</strong> {{ date('d/m/Y') }}</td>
             <td><strong>FATURA N.º:</strong> 100</td>
         </tr>
-        <tr>
-            <td colspan="2"><strong>PARA:</strong> Descrição do projeto ou serviço</td>
-        </tr>
     </table>
 
     <table class="billing">
-        <tr>
-            <th>A Cobrar:</th>
-        </tr>
+       
         <tr>
             <td>
-                Nome<br>
-                Nome da Empresa<br>
-                Endereço<br>
-                Código Postal, Localidade<br>
-                Telefone
+                <br>Nome: {{ $user->name }}</br>   
+                <br>Código Postal: {{ $codigo_postal }} </br> 
+                <br>Localidade: {{ $localidade }}</br> 
+                <br>Email: {{ $user->email }}<br>
+                <br>Telefone: {{ $telefone }}</br> 
             </td>
         </tr>
     </table>
@@ -110,28 +102,28 @@
         <thead>
             <tr>
                 <th>DESCRIÇÃO</th>
+                <th>QUANTIDADE</th>
                 <th>MONTANTE</th>
             </tr>
         </thead>
         <tbody>
-            @for ($i = 0; $i < 7; $i++)
+            @foreach ($cart as $item)
             <tr>
-                <td></td>
-                <td></td>
+                <td>{{ $item['name'] }}</td>
+                <td>{{ $item['quantity'] }}</td>
+                <td colspan="2">{{ number_format($item['price'], 2, ',', '.') }} €</td>
             </tr>
-            @endfor
+            @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td class="total">TOTAL</td>
-                <td class="total">- €</td>
+            <td class="total" colspan="1">TOTAL</td>
+            <td class="total" colspan="2">{{ number_format($total, 2, ',', '.') }} €</td>
             </tr>
         </tfoot>
     </table>
 
     <div class="footer">
-        Passar todos os cheques à ordem de O Nome da Sua Empresa<br>
-        Se tiver perguntas acerca desta fatura, contacte Nome de Contacto, Número de Telefone, E-mail<br>
         <strong>OBRIGADO POR NOS TER ESCOLHIDO!</strong>
     </div>
 

@@ -428,21 +428,23 @@
         <th>Items</th>
         <th>Total Price</th>
         <th>Date</th>
-        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>John Doe</td>
-        <td>Football Jersey, Match Ticket</td>
-        <td>$70.00</td>
-        <td>2024-12-04</td>
+  @foreach ($faturas as $fatura)
+    <tr>
+        <td>{{ $fatura->id }}</td>
+        <td>{{ $fatura->nome }}</td>
         <td>
-          <button class="btn btn-success btn-sm accept-purchase" data-id="1">Accept</button>
+            @foreach (json_decode($fatura->itens, true) as $item)
+                {{ $item['name'] }}{{ !$loop->last ? ',' : '' }}
+            @endforeach
         </td>
-      </tr>
-    </tbody>
+        <td>{{ number_format($fatura->total, 2, ',', '.') }} €</td>
+        <td>{{ $fatura->created_at->format('Y-m-d') }}</td>
+    </tr>
+@endforeach
+</tbody>
   </table>
 </div>
 </div>

@@ -19,11 +19,6 @@ class PreviousGameFactory extends Factory
             'score_a' => $this->faker->numberBetween(0, 10),
             'score_b' => $this->faker->numberBetween(0, 10),
             'game_date' => $this->faker->dateTimeBetween('-5 months', 'now'),
-            'local' => $this->faker->city(), // Local fictício
-            'ticket_price' => $this->faker->randomFloat(2, 0, 100), // Preço fictício entre 0 e 100
-            'tickets_available' => $this->faker->numberBetween(0, 500), // Quantidade de bilhetes fictícia
-            'team_a_logo' => 'logos/' . $this->faker->word() . '.png', // Caminho fictício do logo do time A
-            'team_b_logo' => 'logos/' . $this->faker->word() . '.png', // Caminho fictício do logo do time B
         ];
     }
 }
