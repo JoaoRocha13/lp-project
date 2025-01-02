@@ -89,63 +89,29 @@
               </div>
             </div>
 
-            <!-- Purchase History -->
+            <!-- Completed Purchase History -->
             <div class="purchase-history mt-4">
-              <h3>Purchase History</h3>
-              <ul class="nav nav-tabs" id="purchaseTabs" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending Purchases</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="completed-tab" data-bs-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed Purchases</a>
-                </li>
-              </ul>
-              <div class="tab-content" id="purchaseTabsContent">
-                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-                  <table class="table table-striped mt-3">
-                    <thead>
-                      <tr>
-                        <th>Purchase ID</th>
-                        <th>Items</th>
-                        <th>Total Price</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Football Jersey</td>
-                        <td>$50.00</td>
-                        <td>December 1, 2024</td>
-                        <td>Pending</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
-                  <table class="table table-striped mt-3">
-                    <thead>
-                      <tr>
-                        <th>Purchase ID</th>
-                        <th>Items</th>
-                        <th>Total Price</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>2</td>
-                        <td>Match Ticket</td>
-                        <td>$30.00</td>
-                        <td>November 15, 2024</td>
-                        <td>Completed</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <h3>Completed Purchases</h3>
+              <table class="table table-striped mt-3">
+                <thead>
+                  <tr>
+                    <th>Purchase ID</th>
+                    <th>Items</th>
+                    <th>Total Price</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2</td>
+                    <td>Match Ticket</td>
+                    <td>$30.00</td>
+                    <td>November 15, 2024</td>
+                    <td>Completed</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             <div class="logout-section mt-4">

@@ -11,5 +11,6 @@
 
         protected $fillable = ['user_id', 'status', 'type', 'total_price'];
     }
+    
 
 ?>

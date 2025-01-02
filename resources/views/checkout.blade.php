@@ -138,6 +138,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
 
+
     <script>
       $(document).ready(function () {
         // Atualizar quantidade
@@ -218,6 +219,7 @@
       });
 
       /* Stripe Payment */
+      console.log("Stripe key:", "{{ config('app.stripe_key') }}");
       // Inicializa o Stripe
 var stripe = Stripe("{{ config('app.stripe_key') }}");
 var elements = stripe.elements();
@@ -252,20 +254,14 @@ function createToken() {
 
     stripe.createToken(card).then(function (result) {
         if (result.error) {
-            // Exibe erros
             document.getElementById("card-errors").textContent = result.error.message;
             document.getElementById("pay-btn").disabled = false;
         } else {
-            // Adiciona o token ao formulário e submete
             document.getElementById("stripe-token-id").value = result.token.id;
-            // Certifique-se de que o valor do saldo está correto antes de submeter
-            const amountInput = document.querySelector('input[name="amount"]');
-            console.log('Amount:', amountInput.value); // Depuração
             document.getElementById("checkout-form").submit();
         }
     });
 }
-
 
     </script>
 </body>
