@@ -41,7 +41,11 @@
         </form>
         
         <div class="footer-text">
-            Não tem conta? <a href="{{ route('registo') }}">>Registe-se</a>
+            Não tem conta? <a href="{{ route('registo') }}">Registe-se</a>
+        </div>
+         <!-- Link para recuperação de senha -->
+         <div class="footer-text mt-3">
+            <a href="{{ route('password.request') }}">Esqueceu a sua senha?</a>
         </div>
         
         

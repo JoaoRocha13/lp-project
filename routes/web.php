@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
+
 
 
 
@@ -134,7 +137,25 @@ Route::post('/email/resend', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 //Rota para faturas
-Route::get('/admin/faturas', [AdminController::class, 'showFaturas'])->name('admin.faturas');    
+Route::get('/admin/faturas', [AdminController::class, 'showFaturas'])->name('admin.faturas');   
+
+
+
+// Exibir formulário para solicitar link de redefinição
+Route::get('/password/reset', [ResetPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+
+// Enviar o link de redefinição
+Route::post('/password/email', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Exibir formulário para redefinir senha (com token)
+Route::get('/password/reset/{token}', function ($token) {
+    return view('reset', ['token' => $token]);
+})->name('password.reset');
+
+
+
+// Processar a redefinição de senha
+Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
 
