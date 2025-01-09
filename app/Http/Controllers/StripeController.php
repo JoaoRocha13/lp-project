@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Fatura;
+use App\Mail\FaturaMailable;
 
 class StripeController extends Controller
 {
@@ -77,8 +79,8 @@ class StripeController extends Controller
 
         // Salvar fatura na base de dados
         Fatura::create([
-            'user_id' => auth()->id(),
-            'nome' => auth()->user()->name,
+            'user_id' => Auth::id(),
+            'nome' => Auth::user()->name,
             'codigo_postal' => $request->input('codigo_postal'),
             'localidade' => $request->input('localidade'),
             'telefone' => $request->input('telefone'),
@@ -89,7 +91,7 @@ class StripeController extends Controller
         Log::info('Fatura salva com sucesso.');
 
         $pdf = Pdf::loadView('fatura', [
-            'user' => auth()->user(),
+            'user' => Auth::user(),
             'cart' => $request->input('cart'),
             'total' => $request->input('amount'),
             'charge' => $charge,
@@ -98,15 +100,19 @@ class StripeController extends Controller
             'codigo_postal' => $request->input('codigo_postal'),
         ]);
         
+        /// Converta o PDF para conteúdo binário
+        $pdfContent = $pdf->output();
 
-        // Salvar o PDF no servidor (opcional, para referência futura)
+try {
+    // Envia o e-mail com o PDF anexado
+    Mail::to(Auth::user()->email)->send(new FaturaMailable($pdfContent, Auth::user()));
+    Log::info('E-mail enviado com sucesso para:', ['email' => Auth::user()->email]);
+} catch (\Exception $e) {
+    Log::error('Erro ao enviar e-mail:', ['error' => $e->getMessage()]);
+    return redirect()->back()->with('error', 'Erro ao enviar a fatura por e-mail: ' . $e->getMessage());
+}
+        // Após o envio do e-mail, retorne o PDF como resposta
         return $pdf->stream('fatura.pdf');
-        
-        
-
-        // Retornar mensagem de sucesso e oferecer o download
-        session()->flash('success', 'Pagamento realizado com sucesso! Sua fatura foi gerada.');
-        return $pdf->download('fatura_' . $charge->id . '.pdf');
 
         // Redireciona com mensagem de sucesso
         return redirect()->back()->with('success', 'Pagamento realizado com sucesso!');

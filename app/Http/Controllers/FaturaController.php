@@ -4,6 +4,7 @@
 
     use App\Models\Fatura;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
 
 
     class FaturaController extends Controller {
@@ -17,7 +18,7 @@
         public function showPurchaseHistory()
         {
             // Recupera as faturas da base de dados 
-            $faturas = Fatura::where('user_id', auth()->id())->get();
+            $faturas = Fatura::where('user_id', Auth::user()->id)->get();
 
             // Retorna a view com os dados
             return view('profile.purchase-history', compact('faturas'));
