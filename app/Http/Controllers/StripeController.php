@@ -103,10 +103,10 @@ class StripeController extends Controller
         /// Converta o PDF para conteúdo binário
         $pdfContent = $pdf->output();
 
-try {
-    // Envia o e-mail com o PDF anexado
-    Mail::to(Auth::user()->email)->send(new FaturaMailable($pdfContent, Auth::user()));
-    Log::info('E-mail enviado com sucesso para:', ['email' => Auth::user()->email]);
+        try {
+         // Envia o e-mail com o PDF anexado
+        Mail::to(Auth::user()->email)->send(new FaturaMailable($pdfContent, Auth::user()));
+        Log::info('E-mail enviado com sucesso para:', ['email' => Auth::user()->email]);
 } catch (\Exception $e) {
     Log::error('Erro ao enviar e-mail:', ['error' => $e->getMessage()]);
     return redirect()->back()->with('error', 'Erro ao enviar a fatura por e-mail: ' . $e->getMessage());

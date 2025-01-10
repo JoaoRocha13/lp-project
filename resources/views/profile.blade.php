@@ -89,31 +89,7 @@
               </div>
             </div>
 
-            <!-- Completed Purchase History -->
-            <div class="purchase-history mt-4">
-              <h3>Completed Purchases</h3>
-              <table class="table table-striped mt-3">
-                <thead>
-                  <tr>
-                    <th>Purchase ID</th>
-                    <th>Items</th>
-                    <th>Total Price</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2</td>
-                    <td>Match Ticket</td>
-                    <td>$30.00</td>
-                    <td>November 15, 2024</td>
-                    <td>Completed</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
+            
             <div class="logout-section mt-4">
               <form action="{{ route('logout') }}" method="POST">
                 @csrf

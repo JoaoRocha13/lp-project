@@ -77,7 +77,7 @@
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item active"><a class="nav-link" href="#resultSection">Map</a></li>
                 <li class="nav-item"><a class="nav-link" href="#aboutSection">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#serviceSection">Tickets</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gamesSection">Tickets</a></li>
                 <li class="nav-item"><a class="nav-link" href="#clientsection">Comments</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('store') }}">Store</a></li>
               </ul>

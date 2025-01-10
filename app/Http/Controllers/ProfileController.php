@@ -22,7 +22,7 @@ public function updatePhoto(Request $request)
         'profile_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    $user = auth()->user();
+    $user = Auth::user();
     $fileName = $user->name . '.' . $request->file('profile_photo')->getClientOriginalExtension();
 
      // Salvar a imagem na pasta 'storage/profile_photos'
