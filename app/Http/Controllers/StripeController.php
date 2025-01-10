@@ -112,7 +112,7 @@ class StripeController extends Controller
     return redirect()->back()->with('error', 'Erro ao enviar a fatura por e-mail: ' . $e->getMessage());
 }
         // Após o envio do e-mail, retorne o PDF como resposta
-        return $pdf->stream('fatura.pdf');
+        //return $pdf->stream('fatura.pdf');
 
         // Redireciona com mensagem de sucesso
         return redirect()->back()->with('success', 'Pagamento realizado com sucesso!');
@@ -127,5 +127,4 @@ class StripeController extends Controller
         return redirect()->back()->with('error', 'Erro ao processar pagamento: ' . $e->getMessage());
     }
 } 
-
 }
