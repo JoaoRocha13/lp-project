@@ -64,3 +64,78 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Site do Clube - Laravel Project
+
+Este projeto é um site para um clube desportivo, desenvolvido em Laravel, com funcionalidades tanto para utilizadores gerais como para administradores. O objetivo é criar uma experiência intuitiva para os membros do clube enquanto facilita a gestão do mesmo por parte da equipa administrativa.
+
+---
+
+## Funcionalidades Principais
+
+### **USERS (Utilizadores)**
+- **Registo:** Permite que novos utilizadores se registem no site.
+- **Login:** Acesso à conta de utilizador.
+- **Confirmação de E-mail:** Verificação de conta através de e-mail.
+- **Recuperar Password:** Recurso para redefinir a senha de acesso.
+
+### **PROFILE (Perfil)**
+- **Visualizar Perfil:** Mostra as informações do utilizador.
+- **Atualizar Foto de Perfil:** Possibilidade de alterar a imagem de perfil.
+- **Logout:** Encerrar sessão de forma segura.
+
+### **HOME (Página Principal)**
+- **Bilhetes:** Adicionar bilhetes ao carrinho de compras.
+- **Comentários:** Publicar comentários e interagir com outros utilizadores.
+
+### **ABOUT (Sobre)**
+- **Jogos Anteriores:** Visualizar informações sobre jogos passados.
+- **Notícias:** Acompanhar as últimas novidades do clube.
+
+### **LOJA (Store)**
+- **Produtos:** Exibir produtos disponíveis para compra.
+- **Carrinho:** Adicionar produtos ao carrinho para posterior checkout.
+
+### **CHECKOUT**
+- **Carrinho:** Visualizar os itens no carrinho.
+- **Compra:** Finalizar o processo de compra.
+- **Fatura:** Gerar fatura e enviá-la por e-mail.
+
+### **ADMIN (Administração)**
+- **Gestão de Utilizadores:**
+  - Listar utilizadores.
+  - Promover utilizadores a administradores.
+- **Notícias:**
+  - Publicar, listar e remover notícias.
+- **Jogos e Bilhetes:**
+  - Publicar, listar e remover jogos e bilhetes.
+  - Gerir jogos anteriores.
+- **Loja:**
+  - Publicar, listar e remover produtos.
+- **Gestão de Compras:**
+  - Visualizar e gerir as compras realizadas.
+- **Stripe:** Integração para pagamentos seguros.
+
+---
+
+## Tecnologias e Ferramentas
+- **Backend:** Laravel Framework.
+- **Frontend:** Blade Templating e HTML5.
+- **Base de Dados:** MySQL ou PostgreSQL.
+- **Pagamentos:** Stripe API.
+
+---
+
+## Requisitos para Execução
+1. **Servidor Local:** XAMPP, WAMP ou Laravel Sail.
+2. **PHP:** Versão 8.0 ou superior.
+3. **Composer:** Gerenciador de dependências para PHP.
+4. **Base de Dados:** MySQL ou PostgreSQL.
+5. **Node.js:** Para gerenciamento de pacotes front-end (opcional).
+
+---
+
+## Como Configurar
+1. Clone o repositório:
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
