@@ -31,8 +31,6 @@ class RegisterController extends Controller
          // Enviar o email de verificação
          $user->sendEmailVerificationNotification();
          
-         
-
     // Autenticar o usuário, mas forçar a verificação
     Auth::login($user);
 

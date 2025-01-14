@@ -61,23 +61,7 @@ class AdminController extends Controller
         'local' => 'required|string|max:255',
         'ticket_price' => 'required|numeric|min:0',
         'tickets_available' => 'required|integer|min:0',
-        'team_a_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'team_b_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
-
-    $photoController = new PhotoController();
-
-$teamALogoPath = null;
-if ($request->hasFile('team_a_logo')) {
-    $storedImageA = $photoController->store($request, 'team_a_logo');
-    $teamALogoPath = $storedImageA->path; // Caminho armazenado
-}
-
-$teamBLogoPath = null;
-if ($request->hasFile('team_b_logo')) {
-    $storedImageB = $photoController->store($request, 'team_b_logo');
-    $teamBLogoPath = $storedImageB->path; // Caminho armazenado
-}
 
     // Criar o jogo correspondente
     $game = Game::create([
@@ -98,8 +82,7 @@ if ($request->hasFile('team_b_logo')) {
         'score_b' => $request->input('score_b'),
         'game_date' => $request->input('game_date'),
         'local' => $request->input('local'),
-        'team_a_logo' => $teamALogoPath, // Caminho do logo do time A
-        'team_b_logo' => $teamBLogoPath, // Caminho do logo do time B
+       
     ]);
 
     return redirect()->back()->with('success', 'Previous game added successfully!');

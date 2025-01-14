@@ -24,8 +24,6 @@ class PreviousGame extends Model
         'local', // Adicionado
         'ticket_price', // Adicionado
         'tickets_available', // Adicionado
-        'team_a_logo', // Adicionado
-        'team_b_logo', // Adicionado
     ];
 
     public function game()

@@ -93,9 +93,6 @@
             @foreach($previousGames as $game)
             <div class="game_record" style="display: flex; align-items: center; margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
                 <div style="flex: 1; text-align: center;">
-                    @if($game->team_a_logo)
-                    <img src="{{ asset('storage/' . $game->team_a_logo) }}" alt="Team A Logo" style="width: 70px; height: 70px; border-radius: 50%;">
-                    @endif
                     <p>{{ $game->team_a }}</p>
                 </div>
                 <div style="flex: 1; text-align: center; font-size: 18px;">
@@ -103,9 +100,6 @@
                     <p style="font-size: 14px;">Date: {{ $game->game_date }}</p>
                 </div>
                 <div style="flex: 1; text-align: center;">
-                    @if($game->team_b_logo)
-                    <img src="{{ asset('storage/' . $game->team_b_logo) }}" alt="Team B Logo" style="width: 70px; height: 70px; border-radius: 50%;">
-                    @endif
                     <p>{{ $game->team_b }}</p>
                 </div>
             </div>

@@ -136,16 +136,8 @@
             <input type="text" class="form-control" name="team_a" id="teamA" placeholder="Enter Team A name" required>
         </div>
         <div class="form-group">
-            <label for="teamAImage">Team A Image</label>
-            <input type="file" class="form-control-file" name="team_a_logo" id="teamAImage" required>
-        </div>
-        <div class="form-group">
             <label for="teamB">Team B Name</label>
             <input type="text" class="form-control" name="team_b" id="teamB" placeholder="Enter Team B name" required>
-        </div>
-        <div class="form-group">
-            <label for="teamBImage">Team B Image</label>
-            <input type="file" class="form-control-file" name="team_b_logo" id="teamBImage" required>
         </div>
         <div class="form-group">
             <label for="scoreA">Team A Score</label>
