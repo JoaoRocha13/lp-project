@@ -45,10 +45,10 @@ class ResetPasswordController extends Controller
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
-                    'password' => bcrypt($password), // Garante que a senha está hasheada
+                    'password' => bcrypt($password), 
                 ])->save();
 
-                // Adiciona um log para verificar o hash da senha
+                
                 Log::info('Senha redefinida com sucesso.', [
                     'user' => $user->name,
                     'email' => $user->email,

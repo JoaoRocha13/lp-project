@@ -17,8 +17,6 @@ class CreatePreviousGamesTable extends Migration
             $table->integer('score_b');
             $table->timestamp('game_date');
             $table->string('local')->nullable(); // Adiciona o campo local
-            $table->decimal('ticket_price', 8, 2)->nullable(); // Adiciona o campo ticket_price
-            $table->integer('tickets_available')->nullable(); // Adiciona o campo tickets_available
             $table->timestamps();
         });
     }

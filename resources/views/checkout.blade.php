@@ -82,9 +82,6 @@
               </tr>
             </thead>
             <tbody>
-              @php $total = 0; @endphp
-              @foreach ($cart as $itemKey => $item)
-              @php $subtotal = $item['price'] * $item['quantity']; $total += $subtotal; @endphp
               <tr>
                 <td>{{ $item['name'] }}</td>
                 <td>

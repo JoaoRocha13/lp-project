@@ -116,15 +116,11 @@ class StripeController extends Controller
 
         // Redireciona com mensagem de sucesso
         return redirect()->back()->with('success', 'Pagamento realizado com sucesso!');
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        Log::error('Erro de validação.', ['error' => $e->errors()]);
-        return redirect()->back()->withErrors($e->errors());
-    } catch (\Stripe\Exception\CardException $e) {
-        Log::error('Erro de cartão ao criar cobrança.', ['error' => $e->getMessage()]);
-        return redirect()->back()->with('error', 'Erro no pagamento: ' . $e->getMessage());
     } catch (\Exception $e) {
-        Log::error('Erro geral ao criar cobrança.', ['error' => $e->getMessage()]);
-        return redirect()->back()->with('error', 'Erro ao processar pagamento: ' . $e->getMessage());
+        Log::error('Erro no processamento do pagamento:', ['error' => $e->getMessage()]);
+        return redirect()->back()->with('error', 'Erro no processamento do pagamento: ' . $e->getMessage());
+    } finally {
+        Log::info('Finalizando o método processPayment.');
     }
-} 
+}
 }

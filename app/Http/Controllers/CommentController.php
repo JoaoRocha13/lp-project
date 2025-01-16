@@ -29,7 +29,7 @@ class CommentController extends Controller
     $comments = Comment::with('user')->latest()->get(); // Busca os comentários mais recentes
     $games = Game::paginate(6); // Busca os jogos com paginação
 
-    // Passa as variáveis para a view
+    
     return view('home', compact('comments', 'games'));
 }
 }

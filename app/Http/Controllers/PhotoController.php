@@ -30,7 +30,7 @@ class PhotoController extends Controller
     public function store(Request $request, string $imageField)
     {
         $request->validate([
-            $imageField => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            $imageField => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
 
         $file = $request->file($imageField);
@@ -40,7 +40,7 @@ class PhotoController extends Controller
         $photo->name = $file->getClientOriginalName();
         $photo->path = basename($path);
         $photo->save();
-        return $photo; // Certifique-se de retornar o objeto $phot
+        return $photo; 
     }
 
     /**

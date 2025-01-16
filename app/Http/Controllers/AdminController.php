@@ -42,7 +42,7 @@ class AdminController extends Controller
         $user = User::find($id);
 
         if ($user) {
-            $user->role = 'admin'; // Atualiza o papel para admin
+            $user->role = 'admin'; 
             $user->save();
             return redirect()->route('admin')->with('success', 'User promoted to admin successfully.');
         }
@@ -55,27 +55,16 @@ class AdminController extends Controller
     $request->validate([
         'team_a' => 'required|string|max:255',
         'team_b' => 'required|string|max:255',
-        'score_a' => 'required|integer',
-        'score_b' => 'required|integer',
+        'score_a' => 'required|integer|min:0',
+        'score_b' => 'required|integer|min:0',
         'game_date' => 'required|date',
         'local' => 'required|string|max:255',
-        'ticket_price' => 'required|numeric|min:0',
-        'tickets_available' => 'required|integer|min:0',
     ]);
 
-    // Criar o jogo correspondente
-    $game = Game::create([
-        'team_a' => $request->input('team_a'),
-        'team_b' => $request->input('team_b'),
-        'game_date' => $request->input('game_date'),
-        'local' => $request->input('local'),
-        'ticket_price' => $request->input('ticket_price'),
-        'tickets_available' => $request->input('tickets_available'),
-    ]);
+    
 
     // Criar o jogo anterior com os dados e logos
     PreviousGame::create([
-        'game_id' => $game->id,
         'team_a' => $request->input('team_a'),
         'team_b' => $request->input('team_b'),
         'score_a' => $request->input('score_a'),
@@ -86,6 +75,12 @@ class AdminController extends Controller
     ]);
 
     return redirect()->back()->with('success', 'Previous game added successfully!');
+}
+public function deletePreviousGame($id)
+{
+    $previousGame = PreviousGame::findOrFail($id); // Localiza o jogo pelo ID
+    $previousGame->delete(); // Deleta o jogo
+    return redirect()->route('admin')->with('success', 'Previous game removed successfully!');
 }
 
 public function showPreviousGames()
@@ -145,7 +140,7 @@ public function storeNews(Request $request)
     if ($request->hasFile('news_image')) {
         $photoController = new PhotoController();
         $storedImage = $photoController->store($request, 'news_image');
-        $imagePath = $storedImage->path; // Caminho da imagem armazenada
+        $imagePath = $storedImage->path; 
     }
 
     // Criação da nova notícia no banco de dados

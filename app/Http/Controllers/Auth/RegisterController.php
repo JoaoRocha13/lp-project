@@ -13,14 +13,14 @@ class RegisterController extends Controller
 {
     public function store(Request $request)
     {
-        // Validação dos dados enviados
+      
         $validated = $request->validate([
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // Criar o usuário
+   
         $user = User::create([
             'name' => $validated['username'],
             'email' => $validated['email'],
@@ -28,10 +28,10 @@ class RegisterController extends Controller
             'role' => 'cliente', // Papel padrão para novos usuários
         ]);
 
-         // Enviar o email de verificação
+      
          $user->sendEmailVerificationNotification();
          
-    // Autenticar o usuário, mas forçar a verificação
+  
     Auth::login($user);
 
     return redirect()->route('verification.notice')

@@ -155,14 +155,6 @@
         <label for="local">Game Location</label>
         <input type="text" class="form-control" name="local" id="local" placeholder="Enter game location" required>
     </div>
-    <div class="form-group">
-        <label for="ticketPrice">Ticket Price</label>
-        <input type="number" class="form-control" name="ticket_price" id="ticketPrice" placeholder="Enter ticket price" required>
-    </div>
-    <div class="form-group">
-        <label for="ticketsAvailable">Tickets Available</label>
-        <input type="number" class="form-control" name="tickets_available" id="ticketsAvailable" placeholder="Enter number of tickets available" required>
-    </div>
     <button type="submit" class="btn btn-primary">Post Game</button>
 </form>
     

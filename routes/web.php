@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+
 // Upload de fotos
 Route::post('/profile/photo/update', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
 //Foto de Perfil

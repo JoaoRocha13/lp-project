@@ -16,6 +16,7 @@ class PreviousGameFactory extends Factory
             'game_id' => Game::factory(),
             'team_a' => $this->faker->company(),
             'team_b' => $this->faker->company(),
+            'local' => $this->faker->city(), // Local do jogo
             'score_a' => $this->faker->numberBetween(0, 10),
             'score_b' => $this->faker->numberBetween(0, 10),
             'game_date' => $this->faker->dateTimeBetween('-5 months', 'now'),
